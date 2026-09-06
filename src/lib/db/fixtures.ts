@@ -1,0 +1,247 @@
+import type { InsuranceProduct, Property } from "@/lib/domain/types";
+
+/**
+ * Datos de muestra.
+ *
+ * Se usan mientras Supabase no esté configurado, para que el sitio arranque y
+ * se pueda trabajar el diseño sin base. Son los mismos datos del canvas de
+ * diseño, ahora tipados.
+ *
+ * OJO: son inventados. Antes de salir a producción hay que cargar las
+ * propiedades reales del estudio en Supabase.
+ */
+
+const now = "2026-09-01T12:00:00.000Z";
+
+export const INSURANCE_FIXTURES: InsuranceProduct[] = [
+  {
+    id: "ins-hogar",
+    slug: "seguro-de-hogar",
+    kind: "hogar",
+    name: "Seguro de hogar",
+    description: "Incendio, robo, daños por agua y cristales",
+    detail: "PROPIETARIOS E INQUILINOS",
+    carriers: [],
+    position: 0,
+  },
+  {
+    id: "ins-garantia",
+    slug: "garantia-de-alquiler",
+    kind: "garantia",
+    name: "Garantía de alquiler",
+    description: "Reemplaza al garante propietario",
+    detail: "APROBACIÓN EN 48 H",
+    carriers: [],
+    position: 1,
+  },
+  {
+    id: "ins-rc",
+    slug: "responsabilidad-civil",
+    kind: "responsabilidad",
+    name: "Responsabilidad civil",
+    description: "Daños a terceros y linderos",
+    detail: "EXIGIDO EN CONSORCIOS",
+    carriers: [],
+    position: 2,
+  },
+  {
+    id: "ins-obra",
+    slug: "obra-y-construccion",
+    kind: "construccion",
+    name: "Obra y construcción",
+    description: "Cobertura durante la obra en terreno propio",
+    detail: "TODO RIESGO CONSTRUCTIVO",
+    carriers: [],
+    position: 3,
+  },
+];
+
+/** Base común para no repetir campos en cada fixture. */
+function property(p: Omit<Property, "createdAt" | "updatedAt" | "description" | "images"> &
+  Partial<Pick<Property, "description" | "images">>): Property {
+  return {
+    description: "",
+    images: [],
+    createdAt: now,
+    updatedAt: now,
+    ...p,
+  };
+}
+
+export const PROPERTY_FIXTURES: Property[] = [
+  // --- venta ---
+  property({
+    id: "p-0987",
+    code: "MD-0987",
+    slug: "casa-dos-plantas-jardin-martinez",
+    title: "Casa de dos plantas con jardín",
+    operation: "venta",
+    kind: "casa",
+    state: "publicado",
+    price: { amount: 189000, currency: "USD", period: "unico" },
+    location: { neighbourhood: "Martínez", city: "San Isidro", province: "Buenos Aires" },
+    facts: { rooms: 5, coveredArea: 210, areaUnit: "m2", hasParking: true, highlights: ["Pileta"] },
+    insuranceSlug: "seguro-de-hogar",
+    featured: true,
+  }),
+  property({
+    id: "p-1149",
+    code: "MD-1149",
+    slug: "dos-ambientes-estrenar-rosario",
+    title: "Dos ambientes a estrenar",
+    operation: "venta",
+    kind: "departamento",
+    state: "publicado",
+    price: { amount: 96500, currency: "USD", period: "unico" },
+    location: { neighbourhood: "Centro", city: "Rosario", province: "Santa Fe" },
+    facts: { rooms: 2, coveredArea: 52, areaUnit: "m2", hasParking: false, highlights: ["Amenities"] },
+    insuranceSlug: "seguro-de-hogar",
+    featured: true,
+  }),
+  property({
+    id: "p-1004",
+    code: "MD-1004",
+    slug: "ph-reciclado-sin-expensas-caballito",
+    title: "PH reciclado sin expensas",
+    operation: "venta",
+    kind: "ph",
+    state: "publicado",
+    price: { amount: 134000, currency: "USD", period: "unico" },
+    location: { neighbourhood: "Caballito", city: "CABA", province: "CABA" },
+    facts: { rooms: 3, coveredArea: 88, areaUnit: "m2", hasParking: false, highlights: ["Terraza"] },
+    insuranceSlug: null,
+    featured: true,
+  }),
+
+  // --- alquiler ---
+  property({
+    id: "p-1042",
+    code: "MD-1042",
+    slug: "piso-luminoso-balcon-palermo",
+    title: "Piso luminoso con balcón corrido",
+    operation: "alquiler",
+    kind: "departamento",
+    state: "publicado",
+    price: { amount: 340000, currency: "ARS", period: "mes" },
+    location: { neighbourhood: "Palermo Soho", city: "CABA", province: "CABA" },
+    facts: { rooms: 2, coveredArea: 58, areaUnit: "m2", floor: 3, hasParking: false, highlights: ["3.º piso"] },
+    insuranceSlug: "garantia-de-alquiler",
+    featured: true,
+  }),
+  property({
+    id: "p-1121",
+    code: "MD-1121",
+    slug: "casa-patio-parrilla-devoto",
+    title: "Casa con patio y parrilla",
+    operation: "alquiler",
+    kind: "casa",
+    state: "publicado",
+    price: { amount: 615000, currency: "ARS", period: "mes" },
+    location: { neighbourhood: "Villa Devoto", city: "CABA", province: "CABA" },
+    facts: { rooms: 4, coveredArea: 140, areaUnit: "m2", hasParking: true, highlights: ["Cochera"] },
+    insuranceSlug: "seguro-de-hogar",
+    featured: true,
+  }),
+  property({
+    id: "p-1088",
+    code: "MD-1088",
+    slug: "monoambiente-amoblado-nueva-cordoba",
+    title: "Monoambiente amoblado",
+    operation: "alquiler",
+    kind: "estudio",
+    state: "publicado",
+    price: { amount: 228000, currency: "ARS", period: "mes" },
+    location: { neighbourhood: "Nueva Córdoba", city: "Córdoba", province: "Córdoba" },
+    facts: { rooms: 1, coveredArea: 34, areaUnit: "m2", floor: 8, hasParking: false, highlights: ["8.º piso"] },
+    insuranceSlug: null,
+    featured: true,
+  }),
+
+  // --- terrenos ---
+  property({
+    id: "p-1130",
+    code: "MD-1130",
+    slug: "lote-barrio-cerrado-pilar",
+    title: "Lote en barrio cerrado",
+    operation: "terreno",
+    kind: "lote",
+    state: "publicado",
+    price: { amount: 62000, currency: "USD", period: "unico" },
+    location: { neighbourhood: "", city: "Pilar", province: "Buenos Aires" },
+    facts: { totalArea: 800, areaUnit: "m2", hasParking: false, highlights: ["Servicios", "Escritura"] },
+    insuranceSlug: "obra-y-construccion",
+    featured: true,
+  }),
+  property({
+    id: "p-1156",
+    code: "MD-1156",
+    slug: "fraccion-acceso-asfaltado-carlos-paz",
+    title: "Fracción con acceso asfaltado",
+    operation: "terreno",
+    kind: "campo",
+    state: "publicado",
+    price: { amount: 240000, currency: "USD", period: "unico" },
+    location: { neighbourhood: "", city: "Carlos Paz", province: "Córdoba" },
+    facts: { totalArea: 4, areaUnit: "ha", hasParking: false, highlights: ["Agua", "Alambrado"] },
+    insuranceSlug: null,
+    featured: true,
+  }),
+  property({
+    id: "p-1160",
+    code: "MD-1160",
+    slug: "terreno-esquina-dos-frentes-funes",
+    title: "Terreno esquina con dos frentes",
+    operation: "terreno",
+    kind: "lote",
+    state: "publicado",
+    price: { amount: 38500, currency: "USD", period: "unico" },
+    location: { neighbourhood: "", city: "Funes", province: "Santa Fe" },
+    facts: { totalArea: 450, areaUnit: "m2", hasParking: false, highlights: ["Luz y gas", "Apto dúplex"] },
+    insuranceSlug: "obra-y-construccion",
+    featured: true,
+  }),
+
+  // --- temporario ---
+  property({
+    id: "p-1190",
+    code: "MD-1190",
+    slug: "studio-vista-al-rio-puerto-madero",
+    title: "Studio con vista al río",
+    operation: "temporario",
+    kind: "departamento",
+    state: "publicado",
+    price: { amount: 62, currency: "USD", period: "noche" },
+    location: { neighbourhood: "Puerto Madero", city: "CABA", province: "CABA" },
+    facts: { rooms: 1, coveredArea: 42, areaUnit: "m2", hasParking: false, highlights: ["Wi-Fi"] },
+    insuranceSlug: "seguro-de-hogar",
+    featured: true,
+  }),
+  property({
+    id: "p-1201",
+    code: "MD-1201",
+    slug: "casa-de-campo-para-seis-tandil",
+    title: "Casa de campo para seis",
+    operation: "temporario",
+    kind: "casa",
+    state: "publicado",
+    price: { amount: 140, currency: "USD", period: "noche" },
+    location: { neighbourhood: "", city: "Tandil", province: "Buenos Aires" },
+    facts: { bedrooms: 3, coveredArea: 160, areaUnit: "m2", hasParking: true, highlights: ["Parque"] },
+    insuranceSlug: "seguro-de-hogar",
+    featured: true,
+  }),
+  property({
+    id: "p-1215",
+    code: "MD-1215",
+    slug: "cabana-estufa-a-lena-villa-la-angostura",
+    title: "Cabaña con estufa a leña",
+    operation: "temporario",
+    kind: "cabana",
+    state: "publicado",
+    price: { amount: 88, currency: "USD", period: "noche" },
+    location: { neighbourhood: "", city: "Villa La Angostura", province: "Neuquén" },
+    facts: { bedrooms: 2, coveredArea: 75, areaUnit: "m2", hasParking: false, highlights: ["Deck"] },
+    insuranceSlug: null,
+    featured: true,
+  }),
+];

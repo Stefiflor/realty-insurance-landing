@@ -1,0 +1,323 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   MD Estudio Inmobiliario — tokens de diseño
+   Los valores salen del canvas de diseño (design/Main.dc.html).
+   No inventes colores nuevos: si falta uno, agregalo acá primero.
+   ========================================================================== */
+
+:root {
+  /* --- marca (fijos en ambos temas) --- */
+  --brand: #3e8e96;
+  --brand-strong: #2c6b72;
+  --brand-light: #5fb4bc;
+  --brand-glow: #7fcdd4;
+  --whatsapp: #25d366;
+  --whatsapp-ink: #062814;
+
+  /* --- superficies --- */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --band: #f4f7f7;
+  --hero-bg: #fbfcfc;
+  --input: #fafbfb;
+  --nav-bg: rgb(255 255 255 / 0.82);
+  --nav-solid: #ffffff;
+
+  /* --- texto --- */
+  --text: #12181b;
+  --text-dim: rgb(18 24 27 / 0.58);
+  --text-faint: rgb(18 24 27 / 0.38);
+
+  /* --- bordes --- */
+  --hair: rgb(18 24 27 / 0.09);
+  --hair-strong: rgb(18 24 27 / 0.15);
+
+  /* --- acentos translúcidos --- */
+  --brand-soft: rgb(62 142 150 / 0.1);
+  --glass: rgb(255 255 255 / 0.6);
+  --glass-solid: rgb(255 255 255 / 0.92);
+
+  /* --- decoración del hero --- */
+  --mesh-1: rgb(62 142 150 / 0.26);
+  --mesh-2: rgb(120 170 200 / 0.22);
+  --mesh-3: rgb(160 205 210 / 0.2);
+  --grid-line: rgb(18 24 27 / 0.045);
+  --scan: rgb(62 142 150 / 0.35);
+  --img-veil: rgb(18 24 27 / 0.32);
+
+  /* --- estados --- */
+  --state-live-bg: rgb(62 142 150 / 0.12);
+  --state-live-fg: #2c6b72;
+  --state-review-bg: rgb(196 141 58 / 0.14);
+  --state-review-fg: #a9752b;
+  --state-draft-bg: rgb(18 24 27 / 0.15);
+  --state-draft-fg: rgb(18 24 27 / 0.38);
+  --state-paused-bg: rgb(176 106 90 / 0.13);
+  --state-paused-fg: #9a5344;
+
+  /* --- sombras --- */
+  --shadow-sm: 0 1px 4px rgb(18 24 27 / 0.05);
+  --shadow-lg: 0 26px 56px -26px rgb(18 24 27 / 0.26);
+  --shadow-xl: 0 40px 84px -34px rgb(18 24 27 / 0.3);
+}
+
+.dark {
+  --bg: #0a0e10;
+  --surface: #12181b;
+  --surface-raised: #12181b;
+  --band: #0d1214;
+  --hero-bg: #0a0e10;
+  --input: #0a0e10;
+  --nav-bg: rgb(10 14 16 / 0.82);
+  --nav-solid: #0a0e10;
+
+  --text: #eaf0f1;
+  --text-dim: rgb(234 240 241 / 0.6);
+  --text-faint: rgb(234 240 241 / 0.36);
+
+  --hair: rgb(234 240 241 / 0.08);
+  --hair-strong: rgb(234 240 241 / 0.15);
+
+  --brand-soft: rgb(62 142 150 / 0.16);
+  --glass: rgb(234 240 241 / 0.04);
+  --glass-solid: rgb(18 24 27 / 0.88);
+
+  --mesh-1: rgb(62 142 150 / 0.34);
+  --mesh-2: rgb(46 96 120 / 0.28);
+  --mesh-3: rgb(95 180 188 / 0.16);
+  --grid-line: rgb(234 240 241 / 0.05);
+  --scan: rgb(95 180 188 / 0.5);
+  --img-veil: rgb(10 14 16 / 0.6);
+
+  --state-live-bg: rgb(62 142 150 / 0.2);
+  --state-live-fg: #6fbec6;
+  --state-review-bg: rgb(214 160 74 / 0.16);
+  --state-review-fg: #d6a04a;
+  --state-draft-bg: rgb(234 240 241 / 0.15);
+  --state-draft-fg: rgb(234 240 241 / 0.36);
+  --state-paused-bg: rgb(201 124 106 / 0.16);
+  --state-paused-fg: #c97c6a;
+
+  --shadow-sm: 0 2px 12px -6px rgb(0 0 0 / 0.7);
+  --shadow-lg: 0 28px 60px -28px rgb(0 0 0 / 0.9);
+  --shadow-xl: 0 40px 90px -36px rgb(0 0 0 / 0.95);
+}
+
+/* --------------------------------------------------------------------------
+   Puente hacia Tailwind: cada token queda disponible como utilidad
+   (bg-surface, text-dim, border-hair, shadow-lg, font-display, ...)
+   -------------------------------------------------------------------------- */
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-light: var(--brand-light);
+  --color-brand-glow: var(--brand-glow);
+  --color-brand-soft: var(--brand-soft);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-ink: var(--whatsapp-ink);
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-band: var(--band);
+  --color-hero: var(--hero-bg);
+  --color-input: var(--input);
+  --color-nav: var(--nav-bg);
+  --color-glass: var(--glass);
+  --color-glass-solid: var(--glass-solid);
+
+  --color-ink: var(--text);
+  --color-dim: var(--text-dim);
+  --color-faint: var(--text-faint);
+
+  --color-hair: var(--hair);
+  --color-hair-strong: var(--hair-strong);
+
+  --font-sans: var(--font-sora), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-instrument), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+
+  /* curva de movimiento única para todo el sitio */
+  --ease-brand: cubic-bezier(0.16, 0.86, 0.28, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.44, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Animaciones compartidas
+   -------------------------------------------------------------------------- */
+@keyframes mesh-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(-3%, 2%, 0) scale(1.08); }
+  66%  { transform: translate3d(2%, -3%, 0) scale(1.04); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes mesh-drift-alt {
+  0%   { transform: translate3d(0, 0, 0) scale(1.1); }
+  50%  { transform: translate3d(4%, 3%, 0) scale(1); }
+  100% { transform: translate3d(0, 0, 0) scale(1.1); }
+}
+@keyframes mask-up {
+  from { clip-path: inset(105% 0 0 0); }
+  to   { clip-path: inset(-15% 0 0 0); }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes line-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes shimmer {
+  0%   { background-position: -160% 0; }
+  100% { background-position: 260% 0; }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 0.85; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+@keyframes scanline {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  12%  { opacity: 0.55; }
+  88%  { opacity: 0.55; }
+  100% { transform: translateY(2000%); opacity: 0; }
+}
+@keyframes grid-fade {
+  0%, 100% { opacity: 0.22; }
+  50%      { opacity: 0.5; }
+}
+@keyframes draw-path {
+  from { stroke-dashoffset: 620; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@utility animate-mesh { animation: mesh-drift 20s ease-in-out infinite; }
+@utility animate-mesh-alt { animation: mesh-drift-alt 26s ease-in-out infinite; }
+@utility animate-mask-up { animation: mask-up 1.15s var(--ease-brand) both; }
+@utility animate-rise { animation: rise-in 0.85s var(--ease-brand) both; }
+@utility animate-line-x { animation: line-x 1s var(--ease-brand) both; transform-origin: left; }
+@utility animate-marquee { animation: marquee 32s linear infinite; }
+@utility animate-pulse-ring { animation: pulse-ring 2.4s ease-out infinite; }
+@utility animate-float { animation: float-y 6s ease-in-out infinite; }
+@utility animate-scanline { animation: scanline 9s ease-in-out infinite; }
+@utility animate-grid-fade { animation: grid-fade 12s ease-in-out infinite; }
+@utility animate-draw-path { animation: draw-path 1.6s var(--ease-brand) both; }
+
+/* --------------------------------------------------------------------------
+   Efectos compuestos
+   Van acá y no en un componente porque necesitan pseudo-elementos.
+   -------------------------------------------------------------------------- */
+
+/* Brillo diagonal que recorre los botones sólidos. Decorativo: no recibe clics. */
+@utility btn-shimmer {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.4) 50%,
+      transparent 70%
+    );
+    background-size: 220% 100%;
+    animation: shimmer 3.6s ease-in-out infinite;
+  }
+}
+
+/*
+ * Tarjeta con halo que sigue al cursor. Las coordenadas --mx/--my las escribe
+ * el hook `usePointerGlow`; sin él la tarjeta se ve bien igual, sólo sin halo.
+ */
+@utility card-glow {
+  position: relative;
+  transition:
+    transform 0.6s var(--ease-brand),
+    box-shadow 0.6s ease,
+    border-color 0.6s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 0%),
+      rgb(62 142 150 / 0.16),
+      transparent 62%
+    );
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Subrayado que crece de izquierda a derecha al pasar por un enlace del nav. */
+@utility nav-underline {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 1px;
+    background: var(--brand);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease-brand);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sora), "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.6s ease, color 0.6s ease;
+  }
+
+  /* Quien pidió menos movimiento, recibe menos movimiento. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

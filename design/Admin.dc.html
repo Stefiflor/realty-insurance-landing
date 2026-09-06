@@ -1,0 +1,522 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Sora', 'Helvetica Neue', Arial, sans-serif; }
+    a { color: #3E8E96; text-decoration: none; }
+    a:hover { color: #5FB4BC; }
+    * { box-sizing: border-box; }
+
+    @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes growBar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes lineX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes drawPath { from { stroke-dashoffset: 620; } to { stroke-dashoffset: 0; } }
+    @keyframes meshDrift {
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      50%  { transform: translate3d(-3%, 2%, 0) scale(1.08); }
+      100% { transform: translate3d(0,0,0) scale(1); }
+    }
+    @keyframes pulseRing {
+      0%   { transform: scale(0.8); opacity: 0.8; }
+      70%  { transform: scale(2.4); opacity: 0; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -160% 0; }
+      100% { background-position: 260% 0; }
+    }
+
+    .rise { animation: riseIn 0.55s cubic-bezier(0.16,0.86,0.28,1) both; }
+    .fade { animation: fadeIn 0.65s ease both; }
+    .bar  { animation: growBar 0.75s cubic-bezier(0.16,0.86,0.28,1) both; transform-origin: bottom; }
+    .lx   { animation: lineX 0.9s cubic-bezier(0.16,0.86,0.28,1) both; transform-origin: left; }
+    .spark-path { stroke-dasharray: 620; animation: drawPath 1.6s cubic-bezier(0.16,0.86,0.28,1) both; }
+
+    .side-item { position: relative; cursor: pointer; overflow: hidden;
+                 transition: background 0.35s ease, color 0.35s ease, padding-left 0.4s cubic-bezier(0.16,0.86,0.28,1); }
+    .side-item:hover { padding-left: 16px; }
+
+    .row { position: relative; transition: background 0.3s ease; }
+    .row::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: #3E8E96; transform: scaleY(0); transform-origin: center;
+      transition: transform 0.4s cubic-bezier(0.16,0.86,0.28,1);
+    }
+    .row:hover::after { transform: scaleY(1); }
+    .row:hover .row-actions { opacity: 1; transform: translateX(0); }
+    .row:hover .row-thumb { transform: scale(1.08); }
+    .row-actions { opacity: 0; transform: translateX(6px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .row-thumb { transition: transform 0.6s cubic-bezier(0.16,0.86,0.28,1); }
+
+    .tab { position: relative; cursor: pointer; transition: color 0.3s ease; }
+    .stat { position: relative; overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.16,0.86,0.28,1), border-color 0.4s ease, box-shadow 0.4s ease; }
+    .stat:hover { transform: translateY(-4px); }
+    .stat:hover .stat-wash { transform: translateY(0); }
+    .stat-wash { transition: transform 0.6s cubic-bezier(0.16,0.86,0.28,1); transform: translateY(101%); }
+
+    .btn { position: relative; overflow: hidden; cursor: pointer;
+           transition: transform 0.35s cubic-bezier(0.16,0.86,0.28,1), box-shadow 0.35s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+      background-size: 220% 100%; animation: shimmer 3.8s ease-in-out infinite;
+    }
+    .btn-ghost { cursor: pointer; transition: transform 0.35s cubic-bezier(0.16,0.86,0.28,1), background 0.35s ease, border-color 0.35s ease; }
+    .btn-ghost:hover { transform: translateY(-2px); }
+    .lang { cursor: pointer; transition: color 0.28s ease, background 0.28s ease; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; min-height: 1020px; display: grid; grid-template-columns: 244px minmax(0, 1fr); background: {{t.bg}}; color: {{t.text}}; position: relative; overflow: hidden">
+
+  <!-- ============ SIDEBAR ============ -->
+  <div style="position: relative; background: {{t.side}}; border-right: 1px solid {{t.hair}}; padding: 22px 0; display: flex; flex-direction: column; overflow: hidden">
+    <div style="position: absolute; width: 400px; height: 400px; top: -180px; left: -140px; border-radius: 50%; filter: blur(90px); background: radial-gradient(circle, {{t.mesh1}} 0%, transparent 68%); animation: meshDrift 26s ease-in-out infinite"></div>
+
+    <div style="position: relative; display: flex; align-items: center; gap: 13px; padding: 0 20px 26px">
+      <svg width="36" height="29" viewBox="0 0 38 30" fill="none">
+        <rect x="1" y="1" width="10" height="26" fill="{{t.logoDark}}"></rect>
+        <rect x="13.5" y="1" width="4" height="26" fill="{{t.logoDark}}"></rect>
+        <rect x="20" y="1" width="17" height="17" fill="#3E8E96"></rect>
+        <rect x="24.5" y="5.5" width="12.5" height="12.5" fill="{{t.side}}"></rect>
+        <rect x="20" y="24" width="17" height="3" fill="#3E8E96"></rect>
+      </svg>
+      <div style="border-left: 1px solid {{t.hairStrong}}; padding-left: 13px">
+        <div style="font-size: 13.5px; font-weight: 700; letter-spacing: 0.16em; line-height: 1.1">MD</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; font-weight: 500; letter-spacing: 0.16em; color: #3E8E96; margin-top: 2px">PANEL DE GESTIÓN</div>
+      </div>
+    </div>
+
+    <div style="position: relative; padding: 0 10px; display: flex; flex-direction: column; gap: 1px">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <div class="side-item" onClick="{{n.pick}}" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 12px; border-radius: 4px; font-size: 14px; font-weight: 400; background: {{n.bg}}; color: {{n.fg}}">
+          <span style="position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: {{n.mark}}"></span>
+          <span style="display: flex; align-items: center; gap: 12px">
+            <dc-import name="Icon" icon="{{n.icon}}" size="{{16}}" hint-size="16px,16px"></dc-import>
+            {{n.label}}
+          </span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: {{t.faint}}">{{n.badge}}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="flex-grow: 1"></div>
+
+    <div style="position: relative; margin: 0 10px; padding: 16px; border: 1px solid {{t.hairStrong}}; border-radius: 5px; background: {{t.card}}; overflow: hidden">
+      <div style="position: absolute; top: -40px; right: -40px; width: 130px; height: 130px; border-radius: 50%; filter: blur(40px); background: radial-gradient(circle, {{t.tealGlow}}, transparent 70%)"></div>
+      <div style="position: relative">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.16em; color: {{t.faint}}; margin-bottom: 10px">AVISOS ACTIVOS</div>
+        <div style="display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px">
+          <span style="font-size: 27px; font-weight: 300; letter-spacing: -0.04em">128</span>
+          <span style="font-size: 12.5px; font-weight: 300; color: {{t.faint}}">/ [TU LÍMITE]</span>
+        </div>
+        <div style="height: 3px; border-radius: 999px; background: {{t.hairStrong}}; overflow: hidden">
+          <div class="lx" style="animation-delay: 0.4s; width: 64%; height: 100%; background: linear-gradient(90deg, #3E8E96, {{t.gradEnd}})"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; display: flex; align-items: center; gap: 12px; margin: 16px 10px 0; padding-top: 16px; padding-left: 12px; border-top: 1px solid {{t.hair}}">
+      <div style="position: relative; width: 34px; height: 34px; border-radius: 5px; background: #3E8E96; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #ffffff">MD</div>
+      <div style="min-width: 0">
+        <div style="font-size: 13.5px; font-weight: 500">Matías Dip</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; color: {{t.faint}}; margin-top: 2px">ADMINISTRADOR</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONTENIDO ============ -->
+  <div style="position: relative; display: flex; flex-direction: column; min-width: 0">
+
+    <!-- topbar -->
+    <div style="position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 26px; padding: 17px 32px; background: {{t.navBg}}; backdrop-filter: blur(20px); border-bottom: 1px solid {{t.hair}}">
+      <div style="display: flex; align-items: center; gap: 11px; flex-grow: 1; max-width: 400px; padding: 10px 14px; border: 1px solid {{t.hairStrong}}; border-radius: 999px; background: {{t.input}}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color: {{t.faint}}"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.2-4.2"></path></svg>
+        <span style="font-size: 13.5px; font-weight: 300; color: {{t.faint}}">Buscar por título, código o dirección</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 13px">
+        <div style="display: flex; align-items: center; gap: 1px; padding: 3px; border: 1px solid {{t.hairStrong}}; border-radius: 999px">
+          <sc-for list="{{langs}}" as="lg" hint-placeholder-count="3">
+            <div class="lang" onClick="{{lg.pick}}" style="padding: 4px 9px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: {{lg.bg}}; color: {{lg.fg}}">{{lg.code}}</div>
+          </sc-for>
+        </div>
+
+        <div class="btn-ghost" onClick="{{toggleTheme}}" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid {{t.hairStrong}}; border-radius: 999px; color: {{t.dim}}">
+          <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.9 4.9l1.4 1.4"></path><path d="M17.7 17.7l1.4 1.4"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.9 19.1l1.4-1.4"></path><path d="M17.7 6.3l1.4-1.4"></path></svg>
+          </sc-if>
+          <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"></path></svg>
+          </sc-if>
+        </div>
+
+        <div style="position: relative; padding: 8px; color: {{t.dim}}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path><path d="M13.7 20a2 2 0 0 1-3.4 0"></path></svg>
+          <span style="position: absolute; top: 5px; right: 5px; display: flex; width: 6px; height: 6px">
+            <span style="position: absolute; inset: 0; border-radius: 50%; background: #3E8E96; animation: pulseRing 2.4s ease-out infinite"></span>
+            <span style="position: relative; width: 6px; height: 6px; border-radius: 50%; background: #3E8E96"></span>
+          </span>
+        </div>
+
+        <!-- consultas whatsapp pendientes -->
+        <div class="btn-ghost" style="display: flex; align-items: center; gap: 9px; padding: 9px 15px; border: 1px solid {{t.hairStrong}}; border-radius: 999px; background: {{t.card}}; font-size: 13px; font-weight: 400; color: {{t.dim}}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="color: #25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.09-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
+          8 sin responder
+        </div>
+
+        <div class="btn" style="display: flex; align-items: center; gap: 9px; padding: 11px 19px; background: #3E8E96; color: #ffffff; border-radius: 999px; font-size: 13.5px; font-weight: 600; box-shadow: 0 12px 28px -12px rgba(62,142,150,0.75)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="position: relative; z-index: 2"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+          <span style="position: relative; z-index: 2">Nueva propiedad</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; padding: 28px 32px 36px; flex-grow: 1">
+
+      <!-- encabezado -->
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px">
+        <div>
+          <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 12px">
+            <span style="width: 22px; height: 1px; background: #3E8E96"></span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.2em; color: #3E8E96">GESTIÓN</span>
+          </div>
+          <h1 style="margin: 0 0 6px; font-size: 34px; font-weight: 300; letter-spacing: -0.035em">Propiedades</h1>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: {{t.faint}}">ACTUALIZADO HACE 12 MIN</div>
+        </div>
+        <div style="display: flex; gap: 9px">
+          <div class="btn-ghost" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid {{t.hairStrong}}; border-radius: 999px; font-size: 13px; font-weight: 400; color: {{t.dim}}; background: {{t.card}}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M4 20h16"></path></svg>
+            Exportar
+          </div>
+          <div class="btn-ghost" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid {{t.hairStrong}}; border-radius: 999px; font-size: 13px; font-weight: 400; color: {{t.dim}}; background: {{t.card}}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"></path><path d="M7 12h10"></path><path d="M10 18h4"></path></svg>
+            Filtros
+          </div>
+        </div>
+      </div>
+
+      <!-- métricas -->
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 28px">
+        <sc-for list="{{stats}}" as="s" hint-placeholder-count="4">
+          <div class="stat rise" style="animation-delay: {{s.delay}}; padding: 20px 22px; background: {{t.card}}; border: 1px solid {{t.hair}}; border-radius: 5px; box-shadow: {{t.shadowSm}}">
+            <div class="stat-wash" style="position: absolute; inset: 0; background: linear-gradient(180deg, {{t.tealSoft}} 0%, transparent 100%)"></div>
+            <div style="position: relative">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.15em; color: {{t.faint}}; margin-bottom: 14px">{{s.label}}</div>
+              <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 14px">
+                <div>
+                  <div style="display: flex; align-items: baseline; gap: 3px">
+                    <span style="font-size: 32px; font-weight: 300; letter-spacing: -0.04em; line-height: 1">{{s.value}}</span>
+                    <span style="font-size: 16px; font-weight: 300; color: #3E8E96">{{s.suffix}}</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 400; color: {{s.deltaColor}}; margin-top: 9px">
+                    <span data-d="{{s.dir}}" style="display: flex">
+                      <sc-if value="{{s.up}}" hint-placeholder-val="{{true}}">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg>
+                      </sc-if>
+                      <sc-if value="{{s.down}}" hint-placeholder-val="{{false}}">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg>
+                      </sc-if>
+                    </span>
+                    {{s.delta}}
+                  </div>
+                </div>
+                <svg width="76" height="36" viewBox="0 0 76 36" fill="none" style="flex-shrink: 0">
+                  <path class="spark-path" style="animation-delay: {{s.delay}}" d="{{s.path}}" stroke="{{s.lineColor}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="{{s.area}}" fill="{{s.fillColor}}"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- pestañas -->
+      <div style="display: flex; align-items: center; gap: 26px; border-bottom: 1px solid {{t.hairStrong}}">
+        <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="4">
+          <div class="tab" onClick="{{tb.pick}}" style="position: relative; display: flex; align-items: center; gap: 9px; padding: 0 0 14px; color: {{tb.fg}}; font-size: 14px; font-weight: 400">
+            {{tb.label}}
+            <span style="padding: 2px 9px; border-radius: 999px; background: {{tb.pillBg}}; color: {{tb.pillFg}}; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500">{{tb.count}}</span>
+            <span style="position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: 2px; background: {{tb.border}}"></span>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- tabla -->
+      <div style="border: 1px solid {{t.hair}}; border-top: none; border-radius: 0 0 5px 5px; overflow: hidden; background: {{t.card}}; box-shadow: {{t.shadowSm}}">
+        <div style="display: grid; grid-template-columns: 40px minmax(0, 2.3fr) 0.9fr 1.1fr 1.15fr 1fr 92px; align-items: center; gap: 16px; padding: 13px 18px; background: {{t.head}}; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.15em; color: {{t.faint}}">
+          <div style="width: 15px; height: 15px; border: 1px solid {{t.hairStrong}}; border-radius: 3px"></div>
+          <div>PROPIEDAD</div>
+          <div>OPERACIÓN</div>
+          <div>PRECIO</div>
+          <div>SEGURO</div>
+          <div>ESTADO</div>
+          <div style="text-align: right">CONSULTAS</div>
+        </div>
+
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+          <div class="row fade" style="animation-delay: {{r.delay}}; display: grid; grid-template-columns: 40px minmax(0, 2.3fr) 0.9fr 1.1fr 1.15fr 1fr 92px; align-items: center; gap: 16px; padding: 14px 18px; border-top: 1px solid {{t.hair}}">
+            <div style="width: 15px; height: 15px; border: 1px solid {{t.hairStrong}}; border-radius: 3px"></div>
+
+            <div style="display: flex; align-items: center; gap: 13px; min-width: 0">
+              <div style="width: 48px; height: 40px; flex-shrink: 0; border-radius: 4px; overflow: hidden">
+                <div class="row-thumb" style="width: 100%; height: 100%; background: {{r.grad}}"></div>
+              </div>
+              <div style="min-width: 0">
+                <div style="font-size: 14px; font-weight: 400; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.title}}</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: {{t.faint}}">{{r.code}} · {{r.loc}}</div>
+              </div>
+            </div>
+
+            <div style="font-size: 13px; font-weight: 300; color: {{t.dim}}">{{r.op}}</div>
+            <div style="font-size: 14.5px; font-weight: 400; letter-spacing: -0.015em">{{r.price}}</div>
+
+            <div style="min-width: 0">
+              <span style="display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 999px; background: {{r.insBg}}; font-size: 12px; font-weight: 400; color: {{r.insFg}}">
+                <dc-import name="Icon" icon="shield" size="{{11}}" hint-size="11px,11px"></dc-import>
+                {{r.ins}}
+              </span>
+            </div>
+
+            <div>
+              <span style="display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 999px; background: {{r.stateBg}}; font-size: 12px; font-weight: 400; color: {{r.stateFg}}">
+                <span style="width: 5px; height: 5px; border-radius: 50%; background: {{r.stateFg}}"></span>
+                {{r.state}}
+              </span>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 12px">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{t.dim}}">{{r.leads}}</span>
+              <span class="row-actions" style="display: flex">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" style="color: {{t.faint}}"><circle cx="12" cy="5" r="1.3"></circle><circle cx="12" cy="12" r="1.3"></circle><circle cx="12" cy="19" r="1.3"></circle></svg>
+              </span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- paginación -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: {{t.faint}}">
+        <div>MOSTRANDO {{shown}} DE 128</div>
+        <div style="display: flex; align-items: center; gap: 5px">
+          <div class="btn-ghost" style="width: 31px; height: 31px; display: flex; align-items: center; justify-content: center; border: 1px solid {{t.hairStrong}}; border-radius: 999px; color: {{t.dim}}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+          </div>
+          <div style="width: 31px; height: 31px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: #3E8E96; color: #ffffff; font-weight: 500">1</div>
+          <div class="btn-ghost" style="width: 31px; height: 31px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: {{t.dim}}">2</div>
+          <div class="btn-ghost" style="width: 31px; height: 31px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: {{t.dim}}">3</div>
+          <div class="btn-ghost" style="width: 31px; height: 31px; display: flex; align-items: center; justify-content: center; border: 1px solid {{t.hairStrong}}; border-radius: 999px; color: {{t.dim}}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{
+  "brand": {"editor": "color", "default": "#3E8E96", "options": ["#3E8E96", "#2C6B72", "#4A9DA6", "#1F5158"], "section": "Marca"},
+  "$preview": {"width": 1440, "height": 1020}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'activos', nav: 'propiedades', theme: 'light', lang: 'es' };
+  }
+
+  themeTokens(dark) {
+    if (dark) {
+      return {
+        bg: '#0A0E10', side: '#0D1214', card: '#12181B', head: '#0D1214',
+        navBg: 'rgba(13,18,20,0.82)', input: '#0A0E10',
+        text: '#EAF0F1', dim: 'rgba(234,240,241,0.60)', faint: 'rgba(234,240,241,0.36)',
+        hair: 'rgba(234,240,241,0.08)', hairStrong: 'rgba(234,240,241,0.15)',
+        tealSoft: 'rgba(62,142,150,0.16)', tealGlow: 'rgba(62,142,150,0.3)',
+        logoDark: '#EAF0F1', gradEnd: '#7FCDD4',
+        mesh1: 'rgba(62,142,150,0.26)',
+        shadowSm: '0 2px 12px -6px rgba(0,0,0,0.7)'
+      };
+    }
+    return {
+      bg: '#F4F7F7', side: '#FFFFFF', card: '#FFFFFF', head: '#FAFBFB',
+      navBg: 'rgba(255,255,255,0.82)', input: '#FAFBFB',
+      text: '#12181B', dim: 'rgba(18,24,27,0.58)', faint: 'rgba(18,24,27,0.38)',
+      hair: 'rgba(18,24,27,0.08)', hairStrong: 'rgba(18,24,27,0.14)',
+      tealSoft: 'rgba(62,142,150,0.10)', tealGlow: 'rgba(62,142,150,0.16)',
+      logoDark: '#12181B', gradEnd: '#7FCDD4',
+      mesh1: 'rgba(62,142,150,0.16)',
+      shadowSm: '0 1px 4px rgba(18,24,27,0.05)'
+    };
+  }
+
+  allRows() {
+    const g1 = 'linear-gradient(140deg, #8a9ba3, #4e5c64)';
+    const g2 = 'linear-gradient(140deg, #9aa79c, #5c6a61)';
+    const g3 = 'linear-gradient(140deg, #a89c92, #6b6057)';
+    const g4 = 'linear-gradient(140deg, #a3a48a, #64654f)';
+    return {
+      activos: [
+        { title: 'Casa de dos plantas con jardín', code: 'MD-0987', loc: 'Martínez', op: 'Venta', price: 'USD 189.000', ins: 'Hogar', state: 'Publicado', leads: '41', grad: g1 },
+        { title: 'Piso luminoso con balcón corrido', code: 'MD-1042', loc: 'Palermo Soho', op: 'Alquiler', price: '$ 340.000', ins: 'Garantía', state: 'Publicado', leads: '24', grad: g2 },
+        { title: 'Lote en barrio cerrado', code: 'MD-1130', loc: 'Pilar', op: 'Venta', price: 'USD 62.000', ins: 'Construcción', state: 'Publicado', leads: '9', grad: g4 },
+        { title: 'PH reciclado sin expensas', code: 'MD-1004', loc: 'Caballito', op: 'Venta', price: 'USD 134.000', ins: 'Sin asignar', state: 'Publicado', leads: '33', grad: g3 },
+        { title: 'Casa con patio y parrilla', code: 'MD-1121', loc: 'Villa Devoto', op: 'Alquiler', price: '$ 615.000', ins: 'Hogar', state: 'Publicado', leads: '12', grad: g1 },
+        { title: 'Studio con vista al río', code: 'MD-1190', loc: 'Puerto Madero', op: 'Temporario', price: 'USD 62 / noche', ins: 'Hogar', state: 'Publicado', leads: '18', grad: g2 }
+      ],
+      revision: [
+        { title: 'Fracción con acceso asfaltado', code: 'MD-1156', loc: 'Carlos Paz', op: 'Venta', price: 'USD 240.000', ins: 'Sin asignar', state: 'En revisión', leads: '0', grad: g4 },
+        { title: 'Dos ambientes a estrenar', code: 'MD-1149', loc: 'Rosario Centro', op: 'Venta', price: 'USD 96.500', ins: 'Hogar', state: 'En revisión', leads: '0', grad: g1 },
+        { title: 'Terreno esquina con dos frentes', code: 'MD-1160', loc: 'Funes', op: 'Venta', price: 'USD 38.500', ins: 'Construcción', state: 'En revisión', leads: '0', grad: g3 }
+      ],
+      borradores: [
+        { title: 'Loft en ex fábrica reciclada', code: 'MD-1171', loc: 'Barracas', op: 'Alquiler', price: '$ 410.000', ins: 'Sin asignar', state: 'Borrador', leads: '0', grad: g2 },
+        { title: 'Chalet con vista a la sierra', code: 'MD-1174', loc: 'La Cumbre', op: 'Venta', price: 'USD 155.000', ins: 'Sin asignar', state: 'Borrador', leads: '0', grad: g4 }
+      ],
+      pausados: [
+        { title: 'Departamento frente al parque', code: 'MD-0891', loc: 'Belgrano', op: 'Alquiler', price: '$ 385.000', ins: 'Garantía', state: 'Pausado', leads: '8', grad: g1 },
+        { title: 'Quinta con pileta climatizada', code: 'MD-0855', loc: 'Moreno', op: 'Temporario', price: 'USD 120 / noche', ins: 'Hogar', state: 'Pausado', leads: '5', grad: g2 }
+      ]
+    };
+  }
+
+  // convierte una serie 0-100 en un path suave de 76x36
+  spark(vals) {
+    const w = 76, h = 36, pad = 3;
+    const step = w / (vals.length - 1);
+    const pts = vals.map((v, i) => [i * step, h - pad - (v / 100) * (h - pad * 2)]);
+    let d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for (let i = 1; i < pts.length; i++) {
+      const [px, py] = pts[i - 1];
+      const [cx, cy] = pts[i];
+      const mx = (px + cx) / 2;
+      d += ' C' + mx.toFixed(1) + ' ' + py.toFixed(1) + ',' + mx.toFixed(1) + ' ' + cy.toFixed(1) + ',' + cx.toFixed(1) + ' ' + cy.toFixed(1);
+    }
+    const area = d + ' L' + w + ' ' + h + ' L0 ' + h + ' Z';
+    return { path: d, area: area };
+  }
+
+  renderVals() {
+    const B = this.props.brand ?? '#3E8E96';
+    const { tab, nav, theme, lang } = this.state;
+    const dark = theme === 'dark';
+    const t = this.themeTokens(dark);
+    const all = this.allRows();
+
+    const navDefs = [
+      { id: 'resumen',     label: 'Resumen',     badge: '',    icon: 'sale' },
+      { id: 'propiedades', label: 'Propiedades', badge: '128', icon: 'rent' },
+      { id: 'terrenos',    label: 'Terrenos',    badge: '31',  icon: 'land' },
+      { id: 'consultas',   label: 'Consultas',   badge: '36',  icon: 'mail' },
+      { id: 'seguros',     label: 'Seguros',     badge: '12',  icon: 'shield' },
+      { id: 'clientes',    label: 'Clientes',    badge: '',    icon: 'users' },
+      { id: 'ajustes',     label: 'Ajustes',     badge: '',    icon: 'tool' }
+    ];
+    const navItems = navDefs.map((n) => {
+      const on = nav === n.id;
+      return {
+        label: n.label, badge: n.badge, icon: n.icon,
+        bg: on ? t.tealSoft : 'transparent',
+        fg: on ? B : t.dim,
+        mark: on ? B : 'transparent',
+        pick: () => this.setState({ nav: n.id })
+      };
+    });
+
+    const langs = ['es', 'en', 'pt'].map((code) => ({
+      code: code.toUpperCase(),
+      bg: lang === code ? B : 'transparent',
+      fg: lang === code ? '#ffffff' : t.dim,
+      pick: () => this.setState({ lang: code })
+    }));
+
+    const tabDefs = [
+      { id: 'activos',    label: 'Activos',     count: '128' },
+      { id: 'revision',   label: 'En revisión', count: '3' },
+      { id: 'borradores', label: 'Borradores',  count: '2' },
+      { id: 'pausados',   label: 'Pausados',    count: '2' }
+    ];
+    const tabs = tabDefs.map((tb) => {
+      const on = tab === tb.id;
+      return {
+        label: tb.label, count: tb.count,
+        border: on ? B : 'transparent',
+        fg: on ? t.text : t.dim,
+        pillBg: on ? t.tealSoft : t.hairStrong,
+        pillFg: on ? B : t.faint,
+        pick: () => this.setState({ tab: tb.id })
+      };
+    });
+
+    const ss = dark ? {
+      'Publicado':   { bg: 'rgba(62,142,150,0.2)',   fg: '#6FBEC6' },
+      'En revisión': { bg: 'rgba(214,160,74,0.16)',  fg: '#D6A04A' },
+      'Borrador':    { bg: t.hairStrong,             fg: t.faint },
+      'Pausado':     { bg: 'rgba(201,124,106,0.16)', fg: '#C97C6A' }
+    } : {
+      'Publicado':   { bg: 'rgba(62,142,150,0.12)',  fg: '#2C6B72' },
+      'En revisión': { bg: 'rgba(196,141,58,0.14)',  fg: '#A9752B' },
+      'Borrador':    { bg: t.hairStrong,             fg: t.faint },
+      'Pausado':     { bg: 'rgba(176,106,90,0.13)',  fg: '#9A5344' }
+    };
+
+    const rows = all[tab].map((r, i) => {
+      const st = ss[r.state];
+      const noIns = r.ins === 'Sin asignar';
+      return {
+        ...r,
+        delay: (0.03 * i) + 's',
+        stateBg: st.bg, stateFg: st.fg,
+        insBg: noIns ? 'transparent' : t.tealSoft,
+        insFg: noIns ? t.faint : (dark ? '#6FBEC6' : '#2C6B72')
+      };
+    });
+
+    const tealLine = dark ? '#5FB4BC' : '#3E8E96';
+    const tealFill = dark ? 'rgba(62,142,150,0.16)' : 'rgba(62,142,150,0.10)';
+    const warnLine = dark ? '#C97C6A' : '#9A5344';
+    const warnFill = dark ? 'rgba(201,124,106,0.14)' : 'rgba(176,106,90,0.09)';
+    const upColor = dark ? '#6FBEC6' : '#2C6B72';
+    const dnColor = dark ? '#C97C6A' : '#9A5344';
+
+    const statDefs = [
+      { label: 'AVISOS ACTIVOS', value: '128', suffix: '',  delta: '6 esta semana',  up: true,  series: [30, 44, 38, 58, 52, 74, 90], line: tealLine, fill: tealFill },
+      { label: 'CONSULTAS',      value: '36',  suffix: '',  delta: '12 hoy',         up: true,  series: [24, 42, 32, 54, 68, 58, 86], line: tealLine, fill: tealFill },
+      { label: 'CON SEGURO',     value: '74',  suffix: '%', delta: '3 pts',          up: true,  series: [50, 55, 60, 58, 66, 70, 76], line: tealLine, fill: tealFill },
+      { label: 'SIN PUBLICAR',   value: '9',   suffix: '',  delta: '3 vencen pronto', up: false, series: [72, 64, 68, 50, 54, 42, 34], line: warnLine, fill: warnFill }
+    ];
+
+    const stats = statDefs.map((s, i) => {
+      const sp = this.spark(s.series);
+      return {
+        label: s.label, value: s.value, suffix: s.suffix, delta: s.delta,
+        up: s.up, down: !s.up,
+        deltaColor: s.up ? upColor : dnColor,
+        lineColor: s.line, fillColor: s.fill,
+        path: sp.path, area: sp.area,
+        delay: (0.06 * i) + 's'
+      };
+    });
+
+    return {
+      t, nav: navItems, langs, tabs, rows, stats,
+      shown: String(all[tab].length),
+      isDark: dark, isLight: !dark,
+      toggleTheme: () => this.setState({ theme: dark ? 'light' : 'dark' })
+    };
+  }
+}
+</script>
+</body>
+</html>
