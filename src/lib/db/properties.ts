@@ -112,6 +112,78 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
   return data ? mapProperty(data as unknown as PropertyRow) : null;
 }
 
+/**
+ * Propiedades parecidas a una dada, para el pie de la ficha.
+ *
+ * "Parecida" es: misma operación, distinta propiedad. Se prefieren las de la
+ * misma ciudad, y si no alcanzan se completa con otras de la misma operación —
+ * mostrar tres opciones siempre es mejor que mostrar una sola por ser estrictos.
+ */
+export async function listSimilar(property: Property, limit = 3): Promise<Property[]> {
+  const pick = (candidates: Property[]) => {
+    const sameCity = candidates.filter((p) => p.location.city === property.location.city);
+    const rest = candidates.filter((p) => p.location.city !== property.location.city);
+    return [...sameCity, ...rest].slice(0, limit);
+  };
+
+  if (!isSupabaseConfigured) {
+    return pick(
+      PROPERTY_FIXTURES.filter(
+        (p) =>
+          p.state === "publicado" &&
+          p.operation === property.operation &&
+          p.id !== property.id,
+      ),
+    );
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("properties")
+    .select(PROPERTY_SELECT)
+    .eq("state", "publicado")
+    .eq("operation", property.operation)
+    .neq("id", property.id)
+    // Se piden de más para poder priorizar por ciudad en memoria.
+    .limit(limit * 4);
+
+  if (error) throw new Error(`No se pudieron leer las similares: ${error.message}`);
+  return pick((data as unknown as PropertyRow[]).map(mapProperty));
+}
+
+/** Todos los slugs publicados, para prerenderizar las fichas en el build. */
+export async function listPublishedSlugs(): Promise<string[]> {
+  if (!isSupabaseConfigured) {
+    return PROPERTY_FIXTURES.filter((p) => p.state === "publicado").map((p) => p.slug);
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("properties")
+    .select("slug")
+    .eq("state", "publicado");
+
+  if (error) throw new Error(`No se pudieron leer los slugs: ${error.message}`);
+  return (data as { slug: string }[]).map((row) => row.slug);
+}
+
+/** Una cobertura por su slug, para mostrarla en la ficha de la propiedad. */
+export async function getInsuranceBySlug(slug: string): Promise<InsuranceProduct | null> {
+  if (!isSupabaseConfigured) {
+    return INSURANCE_FIXTURES.find((p) => p.slug === slug) ?? null;
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("insurance_products")
+    .select("id, slug, kind, name, description, detail, carriers, position")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (error) throw new Error(`No se pudo leer la cobertura: ${error.message}`);
+  return data ? mapInsuranceProduct(data as InsuranceProductRow) : null;
+}
+
 /** Catálogo de coberturas, en el orden en que se muestran. */
 export async function listInsuranceProducts(): Promise<InsuranceProduct[]> {
   if (!isSupabaseConfigured) {

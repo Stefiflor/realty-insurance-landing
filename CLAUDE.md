@@ -195,10 +195,27 @@ Cuatro tablas (`supabase/schema.sql`):
 Los enums de Postgres replican las uniones de `src/lib/domain/types.ts`.
 **Si cambiás uno, cambiá el otro en el mismo commit.**
 
+### Cómo conectar Supabase
+
+1. Crear un proyecto en [supabase.com](https://supabase.com) (plan gratuito).
+2. En el **SQL Editor**, pegar y correr `supabase/schema.sql` — crea tablas,
+   políticas de seguridad y el bucket de fotos.
+3. Opcional: correr `supabase/seed.sql` para cargar propiedades de ejemplo y ver
+   el sitio andando con la base.
+4. En **Project Settings → API**, copiar `Project URL` y la clave `anon public`
+   a `.env.local` (partiendo de `.env.example`).
+5. Reiniciar `npm run dev`.
+
+Sin esos pasos el sitio funciona igual, con las fixtures.
+
 ### Datos de muestra
 
-Las fixtures son **inventadas** (propiedades, precios, zonas). Antes de
-producción hay que cargar las reales en Supabase.
+Tanto las fixtures como `seed.sql` son **inventadas** (propiedades, precios,
+zonas). Antes de producción hay que cargar las reales y borrar las de ejemplo:
+
+```sql
+delete from properties where code like 'MD-%';
+```
 
 ---
 
@@ -245,15 +262,19 @@ Hecho:
 - [x] Landing completa: hero, marquesina, buscador, propiedades, servicios,
       coberturas, contacto, footer
 - [x] Responsive de 360px a escritorio, con menú hamburguesa
+- [x] Ficha de propiedad con galería, cobertura asociada, similares,
+      metadata propia y datos estructurados para buscadores
+- [x] Página 404 propia
 
 Falta:
 
+- [ ] **Conectar Supabase** — el schema y los datos de ejemplo están listos
+      en `supabase/`; falta crear el proyecto y cargar las claves
 - [ ] Página de resultados con filtros (`/[locale]/propiedades`)
-- [ ] Ficha de propiedad (`/[locale]/propiedades/[slug]`) — las tarjetas ya
-      enlazan ahí, así que hoy esos enlaces dan 404
 - [ ] Panel: login, tabla de propiedades, alta/edición, directorio de seguros
 - [ ] Registrar las consultas en la tabla `enquiries` al hacer clic en WhatsApp
-- [ ] Cargar datos reales del estudio en Supabase
+- [ ] Mapa real en la ficha (hoy hay un marcador; falta cargar coordenadas)
+- [ ] `sitemap.xml` y `robots.txt`
 - [ ] Reemplazar los placeholders: `[TU NÚMERO]`, `[MATRÍCULA]`
 - [ ] Sección "Estudio" — el nav ya la enlaza, falta decidir el contenido
 - [ ] Términos y privacidad — el footer los enlaza, falta el texto legal

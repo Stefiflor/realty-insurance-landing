@@ -207,3 +207,33 @@ create policy "el estudio lee las consultas"
   on enquiries for select
   to authenticated
   using (true);
+
+-- =============================================================================
+-- Storage: fotos de las propiedades
+--
+-- El bucket es público de lectura porque las fotos se muestran en avisos
+-- públicos. Subir y borrar requiere estar autenticado (el panel).
+-- =============================================================================
+
+insert into storage.buckets (id, name, public)
+values ('property-images', 'property-images', true)
+on conflict (id) do nothing;
+
+create policy "las fotos de propiedades son públicas"
+  on storage.objects for select
+  using (bucket_id = 'property-images');
+
+create policy "el estudio sube fotos"
+  on storage.objects for insert
+  to authenticated
+  with check (bucket_id = 'property-images');
+
+create policy "el estudio actualiza fotos"
+  on storage.objects for update
+  to authenticated
+  using (bucket_id = 'property-images');
+
+create policy "el estudio borra fotos"
+  on storage.objects for delete
+  to authenticated
+  using (bucket_id = 'property-images');
