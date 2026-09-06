@@ -15,7 +15,8 @@ export function ThemeToggle({ className }: { className?: string }) {
       onClick={toggle}
       aria-label={goingDark ? "Activar modo oscuro" : "Activar modo claro"}
       className={cn(
-        "flex size-[34px] cursor-pointer items-center justify-center rounded-full",
+        // 44px en táctil (mínimo cómodo para el dedo), 34px en escritorio.
+        "flex size-11 cursor-pointer items-center justify-center rounded-full lg:size-[34px]",
         "border border-hair-strong text-dim",
         "transition-transform duration-[350ms] ease-(--ease-brand)",
         "hover:-translate-y-0.5 hover:text-ink",

@@ -316,6 +316,13 @@
     font-family: var(--font-sora), "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     transition: background 0.6s ease, color 0.6s ease;
+    /*
+     * Red de seguridad: los orbes del hero y otros decorados se salen del
+     * viewport a propósito. Sin esto, en móvil aparece scroll horizontal y la
+     * página "se corre" al arrastrar. Los contenedores que sí deben scrollear
+     * en horizontal (las pestañas del buscador) lo piden explícitamente.
+     */
+    overflow-x: hidden;
   }
 
   /* Quien pidió menos movimiento, recibe menos movimiento. */

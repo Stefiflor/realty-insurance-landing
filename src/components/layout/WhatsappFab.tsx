@@ -21,9 +21,10 @@ export function WhatsappFab({ locale }: { locale: Locale }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.contact.waCta}
-      className="animate-float fixed right-8.5 bottom-8.5 z-50 flex size-14.5 items-center justify-center rounded-full bg-whatsapp text-whatsapp-ink shadow-[0_16px_36px_-12px_rgb(37_211_102/0.8)] transition-transform duration-[450ms] ease-(--ease-pop) hover:scale-108 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-whatsapp"
+      className="animate-float fixed right-5 bottom-5 z-50 flex size-13 items-center justify-center rounded-full bg-whatsapp text-whatsapp-ink shadow-[0_16px_36px_-12px_rgb(37_211_102/0.8)] transition-transform duration-[450ms] ease-(--ease-pop) hover:scale-108 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-whatsapp sm:right-8.5 sm:bottom-8.5 sm:size-14.5"
     >
-      <WhatsappGlyph size={27} />
+      <WhatsappGlyph size={24} className="sm:hidden" />
+      <WhatsappGlyph size={27} className="hidden sm:block" />
     </a>
   );
 }

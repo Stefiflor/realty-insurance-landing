@@ -29,9 +29,10 @@ export function SectionHeading({
           {kicker}
         </span>
       </div>
+      {/* Escala con el viewport en vez de saltar por breakpoints. */}
       <h2
         className={cn(
-          "m-0 text-[46px] leading-[1.1] font-light tracking-[-0.032em]",
+          "m-0 text-[clamp(1.875rem,4.2vw,2.875rem)] leading-[1.12] font-light tracking-[-0.032em]",
           "text-balance",
         )}
       >

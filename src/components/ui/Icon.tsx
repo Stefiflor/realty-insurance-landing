@@ -32,7 +32,9 @@ export type IconName =
   | "filter"
   | "more"
   | "trend-up"
-  | "trend-down";
+  | "trend-down"
+  | "menu"
+  | "close";
 
 const PATHS: Record<IconName, React.ReactNode> = {
   sale: (
@@ -169,6 +171,19 @@ const PATHS: Record<IconName, React.ReactNode> = {
     <>
       <path d="M12 5v14" />
       <path d="M6 13l6 6 6-6" />
+    </>
+  ),
+  menu: (
+    <>
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M4 17h16" />
+    </>
+  ),
+  close: (
+    <>
+      <path d="M6 6l12 12" />
+      <path d="M18 6L6 18" />
     </>
   ),
 };

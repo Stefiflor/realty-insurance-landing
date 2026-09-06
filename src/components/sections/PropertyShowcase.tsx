@@ -39,8 +39,8 @@ export function PropertyShowcase({
     <>
       <SearchBar locale={locale} operation={operation} onOperationChange={setOperation} />
 
-      <section id="propiedades" className="scroll-mt-20 px-14 pt-27.5">
-        <div className="mb-9.5 flex items-end justify-between">
+      <section id="propiedades" className="scroll-mt-20 px-6 pt-18 md:px-10 lg:px-14 lg:pt-27.5">
+        <div className="mb-9.5 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end sm:gap-0">
           <SectionHeading kicker={t.properties.kicker} title={t.properties.title} />
 
           <div
@@ -75,7 +75,7 @@ export function PropertyShowcase({
             {t.properties.empty}
           </p>
         ) : view === "grid" ? (
-          <div className="grid grid-cols-3 gap-5.5">
+          <div className="grid grid-cols-1 gap-5.5 sm:grid-cols-2 lg:grid-cols-3">
             {properties.map((property, i) => (
               <PropertyCard key={property.id} property={property} locale={locale} index={i} />
             ))}

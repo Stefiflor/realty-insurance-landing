@@ -13,6 +13,8 @@ export const es = {
   nav: {
     links: ["Propiedades", "Alquileres", "Terrenos", "Seguros", "Estudio"],
     cta: "WhatsApp",
+    openMenu: "Abrir menú",
+    closeMenu: "Cerrar menú",
   },
   hero: {
     badge: "Ventas · Alquileres · Terrenos · Seguros",
@@ -162,6 +164,8 @@ export const en: Dictionary = {
   nav: {
     links: ["Properties", "Rentals", "Land", "Insurance", "Firm"],
     cta: "WhatsApp",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   hero: {
     badge: "Sales · Rentals · Land · Insurance",
@@ -290,6 +294,8 @@ export const pt: Dictionary = {
   nav: {
     links: ["Imóveis", "Aluguéis", "Terrenos", "Seguros", "Escritório"],
     cta: "WhatsApp",
+    openMenu: "Abrir menu",
+    closeMenu: "Fechar menu",
   },
   hero: {
     badge: "Vendas · Aluguéis · Terrenos · Seguros",

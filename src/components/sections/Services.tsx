@@ -25,19 +25,20 @@ export function Services({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
 
   return (
-    <section className="px-14 pt-27.5">
-      <div className="mb-11 flex items-end justify-between">
+    <section className="px-6 pt-18 md:px-10 lg:px-14 lg:pt-27.5">
+      <div className="mb-11 flex items-end justify-between gap-6">
         <SectionHeading
           kicker={t.services.kicker}
           title={t.services.title}
           className="max-w-[620px]"
         />
-        <div className="pb-2 font-mono text-[11px] tracking-[0.14em] text-faint">
+        {/* Contador decorativo: en móvil no aporta y roba ancho al título. */}
+        <div className="hidden pb-2 font-mono text-[11px] tracking-[0.14em] text-faint md:block">
           04 / {t.services.unit}
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4.5">
+      <div className="grid grid-cols-1 gap-4.5 sm:grid-cols-2 xl:grid-cols-4">
         {SERVICES.map((service, i) => {
           const copy = t.services.items[service.key];
           return (

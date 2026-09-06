@@ -34,13 +34,16 @@ export function Contact({ locale }: { locale: Locale }) {
   const phone = displayPhone(t.contact.numberPending);
 
   return (
-    <section id="contacto" className="relative scroll-mt-20 overflow-hidden px-14 py-26">
+    <section
+      id="contacto"
+      className="relative scroll-mt-20 overflow-hidden px-6 py-18 md:px-10 lg:px-14 lg:py-26"
+    >
       <div
         aria-hidden="true"
         className="animate-mesh-alt absolute -bottom-85 -left-50 size-190 rounded-full bg-[radial-gradient(circle,var(--mesh-2)_0%,transparent_66%)] blur-[120px]"
       />
 
-      <div className="relative grid grid-cols-[minmax(0,1fr)_440px] items-center gap-20">
+      <div className="relative grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_440px] xl:gap-20">
         <div>
           <SectionHeading kicker={t.contact.kicker} title={t.contact.title}>
             <p className="mt-4.5 mb-9 max-w-[460px] text-[16.5px] leading-[1.68] font-light text-dim">
@@ -83,7 +86,7 @@ export function Contact({ locale }: { locale: Locale }) {
         </div>
 
         {/* tarjeta de WhatsApp */}
-        <div className="animate-rise relative overflow-hidden rounded-md border border-hair-strong bg-surface p-9 shadow-xl">
+        <div className="animate-rise relative overflow-hidden rounded-md border border-hair-strong bg-surface p-6 shadow-xl sm:p-9">
           <div
             aria-hidden="true"
             className="absolute -top-20 -right-20 size-55 rounded-full bg-[radial-gradient(circle,rgb(37_211_102/0.22),transparent_70%)] blur-[60px]"

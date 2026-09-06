@@ -18,7 +18,9 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
   const t = getDictionary(locale);
 
   return (
-    <section className="relative h-[720px] overflow-hidden bg-hero">
+    // En móvil la altura la marca el contenido; desde `lg` se fija para que el
+    // hero ocupe la pantalla completa sin dejar la imagen a medio cortar.
+    <section className="relative overflow-hidden bg-hero py-14 lg:h-[720px] lg:py-0">
       {/* --- fondo animado --- */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="animate-mesh absolute -top-[300px] -right-[180px] size-[900px] rounded-full bg-[radial-gradient(circle,var(--mesh-1)_0%,transparent_68%)] blur-[90px]" />
@@ -49,14 +51,14 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
       />
 
       {/* --- contenido --- */}
-      <div className="relative z-10 grid h-full grid-cols-[minmax(0,1fr)_520px] items-center gap-14 px-14">
+      <div className="relative z-10 grid h-full grid-cols-1 items-center gap-14 px-6 md:px-10 lg:grid-cols-[minmax(0,1fr)_460px] lg:px-14 xl:grid-cols-[minmax(0,1fr)_520px]">
         <div>
           {/* badge con contador real */}
           <div
-            className="animate-rise mb-7 inline-flex items-center gap-2.5 rounded-full border border-hair-strong bg-glass py-2 pr-2 pl-3.5 text-[12.5px] font-medium backdrop-blur-md"
+            className="animate-rise mb-7 inline-flex flex-wrap items-center gap-x-2.5 gap-y-2 rounded-full border border-hair-strong bg-glass px-3.5 py-2 text-[11.5px] font-medium backdrop-blur-md sm:pr-2 sm:text-[12.5px]"
             style={{ animationDelay: "0.08s" }}
           >
-            <span className="relative flex size-[7px]">
+            <span className="relative flex size-[7px] shrink-0">
               <span className="animate-pulse-ring absolute inset-0 rounded-full bg-brand" />
               <span className="relative size-[7px] rounded-full bg-brand" />
             </span>
@@ -67,9 +69,14 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           </div>
 
           {/* título en dos líneas, cada una con su propia máscara */}
+          {/*
+            El título escala con el viewport en lugar de saltar por breakpoints:
+            así nunca queda ni gigante en un teléfono chico ni chico en una
+            pantalla ancha. El `clamp` fija el piso y el techo.
+          */}
           <div className="mb-1.5 overflow-hidden">
             <h1
-              className="animate-mask-up m-0 text-[74px] leading-[0.98] font-light tracking-[-0.038em]"
+              className="animate-mask-up m-0 text-[clamp(2.5rem,7vw,4.625rem)] leading-[1.02] font-light tracking-[-0.035em] lg:leading-[0.98]"
               style={{ animationDelay: "0.16s" }}
             >
               {t.hero.line1}
@@ -77,7 +84,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           </div>
           <div className="mb-6 overflow-hidden">
             <p
-              className="animate-mask-up m-0 bg-[linear-gradient(96deg,var(--brand)_0%,var(--brand-glow)_100%)] bg-clip-text font-display text-[78px] leading-none tracking-[-0.03em] text-transparent"
+              className="animate-mask-up m-0 bg-[linear-gradient(96deg,var(--brand)_0%,var(--brand-glow)_100%)] bg-clip-text font-display text-[clamp(2.625rem,7.4vw,4.875rem)] leading-[1.05] tracking-[-0.03em] text-transparent lg:leading-none"
               style={{ animationDelay: "0.3s" }}
             >
               {t.hero.line2}
@@ -97,11 +104,19 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
             {t.hero.sub}
           </p>
 
+          {/* En móvil los botones ocupan todo el ancho y se apilan: son los dos
+              destinos principales y tienen que ser fáciles de tocar. */}
           <div
-            className="animate-rise mb-11 flex items-center gap-3.5"
+            className="animate-rise mb-11 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3.5"
             style={{ animationDelay: "0.56s" }}
           >
-            <Button as="a" href="#propiedades" variant="primary" size="lg">
+            <Button
+              as="a"
+              href="#propiedades"
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
               {t.hero.ctaPrimary}
               <Icon name="arrow-right" size={16} strokeWidth={2.2} />
             </Button>
@@ -109,6 +124,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
               message={intentMessage("comprar", locale)}
               variant="ghost"
               size="lg"
+              className="w-full sm:w-auto"
             >
               {t.hero.ctaSecondary}
             </WhatsappButton>
@@ -121,14 +137,23 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
               { value: "12", suffix: "", label: t.hero.stats.years },
               { value: "48", suffix: "h", label: t.hero.stats.response },
             ].map((stat) => (
-              <div key={stat.label} className="mr-9 border-r border-hair pr-9 last:border-r-0">
+              <div
+                key={stat.label}
+                className="mr-5 border-r border-hair pr-5 last:mr-0 last:border-r-0 last:pr-0 sm:mr-9 sm:pr-9"
+              >
                 <div className="flex items-baseline gap-[3px]">
-                  <span className="text-[34px] font-light tracking-[-0.035em]">{stat.value}</span>
+                  <span className="text-[26px] font-light tracking-[-0.035em] sm:text-[34px]">
+                    {stat.value}
+                  </span>
                   {stat.suffix && (
-                    <span className="text-[18px] font-light text-brand">{stat.suffix}</span>
+                    <span className="text-[15px] font-light text-brand sm:text-[18px]">
+                      {stat.suffix}
+                    </span>
                   )}
                 </div>
-                <div className="mt-[5px] font-mono text-[10.5px] tracking-[0.12em] text-faint">
+                {/* 11px es el piso legible; por debajo el mono en versalitas
+                    se vuelve ilegible en pantallas chicas. */}
+                <div className="mt-[5px] font-mono text-[11px] tracking-[0.08em] text-faint sm:tracking-[0.12em]">
                   {stat.label}
                 </div>
               </div>
@@ -136,8 +161,11 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           </div>
         </div>
 
-        {/* --- visual de la derecha --- */}
-        <div className="relative h-[520px]">
+        {/* --- visual de la derecha ---
+            Oculto en móvil: es decorativo y ahí compite con el copy, que es lo
+            que tiene que leerse primero. La tarjeta flotante que cuelga a la
+            izquierda tampoco tendría dónde apoyarse. */}
+        <div className="relative hidden h-[420px] lg:block xl:h-[520px]">
           <div className="animate-float absolute inset-0 overflow-hidden rounded-md border border-hair-strong shadow-xl">
             {/* Placeholder de la foto de portada. Reemplazar por <Image> cuando
                 el estudio entregue la imagen real. */}

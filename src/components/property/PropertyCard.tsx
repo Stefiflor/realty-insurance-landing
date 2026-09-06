@@ -174,17 +174,18 @@ export function PropertyRow({
   return (
     <Link
       href={`/${locale}/propiedades/${property.slug}`}
-      className="group card-glow animate-rise flex gap-6.5 overflow-hidden rounded-[5px] border border-hair bg-surface shadow-sm hover:-translate-y-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      className="group card-glow animate-rise flex flex-col overflow-hidden rounded-[5px] border border-hair bg-surface shadow-sm hover:-translate-y-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:flex-row sm:gap-6.5"
       style={{ animationDelay: `${0.07 * index}s` }}
     >
-      <div className="relative h-48.5 w-75 shrink-0 overflow-hidden">
+      {/* En móvil la foto va arriba a lo ancho; desde `sm` pasa al costado. */}
+      <div className="relative h-52 w-full shrink-0 overflow-hidden sm:h-48.5 sm:w-60 lg:w-75">
         <Cover property={property} placeholder={t.properties.photoPlaceholder} />
         <Badge tone="glass" mono className="absolute top-3 left-3">
           {t.properties.kinds[property.kind].toUpperCase()}
         </Badge>
       </div>
 
-      <div className="flex grow items-center justify-between gap-9 py-6 pr-6.5">
+      <div className="flex grow flex-col justify-between gap-5 p-5.5 sm:flex-row sm:items-center sm:gap-6 sm:py-6 sm:pr-6.5 sm:pl-0">
         <div>
           {property.insuranceSlug && (
             <Badge tone="neutral" className="mb-3.5">
@@ -192,20 +193,27 @@ export function PropertyRow({
               {t.properties.insuredBadge}
             </Badge>
           )}
-          <div className="mb-2 text-[27px] font-normal tracking-[-0.028em]">{property.title}</div>
+          <div className="mb-2 text-[22px] font-normal tracking-[-0.028em] lg:text-[27px]">
+            {property.title}
+          </div>
           <div className="mb-4.5 text-[14px] font-light text-dim">{formatLocation(property)}</div>
-          <div className="flex items-center gap-3.5 font-mono text-[11px] tracking-[0.06em] text-dim">
+          <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 font-mono text-[11px] tracking-[0.06em] text-dim">
             {facts.map((fact, i) => (
               <span key={fact} className="flex items-center gap-3.5">
-                {i > 0 && <span className="size-[3px] rounded-full bg-faint" aria-hidden="true" />}
+                {i > 0 && (
+                  <span
+                    className="hidden size-[3px] rounded-full bg-faint sm:block"
+                    aria-hidden="true"
+                  />
+                )}
                 {fact}
               </span>
             ))}
           </div>
         </div>
 
-        <div className="shrink-0 text-right">
-          <div className="text-[34px] font-light tracking-[-0.038em]">
+        <div className="shrink-0 border-t border-hair pt-4 sm:border-t-0 sm:pt-0 sm:text-right">
+          <div className="text-[28px] font-light tracking-[-0.038em] lg:text-[34px]">
             {formatAmount(property.price, locale)}
           </div>
           <div className="mt-1.5 font-mono text-[10px] tracking-[0.1em] text-faint">

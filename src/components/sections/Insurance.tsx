@@ -33,7 +33,7 @@ export function Insurance({
   return (
     <section
       id="seguros"
-      className="relative mt-27.5 scroll-mt-20 overflow-hidden bg-band px-14 py-23"
+      className="relative mt-18 scroll-mt-20 overflow-hidden bg-band px-6 py-16 md:px-10 lg:mt-27.5 lg:px-14 lg:py-23"
     >
       <div
         aria-hidden="true"
@@ -41,7 +41,7 @@ export function Insurance({
         style={{ animationDuration: "30s" }}
       />
 
-      <div className="relative grid grid-cols-[400px_minmax(0,1fr)] items-start gap-21">
+      <div className="relative grid grid-cols-1 items-start gap-12 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[400px_minmax(0,1fr)] xl:gap-21">
         <div>
           <SectionHeading kicker={t.insurance.kicker} title={t.insurance.title}>
             <p className="mt-5 mb-7.5 text-[16px] leading-[1.68] font-light text-dim">
@@ -61,7 +61,7 @@ export function Insurance({
           {products.map((product, i) => (
             <div
               key={product.id}
-              className="group animate-rise relative grid cursor-pointer grid-cols-[54px_minmax(0,1fr)_200px_26px] items-center gap-5.5 overflow-hidden border-b border-hair-strong py-6 transition-[padding] duration-[550ms] ease-(--ease-brand) hover:pl-5.5"
+              className="group animate-rise relative grid cursor-pointer grid-cols-[44px_minmax(0,1fr)] items-center gap-x-4 gap-y-2 overflow-hidden border-b border-hair-strong py-5 transition-[padding] duration-[550ms] ease-(--ease-brand) hover:pl-5.5 sm:grid-cols-[54px_minmax(0,1fr)_auto_26px] sm:gap-5.5 sm:py-6"
               style={{ animationDelay: `${0.06 * i}s` }}
             >
               {/* baño que barre de izquierda a derecha */}
@@ -79,7 +79,8 @@ export function Insurance({
                 <div className="text-[13.5px] font-light text-dim">{product.description}</div>
               </div>
 
-              <div className="relative font-mono text-[11px] tracking-[0.08em] text-dim">
+              {/* En móvil el detalle pasa abajo, alineado bajo el nombre. */}
+              <div className="relative col-start-2 font-mono text-[10.5px] tracking-[0.08em] text-dim sm:col-start-auto sm:text-[11px]">
                 {product.detail}
               </div>
 
@@ -87,7 +88,7 @@ export function Insurance({
                 name="arrow-right"
                 size={16}
                 strokeWidth={2.2}
-                className="relative -translate-x-2 text-brand opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100"
+                className="relative hidden -translate-x-2 text-brand opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100 sm:block"
               />
             </div>
           ))}

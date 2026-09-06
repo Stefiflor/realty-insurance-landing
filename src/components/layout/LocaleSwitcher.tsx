@@ -37,7 +37,8 @@ export function LocaleSwitcher({
             hrefLang={locale}
             aria-current={active ? "true" : undefined}
             className={cn(
-              "rounded-full px-2.5 py-[5px] font-mono text-[10.5px] font-medium tracking-[0.06em]",
+              // Más alto en táctil para que el dedo no falle entre los tres.
+              "rounded-full px-3.5 py-2.5 font-mono text-[10.5px] font-medium tracking-[0.06em] lg:px-2.5 lg:py-[5px]",
               "transition-colors duration-[280ms]",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
               active ? "bg-brand text-white" : "text-dim hover:text-ink",

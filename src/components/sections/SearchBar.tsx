@@ -29,10 +29,16 @@ export function SearchBar({
   const fields = [t.search.fields.location, t.search.fields.kind, t.search.fields.budget];
 
   return (
-    <div className="relative z-20 mx-14 pt-11.5">
+    <div className="relative z-20 mx-6 pt-11.5 md:mx-10 lg:mx-14">
       <div className="animate-rise overflow-hidden rounded-md border border-hair-strong bg-surface shadow-lg">
-        {/* pestañas de operación */}
-        <div className="flex items-center gap-[3px] px-2.5 pt-2.5" role="tablist">
+        {/*
+          Pestañas de operación. En móvil scrollean en horizontal en vez de
+          apilarse: son cuatro y verlas en fila deja claro que hay más opciones.
+        */}
+        <div
+          className="flex items-center gap-[3px] overflow-x-auto px-2.5 pt-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          role="tablist"
+        >
           {OPERATIONS.map((op) => {
             const active = op === operation;
             return (
@@ -43,7 +49,7 @@ export function SearchBar({
                 aria-selected={active}
                 onClick={() => onOperationChange(op)}
                 className={cn(
-                  "relative cursor-pointer rounded-t px-5.5 py-3 text-[14px] font-medium",
+                  "relative shrink-0 cursor-pointer rounded-t px-4 py-3 text-[13.5px] font-medium sm:px-5.5 sm:text-[14px]",
                   "transition-colors duration-[320ms]",
                   "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand",
                   active ? "bg-brand-soft text-brand" : "text-dim hover:text-ink",
@@ -62,11 +68,16 @@ export function SearchBar({
         </div>
 
         {/* campos + acción */}
-        <div className="flex items-stretch border-t border-hair">
-          <div className="grid grow grid-cols-3">
+        <div className="flex flex-col items-stretch border-t border-hair lg:flex-row">
+          <div className="grid grow grid-cols-1 sm:grid-cols-3">
             {fields.map((field) => (
-              <div key={field.label} className="border-r border-hair px-6 py-4.5">
-                <div className="mb-2 font-mono text-[9.5px] tracking-[0.16em] text-faint">
+              <div
+                key={field.label}
+                className="border-b border-hair px-5 py-4 last:border-b-0 sm:border-r sm:border-b-0 sm:px-6 sm:py-4.5"
+              >
+                {/* Etiqueta de campo: en móvil sube a 11px porque acá la
+                    persona tiene que entender qué está completando. */}
+                <div className="mb-2 font-mono text-[11px] tracking-[0.14em] text-faint sm:text-[9.5px] sm:tracking-[0.16em]">
                   {field.label}
                 </div>
                 <div className="flex items-center justify-between gap-3">
@@ -80,8 +91,8 @@ export function SearchBar({
           <button
             type="button"
             className={cn(
-              "btn-shimmer relative flex cursor-pointer items-center gap-2.5 overflow-hidden",
-              "bg-brand px-9.5 text-[15px] font-semibold text-white",
+              "btn-shimmer relative flex cursor-pointer items-center justify-center gap-2.5 overflow-hidden",
+              "bg-brand py-4 text-[15px] font-semibold text-white lg:px-9.5 lg:py-0",
               "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white",
             )}
           >

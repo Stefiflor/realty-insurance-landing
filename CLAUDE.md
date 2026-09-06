@@ -78,7 +78,7 @@ servidor.
 
 ---
 
-## Las cinco reglas que importan
+## Las seis reglas que importan
 
 ### 1. Los colores viven en `globals.css`, en ningún otro lado
 
@@ -129,7 +129,47 @@ sepa de cuál se trata.
 Si `NEXT_PUBLIC_WHATSAPP_PHONE` está vacío, `whatsappLink()` devuelve `null`.
 Manejá ese caso: un enlace roto es peor que ningún enlace.
 
-### 5. El movimiento es parte del diseño, no decoración
+### 5. Móvil primero, siempre
+
+**La mayoría entra desde el celular.** Nada se considera terminado si no
+funciona a 360px de ancho.
+
+Escribí el estilo base para móvil y agregá breakpoints hacia arriba, nunca al
+revés:
+
+```tsx
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />  // ✅
+<div className="grid grid-cols-3 max-lg:grid-cols-1" />              // ❌
+```
+
+Los breakpoints que usa el proyecto:
+
+| | Ancho | Qué cambia |
+| --- | --- | --- |
+| (base) | 0+ | Una columna, menú hamburguesa, padding `px-6` |
+| `sm` | 640px | Dos columnas en tarjetas, filas horizontales |
+| `md` | 768px | Padding `px-10` |
+| `lg` | 1024px | Nav de escritorio, layouts de dos columnas, `px-14` |
+| `xl` | 1280px | Cuatro columnas en servicios, medidas del canvas |
+
+Reglas concretas:
+
+- **Tipografía grande con `clamp()`**, no con saltos por breakpoint. Los títulos
+  ya lo hacen: escalan con el viewport y nunca quedan gigantes ni diminutos.
+- **11px es el piso** de tamaño de texto. La única excepción es la bajada del
+  logo, que es decorativa.
+- **44px de alto mínimo** en cualquier cosa que se toque. Si el diseño pide algo
+  más chico, ampliá el área con `py-2.5 -my-2.5`: crece el toque, no el espacio.
+- **Ningún desborde horizontal.** `body` tiene `overflow-x: hidden` como red de
+  seguridad, pero eso tapa el síntoma — si algo se sale, arreglá la causa.
+- **Lo decorativo se oculta antes que lo útil.** La imagen del hero y el
+  contador "04 / SERVICIOS" desaparecen en móvil; el copy y los botones nunca.
+
+Para verificarlo hay un script en el scratchpad que mide desbordes, tamaños de
+texto y áreas táctiles con Chrome headless en 360/390/768/1440px. Si no está,
+abrí las devtools en 360px: alcanza.
+
+### 6. El movimiento es parte del diseño, no decoración
 
 Las animaciones (mesh del hero, revelados por máscara, halo que sigue al cursor,
 marquesina) están definidas en `globals.css` como `@utility`. Usalas desde ahí.
@@ -204,11 +244,10 @@ Hecho:
 - [x] Detección de idioma y rutas `/es`, `/en`, `/pt`
 - [x] Landing completa: hero, marquesina, buscador, propiedades, servicios,
       coberturas, contacto, footer
+- [x] Responsive de 360px a escritorio, con menú hamburguesa
 
 Falta:
 
-- [ ] **Responsive** — hoy la landing está pensada a 1440px y no baja a móvil.
-      Es lo próximo y no es menor: la mayoría entra desde el celular.
 - [ ] Página de resultados con filtros (`/[locale]/propiedades`)
 - [ ] Ficha de propiedad (`/[locale]/propiedades/[slug]`) — las tarjetas ya
       enlazan ahí, así que hoy esos enlaces dan 404

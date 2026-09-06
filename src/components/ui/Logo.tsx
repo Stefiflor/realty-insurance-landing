@@ -41,7 +41,13 @@ export function LogoMark({
   );
 }
 
-/** Logo completo: isotipo más el nombre del estudio. */
+/**
+ * Logo completo: isotipo más el nombre del estudio.
+ *
+ * En pantallas muy angostas la bajada "ESTUDIO INMOBILIARIO" se oculta y queda
+ * sólo el isotipo con "MD": el nombre completo se come el ancho que necesita el
+ * botón de menú.
+ */
 export function Logo({
   size = 32,
   className,
@@ -52,11 +58,15 @@ export function Logo({
   holeClassName?: string;
 }) {
   return (
-    <div className={cn("flex items-center gap-3.5", className)}>
-      <LogoMark size={size} holeClassName={holeClassName} />
-      <div className="border-l border-hair-strong pl-3.5">
-        <div className="text-[15px] font-bold leading-tight tracking-[0.16em]">MD</div>
-        <div className="mt-0.5 font-mono text-[8px] font-medium tracking-[0.18em] text-brand">
+    <div className={cn("flex items-center gap-2.5 lg:gap-3.5", className)}>
+      <LogoMark size={size} holeClassName={holeClassName} className="shrink-0" />
+      <div className="border-l border-hair-strong pl-2.5 lg:pl-3.5">
+        <div className="text-[14px] font-bold leading-tight tracking-[0.16em] lg:text-[15px]">
+          MD
+        </div>
+        {/* Es una bajada decorativa que replica el logo impreso, no texto de
+            lectura: por eso puede ir por debajo del piso de 11px. */}
+        <div className="mt-0.5 hidden font-mono text-[8.5px] font-medium tracking-[0.16em] text-brand sm:block">
           ESTUDIO INMOBILIARIO
         </div>
       </div>
