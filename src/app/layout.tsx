@@ -34,6 +34,20 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  /*
+   * Base para resolver las URLs relativas de `canonical` y `hreflang`. Sin
+   * esto Next omite los `hreflang` en silencio y Google no entiende que las
+   * tres versiones de idioma son la misma página.
+   *
+   * En Vercel `VERCEL_PROJECT_PRODUCTION_URL` ya viene seteada; en local cae a
+   * localhost. Cuando haya dominio propio, ponelo en NEXT_PUBLIC_SITE_URL.
+   */
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : "http://localhost:3000"),
+  ),
   title: {
     default: "MD Estudio Inmobiliario",
     template: "%s · MD Estudio Inmobiliario",

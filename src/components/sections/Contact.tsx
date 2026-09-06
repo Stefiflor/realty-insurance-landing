@@ -1,0 +1,145 @@
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { WhatsappButton } from "@/components/ui/WhatsappButton";
+import { WhatsappGlyph } from "@/components/ui/Icon";
+import { whatsappLink, intentMessage } from "@/lib/domain/whatsapp";
+import { ENQUIRY_INTENTS } from "@/lib/domain/types";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import type { Locale } from "@/lib/i18n/config";
+
+/** Número tal como se muestra, o el placeholder si todavía no está cargado. */
+function displayPhone(pending: string): string {
+  const raw = process.env.NEXT_PUBLIC_WHATSAPP_PHONE;
+  if (!raw) return pending;
+
+  // "5491123456789" -> "+54 9 11 2345-6789" para los números argentinos;
+  // el resto se muestra con un + adelante y sin más formato.
+  const ar = raw.match(/^54(9)?(\d{2,4})(\d{4})(\d{4})$/);
+  if (ar) {
+    const [, nine, area, first, second] = ar;
+    return `+54 ${nine ? "9 " : ""}${area} ${first}-${second}`;
+  }
+  return `+${raw}`;
+}
+
+/**
+ * Contacto.
+ *
+ * No hay formulario: el estudio atiende por WhatsApp. La tarjeta de la derecha
+ * es una muestra de conversación —no un chat real— para que se entienda de qué
+ * va antes de hacer clic. Los chips de intención abren el chat con distinto
+ * mensaje precargado según lo que la persona busca.
+ */
+export function Contact({ locale }: { locale: Locale }) {
+  const t = getDictionary(locale);
+  const phone = displayPhone(t.contact.numberPending);
+
+  return (
+    <section id="contacto" className="relative scroll-mt-20 overflow-hidden px-14 py-26">
+      <div
+        aria-hidden="true"
+        className="animate-mesh-alt absolute -bottom-85 -left-50 size-190 rounded-full bg-[radial-gradient(circle,var(--mesh-2)_0%,transparent_66%)] blur-[120px]"
+      />
+
+      <div className="relative grid grid-cols-[minmax(0,1fr)_440px] items-center gap-20">
+        <div>
+          <SectionHeading kicker={t.contact.kicker} title={t.contact.title}>
+            <p className="mt-4.5 mb-9 max-w-[460px] text-[16.5px] leading-[1.68] font-light text-dim">
+              {t.contact.sub}
+            </p>
+          </SectionHeading>
+
+          {/* chips de intención: cada uno abre el chat con otro mensaje */}
+          <div className="flex max-w-[560px] flex-wrap gap-2.5">
+            {ENQUIRY_INTENTS.map((intent) => {
+              const href = whatsappLink(intentMessage(intent, locale));
+              const label = t.contact.intents[intent];
+              const className =
+                "flex items-center gap-2.5 rounded-full border border-hair-strong bg-glass px-4.5 py-2.5 text-[13.5px] font-normal text-dim backdrop-blur-md transition-all duration-[350ms] ease-(--ease-brand) hover:-translate-y-0.5 hover:border-brand/40 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+
+              const content = (
+                <>
+                  <span className="size-[5px] rounded-full bg-brand" aria-hidden="true" />
+                  {label}
+                </>
+              );
+
+              return href ? (
+                <a
+                  key={intent}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {content}
+                </a>
+              ) : (
+                <span key={intent} className={className}>
+                  {content}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* tarjeta de WhatsApp */}
+        <div className="animate-rise relative overflow-hidden rounded-md border border-hair-strong bg-surface p-9 shadow-xl">
+          <div
+            aria-hidden="true"
+            className="absolute -top-20 -right-20 size-55 rounded-full bg-[radial-gradient(circle,rgb(37_211_102/0.22),transparent_70%)] blur-[60px]"
+          />
+
+          <div className="relative">
+            <div className="mb-6 flex items-center gap-3.5">
+              <div className="relative flex size-11.5 items-center justify-center rounded-full bg-whatsapp text-whatsapp-ink">
+                <span
+                  aria-hidden="true"
+                  className="animate-pulse-ring absolute inset-0 rounded-full bg-whatsapp"
+                />
+                <WhatsappGlyph size={23} className="relative" />
+              </div>
+              <div>
+                <div className="text-[18px] font-medium tracking-[-0.01em]">
+                  {t.contact.waTitle}
+                </div>
+                <div className="mt-0.5 flex items-center gap-1.5 text-[12.5px] text-faint">
+                  <span className="size-[5px] rounded-full bg-whatsapp" aria-hidden="true" />
+                  {t.contact.waStatus}
+                </div>
+              </div>
+            </div>
+
+            {/* conversación de muestra */}
+            <div className="mb-6 flex flex-col gap-2.5">
+              <div className="max-w-[84%] self-end rounded-[14px_14px_4px_14px] bg-brand-soft px-3.5 py-2.5 text-[14px] leading-normal font-light text-brand">
+                {t.contact.waSample.from}
+              </div>
+              <div className="max-w-[84%] self-start rounded-[14px_14px_14px_4px] bg-hair px-3.5 py-2.5 text-[14px] leading-normal font-light">
+                {t.contact.waSample.reply}
+              </div>
+            </div>
+
+            <div className="mb-5 rounded-[5px] border border-dashed border-hair-strong px-4.5 py-3.5">
+              <div className="mb-1.5 font-mono text-[9.5px] tracking-[0.16em] text-faint">
+                {t.contact.waNumberLabel}
+              </div>
+              <div className="text-[20px] font-normal tracking-[-0.01em]">{phone}</div>
+            </div>
+
+            <WhatsappButton
+              message={intentMessage("comprar", locale)}
+              size="lg"
+              className="w-full"
+            >
+              {t.contact.waCta}
+            </WhatsappButton>
+
+            <div className="mt-3.5 text-center text-[12px] font-light text-faint">
+              {t.contact.waNote}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

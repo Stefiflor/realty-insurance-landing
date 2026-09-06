@@ -44,11 +44,16 @@ diseño sin tocar Supabase.
 design/                      El canvas de diseño (ver "Diseño" abajo)
 supabase/schema.sql          Esquema de la base + políticas RLS
 src/
+  proxy.ts                   Detecta idioma del navegador y redirige a /es|/en|/pt
   app/
     globals.css              TOKENS DE DISEÑO. Empezá por acá.
-    layout.tsx               Fuentes, tema, metadata
-    page.tsx                 Banco de pruebas del design system (temporal)
+    layout.tsx               Fuentes, tema, metadataBase
+    [locale]/layout.tsx      Metadata por idioma (canonical + hreflang)
+    [locale]/page.tsx        La landing: trae los datos y ensambla las secciones
   components/
+    sections/                Secciones de la landing, en orden de aparición
+    property/                Tarjeta y fila de propiedad
+    layout/                  Header, footer, botón flotante, selector de idioma
     ui/                      Primitivos: Button, Badge, Card, Icon, Logo…
     theme/                   Claro/oscuro
   lib/
@@ -59,6 +64,17 @@ src/
     i18n/                    Diccionarios ES / EN / PT
     hooks/                   Hooks compartidos
 ```
+
+### Cómo fluyen los datos en la landing
+
+`[locale]/page.tsx` es un Server Component: trae de la base las destacadas de
+**las cuatro operaciones a la vez** y se las pasa ya agrupadas a
+`<PropertyShowcase>`. Por eso cambiar de pestaña en el buscador es instantáneo
+— no hay consulta al servidor, sólo un cambio de estado.
+
+`<PropertyShowcase>` es el único componente cliente grande, porque el buscador y
+la grilla comparten la operación elegida. El resto de las secciones son de
+servidor.
 
 ---
 
@@ -97,6 +113,11 @@ español. Agregar una clave en `es` **rompe el typecheck** hasta que la traduzca
 en `en` y `pt`. Eso es deliberado: no se despliega con textos sin traducir.
 
 Nunca escribas texto visible directo en un componente. Todo sale del diccionario.
+
+**Cuidado con los enums:** los valores de `Operation`, `PropertyKind` y demás
+están en español porque son datos, no interfaz. Nunca los muestres crudos —
+pasalos por el diccionario (`t.properties.kinds[property.kind]`). Si no, un
+visitante inglés ve "DEPARTAMENTO".
 
 ### 4. WhatsApp es el único canal de contacto
 
@@ -177,16 +198,26 @@ como es, con relleno.
 
 ## Pendientes
 
-Lo que falta para completar el sitio:
+Hecho:
 
-- [ ] Landing real en `/[locale]/page.tsx` (hoy `page.tsx` es un banco de pruebas)
-- [ ] Listado con filtros
-- [ ] Ficha de propiedad
+- [x] Base, design system y capa de datos
+- [x] Detección de idioma y rutas `/es`, `/en`, `/pt`
+- [x] Landing completa: hero, marquesina, buscador, propiedades, servicios,
+      coberturas, contacto, footer
+
+Falta:
+
+- [ ] **Responsive** — hoy la landing está pensada a 1440px y no baja a móvil.
+      Es lo próximo y no es menor: la mayoría entra desde el celular.
+- [ ] Página de resultados con filtros (`/[locale]/propiedades`)
+- [ ] Ficha de propiedad (`/[locale]/propiedades/[slug]`) — las tarjetas ya
+      enlazan ahí, así que hoy esos enlaces dan 404
 - [ ] Panel: login, tabla de propiedades, alta/edición, directorio de seguros
-- [ ] Middleware de idioma (detectar y redirigir a `/es`, `/en`, `/pt`)
+- [ ] Registrar las consultas en la tabla `enquiries` al hacer clic en WhatsApp
 - [ ] Cargar datos reales del estudio en Supabase
 - [ ] Reemplazar los placeholders: `[TU NÚMERO]`, `[MATRÍCULA]`
-- [ ] Sección "Estudio" — el nav ya la enlaza, falta decidir el contenido con el cliente
+- [ ] Sección "Estudio" — el nav ya la enlaza, falta decidir el contenido
+- [ ] Términos y privacidad — el footer los enlaza, falta el texto legal
 
 ### Decisiones abiertas con el cliente
 

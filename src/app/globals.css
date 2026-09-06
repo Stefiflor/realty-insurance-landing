@@ -47,6 +47,11 @@
   --scan: rgb(62 142 150 / 0.35);
   --img-veil: rgb(18 24 27 / 0.32);
 
+  /* Placeholder de la foto de portada, hasta que el estudio entregue la real. */
+  --hero-img-a: #c3cfd3;
+  --hero-img-b: #93a3aa;
+  --hero-img-c: #6b7b83;
+
   /* --- estados --- */
   --state-live-bg: rgb(62 142 150 / 0.12);
   --state-live-fg: #2c6b72;
@@ -90,6 +95,10 @@
   --grid-line: rgb(234 240 241 / 0.05);
   --scan: rgb(95 180 188 / 0.5);
   --img-veil: rgb(10 14 16 / 0.6);
+
+  --hero-img-a: #2b3a40;
+  --hero-img-b: #1b262b;
+  --hero-img-c: #10171a;
 
   --state-live-bg: rgb(62 142 150 / 0.2);
   --state-live-fg: #6fbec6;
