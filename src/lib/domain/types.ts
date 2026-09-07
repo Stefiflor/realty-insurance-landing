@@ -143,6 +143,11 @@ export const LOCALES = ["es", "en", "pt"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "es";
 
+/** Criterio de orden del listado. */
+export const SORT_OPTIONS = ["recent", "priceAsc", "priceDesc"] as const;
+export type SortOption = (typeof SORT_OPTIONS)[number];
+export const DEFAULT_SORT: SortOption = "recent";
+
 /** Filtros del buscador. Todo es opcional: sin filtros se listan todas. */
 export interface PropertyFilters {
   operation?: Operation;
@@ -153,4 +158,5 @@ export interface PropertyFilters {
   currency?: Currency;
   /** Sólo propiedades con cobertura asignada. */
   insuredOnly?: boolean;
+  sort?: SortOption;
 }

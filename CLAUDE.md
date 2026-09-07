@@ -65,6 +65,21 @@ src/
     hooks/                   Hooks compartidos
 ```
 
+### Los filtros viven en la URL
+
+El listado (`/[locale]/propiedades`) guarda su estado en la barra de
+direcciones, no en React: `?operacion=alquiler&ciudad=CABA&seguro=1`.
+
+Es a propósito. Una búsqueda así se puede pasar por WhatsApp, guardar en
+favoritos y deshacer con el botón de atrás — cosas que la gente espera de un
+buscador de propiedades y que un `useState` rompe. Además la página se
+renderiza ya filtrada en el servidor: no hay parpadeo de carga.
+
+La traducción entre URL y objeto vive en `src/lib/domain/filters.ts`. Los
+nombres de los parámetros están en español y **cambiarlos invalida los enlaces
+ya compartidos**. Todo valor que no se reconoce se descarta en silencio: la URL
+la escribe cualquiera y no puede romper la página.
+
 ### Cómo fluyen los datos en la landing
 
 `[locale]/page.tsx` es un Server Component: trae de la base las destacadas de
@@ -265,12 +280,17 @@ Hecho:
 - [x] Ficha de propiedad con galería, cobertura asociada, similares,
       metadata propia y datos estructurados para buscadores
 - [x] Página 404 propia
+- [x] Listado con filtros por operación, tipo, ciudad, precio y seguro,
+      con las búsquedas compartibles por URL
 
 Falta:
 
 - [ ] **Conectar Supabase** — el schema y los datos de ejemplo están listos
       en `supabase/`; falta crear el proyecto y cargar las claves
-- [ ] Página de resultados con filtros (`/[locale]/propiedades`)
+- [ ] Paginación del listado (hoy trae hasta 60 y alcanza; con cientos de
+      propiedades hará falta)
+- [ ] Los tres campos del buscador de la home son maqueta: sólo la operación
+      viaja al listado. Falta conectar ubicación, tipo y presupuesto.
 - [ ] Panel: login, tabla de propiedades, alta/edición, directorio de seguros
 - [ ] Registrar las consultas en la tabla `enquiries` al hacer clic en WhatsApp
 - [ ] Mapa real en la ficha (hoy hay un marcador; falta cargar coordenadas)

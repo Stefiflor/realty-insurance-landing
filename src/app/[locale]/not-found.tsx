@@ -37,7 +37,7 @@ export default function NotFound() {
           {t.property.notFoundSub}
         </p>
 
-        <Button as={Link} href={`/${DEFAULT_LOCALE}#propiedades`} variant="primary" size="lg">
+        <Button as={Link} href={`/${DEFAULT_LOCALE}/propiedades`} variant="primary" size="lg">
           {t.property.notFoundCta}
           <Icon name="arrow-right" size={16} strokeWidth={2.2} />
         </Button>

@@ -13,12 +13,13 @@ import type { Locale } from "@/lib/i18n/config";
 const SERVICES: Array<{
   key: "venta" | "alquiler" | "terreno" | "seguro";
   icon: IconName;
-  href: string;
+  /** Ruta relativa al idioma; se completa en el componente. */
+  href: (locale: Locale) => string;
 }> = [
-  { key: "venta", icon: "sale", href: "#propiedades" },
-  { key: "alquiler", icon: "key", href: "#propiedades" },
-  { key: "terreno", icon: "land", href: "#propiedades" },
-  { key: "seguro", icon: "shield", href: "#seguros" },
+  { key: "venta", icon: "sale", href: (l) => `/${l}/propiedades?operacion=venta` },
+  { key: "alquiler", icon: "key", href: (l) => `/${l}/propiedades?operacion=alquiler` },
+  { key: "terreno", icon: "land", href: (l) => `/${l}/propiedades?operacion=terreno` },
+  { key: "seguro", icon: "shield", href: () => "#seguros" },
 ];
 
 export function Services({ locale }: { locale: Locale }) {
@@ -44,7 +45,7 @@ export function Services({ locale }: { locale: Locale }) {
           return (
             <a
               key={service.key}
-              href={service.href}
+              href={service.href(locale)}
               className="group animate-rise relative block overflow-hidden rounded-[5px] border border-hair bg-surface px-6.5 pt-7.5 pb-7 shadow-sm transition-transform duration-[600ms] ease-(--ease-brand) hover:-translate-y-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               style={{ animationDelay: `${0.07 * i}s` }}
             >

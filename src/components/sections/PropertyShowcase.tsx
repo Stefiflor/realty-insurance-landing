@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { PropertyCard, PropertyRow } from "@/components/property/PropertyCard";
 import { SearchBar } from "./SearchBar";
+import { Button } from "@/components/ui/Button";
+import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/cn";
 import { usePointerGlow } from "@/lib/hooks/usePointerGlow";
@@ -87,6 +90,20 @@ export function PropertyShowcase({
             ))}
           </div>
         )}
+
+        {/* La home muestra sólo tres destacadas por operación: el catálogo
+            completo con filtros vive en su propia página. */}
+        <div className="mt-9 flex justify-center">
+          <Button
+            as={Link}
+            href={`/${locale}/propiedades?operacion=${operation}`}
+            variant="ghost"
+            size="md"
+          >
+            {t.listing.title}
+            <Icon name="arrow-right" size={16} strokeWidth={2.2} />
+          </Button>
+        </div>
       </section>
     </>
   );

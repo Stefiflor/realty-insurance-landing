@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/cn";
 import { OPERATIONS, type Operation } from "@/lib/domain/types";
@@ -88,8 +89,11 @@ export function SearchBar({
             ))}
           </div>
 
-          <button
-            type="button"
+          {/* Lleva al listado con la operación elegida ya aplicada. Los tres
+              campos de arriba son maqueta; se activan cuando el listado los
+              soporte desde acá. */}
+          <Link
+            href={`/${locale}/propiedades?operacion=${operation}`}
             className={cn(
               "btn-shimmer relative flex cursor-pointer items-center justify-center gap-2.5 overflow-hidden",
               "bg-brand py-4 text-[15px] font-semibold text-white lg:px-9.5 lg:py-0",
@@ -98,7 +102,7 @@ export function SearchBar({
           >
             <Icon name="search" size={17} strokeWidth={2.3} className="relative z-[2]" />
             <span className="relative z-[2]">{t.search.action}</span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

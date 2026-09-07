@@ -167,7 +167,7 @@ export default async function PropertyPage({ params }: { params: Promise<Params>
       <main className="px-6 pt-8 pb-20 md:px-10 lg:px-14">
         {/* volver */}
         <Link
-          href={`/${locale}#propiedades`}
+          href={`/${locale}/propiedades`}
           className="mb-4 -ml-2 inline-flex items-center gap-2 rounded px-2 py-2.5 text-[13.5px] font-light text-dim transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         >
           <Icon name="chevron-left" size={15} strokeWidth={2} />

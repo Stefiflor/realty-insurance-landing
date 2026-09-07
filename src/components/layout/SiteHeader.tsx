@@ -20,7 +20,15 @@ import type { Locale } from "@/lib/i18n/config";
  */
 export function SiteHeader({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
-  const anchors = ["#propiedades", "#propiedades", "#propiedades", "#seguros", "#contacto"];
+  // Mismo orden que `nav.links` del diccionario:
+  // Propiedades · Alquileres · Terrenos · Seguros · Estudio
+  const anchors = [
+    `/${locale}/propiedades`,
+    `/${locale}/propiedades?operacion=alquiler`,
+    `/${locale}/propiedades?operacion=terreno`,
+    `/${locale}#seguros`,
+    `/${locale}#contacto`,
+  ];
 
   return (
     <header className="sticky top-0 z-40 border-b border-hair bg-nav backdrop-blur-xl">

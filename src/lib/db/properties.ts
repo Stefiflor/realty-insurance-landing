@@ -7,10 +7,12 @@ import {
   type InsuranceProductRow,
   type PropertyRow,
 } from "./mappers";
-import type {
-  InsuranceProduct,
-  Property,
-  PropertyFilters,
+import {
+  DEFAULT_SORT,
+  type InsuranceProduct,
+  type Property,
+  type PropertyFilters,
+  type SortOption,
 } from "@/lib/domain/types";
 
 /**
@@ -35,14 +37,40 @@ function filterLocally(list: Property[], filters: PropertyFilters): Property[] {
   });
 }
 
-/** Propiedades publicadas que cumplen los filtros, más recientes primero. */
+/**
+ * Ordena una lista ya filtrada.
+ *
+ * Ojo con el precio: hay propiedades en pesos y en dólares, y comparar los
+ * números crudos mezclaría un alquiler de $340.000 con una casa de USD 189.000.
+ * Se agrupa por moneda —USD primero, que es la de las operaciones grandes— y
+ * dentro de cada grupo se ordena por importe.
+ */
+function sortLocally(list: Property[], sort: SortOption): Property[] {
+  const out = list.slice();
+
+  if (sort === "recent") {
+    return out.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  }
+
+  const direction = sort === "priceAsc" ? 1 : -1;
+  return out.sort((a, b) => {
+    if (a.price.currency !== b.price.currency) {
+      return a.price.currency === "USD" ? -1 : 1;
+    }
+    return (a.price.amount - b.price.amount) * direction;
+  });
+}
+
+/** Propiedades publicadas que cumplen los filtros. */
 export async function listProperties(
   filters: PropertyFilters = {},
-  limit = 24,
+  limit = 60,
 ): Promise<Property[]> {
+  const sort = filters.sort ?? DEFAULT_SORT;
+
   if (!isSupabaseConfigured) {
     const published = PROPERTY_FIXTURES.filter((p) => p.state === "publicado");
-    return filterLocally(published, filters).slice(0, limit);
+    return sortLocally(filterLocally(published, filters), sort).slice(0, limit);
   }
 
   const supabase = await createClient();
@@ -50,7 +78,6 @@ export async function listProperties(
     .from("properties")
     .select(PROPERTY_SELECT)
     .eq("state", "publicado")
-    .order("created_at", { ascending: false })
     .limit(limit);
 
   if (filters.operation) query = query.eq("operation", filters.operation);
@@ -61,10 +88,39 @@ export async function listProperties(
   if (filters.maxPrice != null) query = query.lte("price_amount", filters.maxPrice);
   if (filters.insuredOnly) query = query.not("insurance_product_id", "is", null);
 
+  // El orden por precio se resuelve en memoria por el tema de las monedas
+  // (ver `sortLocally`); el resto lo hace Postgres.
+  if (sort === "recent") query = query.order("created_at", { ascending: false });
+
   const { data, error } = await query;
   if (error) throw new Error(`No se pudieron leer las propiedades: ${error.message}`);
 
-  return (data as unknown as PropertyRow[]).map(mapProperty);
+  const properties = (data as unknown as PropertyRow[]).map(mapProperty);
+  return sort === "recent" ? properties : sortLocally(properties, sort);
+}
+
+/**
+ * Ciudades con al menos una propiedad publicada, para poblar el filtro de
+ * ubicación. Se leen de los datos en vez de mantener una lista fija: así el
+ * filtro nunca ofrece una ciudad sin resultados.
+ */
+export async function listCities(): Promise<string[]> {
+  if (!isSupabaseConfigured) {
+    const cities = PROPERTY_FIXTURES.filter((p) => p.state === "publicado").map(
+      (p) => p.location.city,
+    );
+    return [...new Set(cities)].sort((a, b) => a.localeCompare(b, "es"));
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("properties")
+    .select("city")
+    .eq("state", "publicado");
+
+  if (error) throw new Error(`No se pudieron leer las ciudades: ${error.message}`);
+  const cities = (data as { city: string }[]).map((row) => row.city);
+  return [...new Set(cities)].sort((a, b) => a.localeCompare(b, "es"));
 }
 
 /** Las destacadas de una operación, para la home. */
