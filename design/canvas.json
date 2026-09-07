@@ -1,0 +1,31 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 3760, "title": "Landing", "is_interactive": true },
+    { "file": "Admin.dc.html", "x": 1600, "y": 0, "w": 1440, "h": 1020, "title": "Panel de gestión", "is_interactive": true },
+    { "file": "Icon.dc.html", "x": 1600, "y": 1220, "w": 220, "h": 140, "title": "Set de íconos" }
+  ],
+  "annotations": [
+    {
+      "id": "nota-visual",
+      "x": 0,
+      "y": -230,
+      "w": 660,
+      "text": "Nivel visual subido: gradiente mesh animado en el hero, grilla técnica que respira,\nlínea de escaneo, títulos que se revelan por máscara, marquesina infinita,\ntarjetas con brillo que sigue al cursor, esquinas técnicas, números fantasma\nen los servicios y sparklines dibujadas en el panel.\n\nTipografía nueva: Sora (geométrica, contemporánea) + Instrument Serif en itálica\npara el acento del hero + JetBrains Mono para las etiquetas técnicas.\nEl teal del logo se mantiene: la sofisticación viene de la ejecución."
+    },
+    {
+      "id": "nota-whatsapp",
+      "x": 1600,
+      "y": -230,
+      "w": 600,
+      "text": "Contacto: WhatsApp como canal único, sin formulario.\nBotón en el nav, en el hero, botón flotante abajo a la derecha,\ny la sección de contacto es una simulación de conversación real.\nEn el panel se ve el contador de consultas sin responder.\n\nProbá: ES / EN / PT traduce todo, el sol/luna cambia a oscuro,\nlas pestañas del buscador y el conmutador Grilla / Lista.\nEn el panel, las pestañas de estado y el menú lateral.\nPasá el cursor por las tarjetas para ver el brillo que sigue al mouse."
+    },
+    {
+      "id": "nota-siguiente",
+      "x": 1600,
+      "y": 1440,
+      "w": 560,
+      "text": "Falta completar: [TU NÚMERO] de WhatsApp y [MATRÍCULA].\nLas propiedades, los datos y la conversación son de muestra.\n\nSi te cierra, sigo con: resultados con filtros, ficha de propiedad,\nversión móvil, alta/edición de propiedad y directorio de aseguradoras."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}
