@@ -26,9 +26,12 @@ import type { Locale } from "@/lib/i18n/config";
 export function PropertyShowcase({
   locale,
   propertiesByOperation,
+  cities,
 }: {
   locale: Locale;
   propertiesByOperation: Record<Operation, Property[]>;
+  /** Ciudades con propiedades publicadas, para el buscador. */
+  cities: string[];
 }) {
   const t = getDictionary(locale);
   const [operation, setOperation] = useState<Operation>("venta");
@@ -40,7 +43,12 @@ export function PropertyShowcase({
 
   return (
     <>
-      <SearchBar locale={locale} operation={operation} onOperationChange={setOperation} />
+      <SearchBar
+        locale={locale}
+        operation={operation}
+        onOperationChange={setOperation}
+        cities={cities}
+      />
 
       <section id="propiedades" className="scroll-mt-20 px-6 pt-18 md:px-10 lg:px-14 lg:pt-27.5">
         <div className="mb-9.5 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end sm:gap-0">

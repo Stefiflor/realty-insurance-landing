@@ -8,7 +8,12 @@ import { Insurance } from "@/components/sections/Insurance";
 import { PropertyShowcase } from "@/components/sections/PropertyShowcase";
 import { Services } from "@/components/sections/Services";
 import { Ticker } from "@/components/sections/Ticker";
-import { countPublished, listFeatured, listInsuranceProducts } from "@/lib/db/properties";
+import {
+  countPublished,
+  listCities,
+  listFeatured,
+  listInsuranceProducts,
+} from "@/lib/db/properties";
 import { OPERATIONS, type Operation, type Property } from "@/lib/domain/types";
 import { isLocale } from "@/lib/i18n/config";
 import { notFound } from "next/navigation";
@@ -22,10 +27,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
    * Así cambiar de pestaña en el buscador es instantáneo: no hay ida y vuelta
    * al servidor, sólo un cambio de estado en el cliente.
    */
-  const [featuredByOperation, insurance, propertyCount] = await Promise.all([
+  const [featuredByOperation, insurance, propertyCount, cities] = await Promise.all([
     Promise.all(OPERATIONS.map((operation) => listFeatured(operation, 3))),
     listInsuranceProducts(),
     countPublished(),
+    listCities(),
   ]);
 
   const propertiesByOperation = Object.fromEntries(
@@ -40,7 +46,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <main>
         <Hero locale={locale} propertyCount={propertyCount} />
         <Ticker locale={locale} />
-        <PropertyShowcase locale={locale} propertiesByOperation={propertiesByOperation} />
+        <PropertyShowcase
+          locale={locale}
+          propertiesByOperation={propertiesByOperation}
+          cities={cities}
+        />
         <Services locale={locale} />
         <Insurance locale={locale} products={insurance} />
         <Contact locale={locale} />

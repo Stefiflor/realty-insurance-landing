@@ -282,19 +282,40 @@ Hecho:
 - [x] Página 404 propia
 - [x] Listado con filtros por operación, tipo, ciudad, precio y seguro,
       con las búsquedas compartibles por URL
+- [x] `sitemap.xml` y `robots.txt`
+- [x] Buscador de la home conectado al catálogo (los cuatro campos)
+- [x] Botón de compartir en la ficha
 
 Falta:
 
 - [ ] **Conectar Supabase** — el schema y los datos de ejemplo están listos
-      en `supabase/`; falta crear el proyecto y cargar las claves
+      en `supabase/`; falta crear el proyecto y cargar las claves.
+      **Bloquea el panel**: sin base no hay nada que guardar.
+- [ ] **Panel de administración** (ver abajo)
 - [ ] Paginación del listado (hoy trae hasta 60 y alcanza; con cientos de
       propiedades hará falta)
-- [ ] Los tres campos del buscador de la home son maqueta: sólo la operación
-      viaja al listado. Falta conectar ubicación, tipo y presupuesto.
-- [ ] Panel: login, tabla de propiedades, alta/edición, directorio de seguros
 - [ ] Registrar las consultas en la tabla `enquiries` al hacer clic en WhatsApp
 - [ ] Mapa real en la ficha (hoy hay un marcador; falta cargar coordenadas)
-- [ ] `sitemap.xml` y `robots.txt`
+- [ ] Optimizar imágenes con `next/image` cuando haya fotos reales (hoy se usa
+      `<img>` porque el host de Supabase Storage debe declararse en
+      `next.config.ts`)
+- [ ] Sección "Estudio" — falta material del cliente sobre su trayectoria
+
+### El panel, ya definido con el cliente
+
+Decisiones tomadas, para que quien lo construya no tenga que volver a preguntar:
+
+- **Roles diferenciados**: un administrador que puede todo, y colaboradores que
+  cargan propiedades pero no publican ni borran. El estado `publicado` es el
+  que separa un permiso del otro.
+- **Alcance completo**: propiedades con fotos, catálogo de seguros y sus
+  asignaciones, y la vista de consultas recibidas por WhatsApp con la propiedad
+  de la que salieron.
+- Vive bajo `/admin`, fuera de `[locale]`: es interno y va sólo en español.
+  `robots.txt` ya lo excluye de los buscadores.
+- Las políticas RLS de `supabase/schema.sql` hoy dan permiso total a cualquier
+  usuario autenticado. **Hay que afinarlas para los dos roles** antes de dar
+  acceso a un colaborador.
 - [ ] Reemplazar los placeholders: `[TU NÚMERO]`, `[MATRÍCULA]`
 - [ ] Sección "Estudio" — el nav ya la enlaza, falta decidir el contenido
 - [ ] Términos y privacidad — el footer los enlaza, falta el texto legal

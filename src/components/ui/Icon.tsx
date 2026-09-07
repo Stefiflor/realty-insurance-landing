@@ -34,7 +34,9 @@ export type IconName =
   | "trend-up"
   | "trend-down"
   | "menu"
-  | "close";
+  | "close"
+  | "share"
+  | "check";
 
 const PATHS: Record<IconName, React.ReactNode> = {
   sale: (
@@ -186,6 +188,16 @@ const PATHS: Record<IconName, React.ReactNode> = {
       <path d="M18 6L6 18" />
     </>
   ),
+  share: (
+    <>
+      <circle cx="18" cy="5" r="2.6" />
+      <circle cx="6" cy="12" r="2.6" />
+      <circle cx="18" cy="19" r="2.6" />
+      <path d="M8.3 10.8l7.4-4.3" />
+      <path d="M15.7 17.5l-7.4-4.3" />
+    </>
+  ),
+  check: <path d="M4 12.5l5 5L20 6.5" />,
 };
 
 interface IconProps {

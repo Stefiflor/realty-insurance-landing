@@ -198,6 +198,8 @@ export const es = {
     notFoundSub:
       "Puede que se haya vendido, alquilado o dado de baja. Mirá el resto de las publicaciones.",
     notFoundCta: "Ver propiedades",
+    share: "Compartir",
+    shareCopied: "Enlace copiado",
   },
   footer: {
     licence: "MD ESTUDIO INMOBILIARIO · [MATRÍCULA]",
@@ -412,6 +414,8 @@ export const en: Dictionary = {
     notFoundSub:
       "It may have been sold, rented or taken down. Have a look at the rest of our listings.",
     notFoundCta: "Browse properties",
+    share: "Share",
+    shareCopied: "Link copied",
   },
   footer: {
     licence: "MD ESTUDIO INMOBILIARIO · [LICENCE]",
@@ -606,6 +610,8 @@ export const pt: Dictionary = {
     notFoundSub:
       "Pode ter sido vendido, alugado ou removido. Veja o resto das publicações.",
     notFoundCta: "Ver imóveis",
+    share: "Compartilhar",
+    shareCopied: "Link copiado",
   },
   footer: {
     licence: "MD ESTUDIO INMOBILIARIO · [REGISTRO]",

@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { WhatsappFab } from "@/components/layout/WhatsappFab";
 import { Gallery } from "@/components/property/Gallery";
 import { PropertyCard } from "@/components/property/PropertyCard";
+import { ShareButton } from "@/components/property/ShareButton";
 import { Badge } from "@/components/ui/Badge";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { WhatsappButton } from "@/components/ui/WhatsappButton";
@@ -194,9 +195,16 @@ export default async function PropertyPage({ params }: { params: Promise<Params>
               {property.title}
             </h1>
 
-            <div className="flex items-center gap-2 text-[15px] font-light text-dim">
-              <Icon name="pin" size={16} />
-              {formatLocation(property)}, {property.location.province}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <div className="flex items-center gap-2 text-[15px] font-light text-dim">
+                <Icon name="pin" size={16} />
+                {formatLocation(property)}, {property.location.province}
+              </div>
+              <ShareButton
+                title={property.title}
+                label={t.property.share}
+                copiedLabel={t.property.shareCopied}
+              />
             </div>
           </div>
 
