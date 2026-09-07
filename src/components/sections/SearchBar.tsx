@@ -28,6 +28,36 @@ import type { Locale } from "@/lib/i18n/config";
 /** Topes de precio ofrecidos, en dólares. Mismos que el filtro del catálogo. */
 const PRICE_STEPS = [50_000, 100_000, 150_000, 200_000, 300_000];
 
+const SELECT_CLASS = cn(
+  "w-full cursor-pointer appearance-none bg-transparent pr-6 text-[15px] font-light text-ink",
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand",
+);
+
+/**
+ * Campo con su etiqueta y la flecha del desplegable.
+ *
+ * Fuera del componente a propósito: definido adentro, React lo trataría como un
+ * componente nuevo en cada render y perdería el foco del `select` al escribir.
+ */
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="border-b border-hair px-5 py-4 last:border-b-0 sm:border-r sm:border-b-0 sm:px-6 sm:py-4.5">
+      <div className="mb-2 font-mono text-[11px] tracking-[0.14em] text-faint sm:text-[9.5px] sm:tracking-[0.16em]">
+        {label}
+      </div>
+      <div className="relative flex items-center">
+        {children}
+        <Icon
+          name="chevron-down"
+          size={13}
+          strokeWidth={2}
+          className="pointer-events-none absolute right-0 text-faint"
+        />
+      </div>
+    </div>
+  );
+}
+
 export function SearchBar({
   locale,
   operation,
@@ -55,31 +85,6 @@ export function SearchBar({
       maxPrice: Number(maxPrice) || undefined,
     });
     router.push(`/${locale}/propiedades${query}`);
-  }
-
-  const selectClass = cn(
-    "w-full cursor-pointer appearance-none bg-transparent pr-6 text-[15px] font-light text-ink",
-    "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand",
-  );
-
-  const labelClass = "mb-2 font-mono text-[11px] tracking-[0.14em] text-faint sm:text-[9.5px] sm:tracking-[0.16em]";
-
-  /** Campo con su etiqueta y la flecha del desplegable. */
-  function Field({ label, children }: { label: string; children: React.ReactNode }) {
-    return (
-      <div className="border-b border-hair px-5 py-4 last:border-b-0 sm:border-r sm:border-b-0 sm:px-6 sm:py-4.5">
-        <div className={labelClass}>{label}</div>
-        <div className="relative flex items-center">
-          {children}
-          <Icon
-            name="chevron-down"
-            size={13}
-            strokeWidth={2}
-            className="pointer-events-none absolute right-0 text-faint"
-          />
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -128,7 +133,7 @@ export function SearchBar({
                 aria-label={t.search.fields.location.label}
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className={cn(selectClass, !city && "text-faint")}
+                className={cn(SELECT_CLASS, !city && "text-faint")}
               >
                 <option value="">{t.search.fields.location.placeholder}</option>
                 {cities.map((option) => (
@@ -144,7 +149,7 @@ export function SearchBar({
                 aria-label={t.search.fields.kind.label}
                 value={kind}
                 onChange={(e) => setKind(e.target.value as PropertyKind | "")}
-                className={cn(selectClass, !kind && "text-faint")}
+                className={cn(SELECT_CLASS, !kind && "text-faint")}
               >
                 <option value="">{t.search.fields.kind.placeholder}</option>
                 {PROPERTY_KINDS.map((option) => (
@@ -160,7 +165,7 @@ export function SearchBar({
                 aria-label={t.search.fields.budget.label}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className={cn(selectClass, !maxPrice && "text-faint")}
+                className={cn(SELECT_CLASS, !maxPrice && "text-faint")}
               >
                 <option value="">{t.search.fields.budget.placeholder}</option>
                 {PRICE_STEPS.map((step) => (

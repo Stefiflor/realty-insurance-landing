@@ -29,6 +29,38 @@ import type { Locale } from "@/lib/i18n/config";
 /** Topes de precio ofrecidos, en dólares. */
 const PRICE_STEPS = [50_000, 100_000, 150_000, 200_000, 300_000];
 
+const SELECT_CLASS = cn(
+  "w-full cursor-pointer appearance-none rounded border border-hair-strong bg-input",
+  "px-3.5 py-3 pr-9 text-[14px] font-light text-ink",
+  "transition-colors hover:border-brand/40",
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+);
+
+/**
+ * Campo con etiqueta y la flecha del desplegable.
+ *
+ * Va fuera del componente a propósito: definido adentro, React lo trataría como
+ * un componente nuevo en cada render y desmontaría los `select` en cada cambio.
+ */
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <span className="mb-2 block font-mono text-[10.5px] tracking-[0.14em] text-faint">
+        {label}
+      </span>
+      <div className="relative">
+        {children}
+        <Icon
+          name="chevron-down"
+          size={14}
+          strokeWidth={2}
+          className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-faint"
+        />
+      </div>
+    </div>
+  );
+}
+
 export function FilterBar({
   locale,
   filters,
@@ -60,33 +92,6 @@ export function FilterBar({
       ? t.listing.resultsOne
       : t.listing.resultsMany.replace("{count}", String(resultCount));
 
-  const selectClass = cn(
-    "w-full cursor-pointer appearance-none rounded border border-hair-strong bg-input",
-    "px-3.5 py-3 pr-9 text-[14px] font-light text-ink",
-    "transition-colors hover:border-brand/40",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
-  );
-
-  const labelClass = "mb-2 block font-mono text-[10.5px] tracking-[0.14em] text-faint";
-
-  /** Envoltura que agrega la flecha del desplegable. */
-  function Field({ label, children }: { label: string; children: React.ReactNode }) {
-    return (
-      <div>
-        <span className={labelClass}>{label}</span>
-        <div className="relative">
-          {children}
-          <Icon
-            name="chevron-down"
-            size={14}
-            strokeWidth={2}
-            className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-faint"
-          />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="mb-9">
       {/* barra: resultados, abrir filtros en móvil, orden */}
@@ -113,7 +118,7 @@ export function FilterBar({
               aria-label={t.listing.sort}
               value={filters.sort ?? "recent"}
               onChange={(e) => update({ sort: e.target.value as PropertyFilters["sort"] })}
-              className={cn(selectClass, "py-2.5 text-[13.5px]")}
+              className={cn(SELECT_CLASS, "py-2.5 text-[13.5px]")}
             >
               {SORT_OPTIONS.map((option) => (
                 <option key={option} value={option}>
@@ -143,7 +148,7 @@ export function FilterBar({
             <select
               value={filters.operation ?? ""}
               onChange={(e) => update({ operation: e.target.value as PropertyFilters["operation"] })}
-              className={selectClass}
+              className={SELECT_CLASS}
             >
               <option value="">{t.listing.all}</option>
               {OPERATIONS.map((operation) => (
@@ -158,7 +163,7 @@ export function FilterBar({
             <select
               value={filters.kind ?? ""}
               onChange={(e) => update({ kind: e.target.value as PropertyFilters["kind"] })}
-              className={selectClass}
+              className={SELECT_CLASS}
             >
               <option value="">{t.listing.all}</option>
               {PROPERTY_KINDS.map((kind) => (
@@ -173,7 +178,7 @@ export function FilterBar({
             <select
               value={filters.city ?? ""}
               onChange={(e) => update({ city: e.target.value })}
-              className={selectClass}
+              className={SELECT_CLASS}
             >
               <option value="">{t.listing.all}</option>
               {cities.map((city) => (
@@ -188,7 +193,7 @@ export function FilterBar({
             <select
               value={filters.maxPrice ?? ""}
               onChange={(e) => update({ maxPrice: Number(e.target.value) || undefined })}
-              className={selectClass}
+              className={SELECT_CLASS}
             >
               <option value="">{t.listing.noPriceLimit}</option>
               {PRICE_STEPS.map((step) => (

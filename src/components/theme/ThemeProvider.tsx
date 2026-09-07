@@ -31,14 +31,19 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  // Arranca en claro para coincidir con el HTML del servidor; el efecto de
-  // abajo lo corrige en el primer frame si la persona había elegido oscuro.
-  const [theme, setTheme] = useState<Theme>("light");
-
-  useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === "dark" || stored === "light") setTheme(stored);
-  }, []);
+  /*
+   * El estado inicial se lee del DOM, no de localStorage con un efecto.
+   *
+   * `ThemeScript` ya puso la clase `dark` en el <html> antes de que React
+   * arranque, así que la respuesta correcta está a mano: leerla acá evita un
+   * render extra y el parpadeo de claro a oscuro. La función se ejecuta una
+   * sola vez, y en el servidor (donde no hay `document`) devuelve "light",
+   * que es lo que el HTML del servidor ya trae.
+   */
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof document === "undefined") return "light";
+    return document.documentElement.classList.contains("dark") ? "dark" : "light";
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
