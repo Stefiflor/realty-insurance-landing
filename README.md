@@ -26,9 +26,15 @@ el diseño sin base de datos.
 | Comando | Qué hace |
 | --- | --- |
 | `npm run dev` | Servidor de desarrollo |
+| **`npm run check`** | **Tipos + lint + build. Corrélo antes de pushear.** |
 | `npm run build` | Build de producción |
-| `npm run typecheck` | Verifica tipos — corrélo antes de commitear |
-| `npm run lint` | ESLint |
+| `npm run typecheck` | Sólo los tipos |
+| `npm run lint` | Sólo ESLint |
+
+> **Antes de pushear, `npm run check`.**
+>
+> `npm run build` por sí solo **no corre ESLint**, pero Vercel sí lo evalúa: un
+> error de lint que pasa desapercibido en tu máquina frena el despliegue.
 
 ### Si el servidor se rompe
 

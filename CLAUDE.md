@@ -23,9 +23,14 @@ diseño sin tocar Supabase.
 | Comando | Qué hace |
 | --- | --- |
 | `npm run dev` | Servidor de desarrollo |
+| **`npm run check`** | **Tipos + lint + build. Corrélo antes de pushear.** |
 | `npm run build` | Build de producción |
-| `npm run typecheck` | `tsc --noEmit` — corrélo antes de cada commit |
-| `npm run lint` | ESLint |
+| `npm run typecheck` | Sólo los tipos |
+| `npm run lint` | Sólo ESLint |
+
+**`npm run build` no corre ESLint, pero Vercel sí lo evalúa.** Ya pasó una vez:
+el build local daba verde y el despliegue fallaba. Por eso existe
+`npm run check`, que corre los tres en orden y falla en el primero que rompa.
 
 ---
 
@@ -333,4 +338,4 @@ Decisiones tomadas, para que quien lo construya no tenga que volver a preguntar:
 - Comentá el **porqué**, no el qué. Si el código explica el qué, no lo repitas.
 - Los textos entre `[CORCHETES]` son placeholders esperando dato real del
   cliente. No los inventes: si falta un dato, dejalo entre corchetes.
-- `npm run typecheck` tiene que pasar antes de commitear.
+- `npm run check` tiene que pasar antes de pushear.
