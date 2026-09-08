@@ -339,3 +339,5 @@ Decisiones tomadas, para que quien lo construya no tenga que volver a preguntar:
 - Los textos entre `[CORCHETES]` son placeholders esperando dato real del
   cliente. No los inventes: si falta un dato, dejalo entre corchetes.
 - `npm run check` tiene que pasar antes de pushear.
+- **Nombres de rama siempre en inglés** (ej. `fix/mobile-nav-overflow`,
+  `feature/admin-panel`), aunque el resto del proyecto esté en español.
