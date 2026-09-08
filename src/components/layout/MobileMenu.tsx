@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Icon } from "@/components/ui/Icon";
@@ -64,56 +65,62 @@ export function MobileMenu({
         <Icon name="menu" size={19} />
       </button>
 
-      {open && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-bg lg:hidden">
-          <div className="flex items-center justify-between border-b border-hair px-6 py-[18px]">
-            <LocaleSwitcher current={locale} />
-            <div className="flex items-center gap-3">
-              <ThemeToggle />
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label={t.nav.closeMenu}
-                className={cn(
-                  "flex size-11 cursor-pointer items-center justify-center rounded-full",
-                  "border border-hair-strong text-dim transition-colors hover:text-ink",
-                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
-                )}
-              >
-                <Icon name="close" size={19} />
-              </button>
+      {/* Portal a document.body: el backdrop-blur del header crea un
+          containing block para los descendientes fixed, así que si este panel
+          quedara anidado ahí, "fixed inset-0" se limitaría a la altura del
+          header en vez de cubrir la pantalla. */}
+      {open &&
+        createPortal(
+          <div className="fixed inset-0 z-50 flex flex-col bg-bg lg:hidden">
+            <div className="flex items-center justify-between border-b border-hair px-6 py-[18px]">
+              <LocaleSwitcher current={locale} />
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label={t.nav.closeMenu}
+                  className={cn(
+                    "flex size-11 cursor-pointer items-center justify-center rounded-full",
+                    "border border-hair-strong text-dim transition-colors hover:text-ink",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+                  )}
+                >
+                  <Icon name="close" size={19} />
+                </button>
+              </div>
             </div>
-          </div>
 
-          <nav className="flex grow flex-col justify-center gap-2 px-6">
-            {t.nav.links.map((label, i) => (
-              <a
-                key={label}
-                href={anchors[i]}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "flex items-center justify-between border-b border-hair py-5",
-                  "text-[26px] font-light tracking-[-0.02em] transition-colors hover:text-brand",
-                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
-                )}
+            <nav className="flex grow flex-col justify-center gap-2 px-6">
+              {t.nav.links.map((label, i) => (
+                <a
+                  key={label}
+                  href={anchors[i]}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between border-b border-hair py-5",
+                    "text-[26px] font-light tracking-[-0.02em] transition-colors hover:text-brand",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+                  )}
+                >
+                  {label}
+                  <Icon name="arrow-right" size={20} className="text-faint" />
+                </a>
+              ))}
+            </nav>
+
+            <div className="px-6 pb-10">
+              <WhatsappButton
+                message={intentMessage("comprar", locale)}
+                size="lg"
+                className="w-full"
               >
-                {label}
-                <Icon name="arrow-right" size={20} className="text-faint" />
-              </a>
-            ))}
-          </nav>
-
-          <div className="px-6 pb-10">
-            <WhatsappButton
-              message={intentMessage("comprar", locale)}
-              size="lg"
-              className="w-full"
-            >
-              {t.nav.cta}
-            </WhatsappButton>
-          </div>
-        </div>
-      )}
+                {t.nav.cta}
+              </WhatsappButton>
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
