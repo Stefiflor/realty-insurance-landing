@@ -27,7 +27,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     `/${locale}/propiedades?operacion=alquiler`,
     `/${locale}/propiedades?operacion=terreno`,
     `/${locale}#seguros`,
-    `/${locale}#contacto`,
+    `/${locale}#estudio`,
   ];
 
   return (

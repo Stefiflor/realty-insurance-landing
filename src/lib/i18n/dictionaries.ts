@@ -110,6 +110,23 @@ export const es = {
     sub: "No vendemos una póliza suelta: cotizamos con varias compañías la cobertura que realmente corresponde a la propiedad y al tipo de contrato.",
     cta: "Consultar por WhatsApp",
   },
+  studio: {
+    kicker: "EL ESTUDIO",
+    title: "Quién te atiende, de punta a punta",
+    bio: [
+      "Soy Matías Dip: Martillero Público y Corredor Inmobiliario, y también Productor Asesor de Seguros. Te acompaño en toda la operación —de la búsqueda a la escritura, y de la propiedad al seguro que le corresponde— sin que tengas que pasar por dos personas distintas.",
+      "Nací en San Miguel, Buenos Aires, pero Ushuaia es mi casa desde 2012, con un paso por Río Grande entre 2015 y 2021. Elegí este rubro porque me gustan los negocios inmobiliarios y me gusta poder asesorar a mis clientes también en seguros.",
+      "Llevo pocos años en esto, pero le pongo toda mi experiencia y las ganas de crecer: cada operación la trato como si fuera la única, con seguimiento personalizado de punta a punta. Además trabajo con distintas compañías aseguradoras para ofrecerte varias alternativas y la cobertura que más te conviene.",
+    ],
+    credentials: {
+      broker: "Martillero Público y Corredor Inmobiliario",
+      brokerLicence: "Mat. 28 · CMTyC TDF",
+      insurance: "Productor Asesor de Seguros",
+      insuranceLicence: "Mat. 106134 · SSN",
+    },
+    location: "Ushuaia, Tierra del Fuego",
+    photoAlt: "Retrato de Matías Dip",
+  },
   contact: {
     kicker: "CONTACTO",
     title: "Escribinos y lo resolvemos por WhatsApp",
@@ -202,7 +219,7 @@ export const es = {
     shareCopied: "Enlace copiado",
   },
   footer: {
-    licence: "MD ESTUDIO INMOBILIARIO · [MATRÍCULA]",
+    licence: "MD ESTUDIO INMOBILIARIO · Mat. 28 CMTyC TDF · Mat. 106134 SSN",
     instagram: "@matiasdip.immo",
     terms: "Términos",
     privacy: "Privacidad",
@@ -329,6 +346,23 @@ export const en: Dictionary = {
     sub: "We do not sell a policy in isolation: we quote across carriers for the cover the property and the contract actually call for.",
     cta: "Ask on WhatsApp",
   },
+  studio: {
+    kicker: "THE FIRM",
+    title: "Who you deal with, start to finish",
+    bio: [
+      "I'm Matías Dip: a licensed Real Estate Broker (Martillero Público y Corredor Inmobiliario), and also a licensed Insurance Producer. I handle the whole deal myself —from the search to the closing, and from the property to the cover it needs— so you don't have to deal with two different people.",
+      "I was born in San Miguel, Buenos Aires, but Ushuaia has been home since 2012, with a few years in Río Grande between 2015 and 2021. I got into this business because I like real estate deals and I like being able to advise my clients on insurance too.",
+      "I've only been at this a few years, but I put all my experience and drive into every deal: I treat each one as if it were the only one, with personal follow-up from start to finish. I also work with several insurance carriers so I can offer you a few alternatives and the cover that suits you best.",
+    ],
+    credentials: {
+      broker: "Real Estate Broker (Martillero Público y Corredor Inmobiliario)",
+      brokerLicence: "Lic. 28 · CMTyC TDF",
+      insurance: "Licensed Insurance Producer",
+      insuranceLicence: "Lic. 106134 · SSN",
+    },
+    location: "Ushuaia, Tierra del Fuego",
+    photoAlt: "Portrait of Matías Dip",
+  },
   contact: {
     kicker: "CONTACT",
     title: "Message us and we sort it on WhatsApp",
@@ -418,7 +452,7 @@ export const en: Dictionary = {
     shareCopied: "Link copied",
   },
   footer: {
-    licence: "MD ESTUDIO INMOBILIARIO · [LICENCE]",
+    licence: "MD ESTUDIO INMOBILIARIO · Lic. 28 CMTyC TDF · Lic. 106134 SSN",
     instagram: "@matiasdip.immo",
     terms: "Terms",
     privacy: "Privacy",
@@ -525,6 +559,23 @@ export const pt: Dictionary = {
     sub: "Não vendemos uma apólice solta: cotamos com várias seguradoras a cobertura que o imóvel e o contrato realmente exigem.",
     cta: "Consultar no WhatsApp",
   },
+  studio: {
+    kicker: "O ESCRITÓRIO",
+    title: "Quem cuida de você, do início ao fim",
+    bio: [
+      "Sou Matías Dip: Corretor de Imóveis licenciado (Martillero Público y Corredor Inmobiliario) e também Corretor de Seguros licenciado. Acompanho toda a operação —da busca até a escritura, e do imóvel até o seguro que ele precisa— sem que você precise falar com duas pessoas diferentes.",
+      "Nasci em San Miguel, Buenos Aires, mas Ushuaia é minha casa desde 2012, com uma passagem por Río Grande entre 2015 e 2021. Escolhi este ramo porque gosto de negócios imobiliários e gosto de poder assessorar meus clientes também em seguros.",
+      "Estou há poucos anos nisso, mas coloco toda minha experiência e vontade de crescer em cada operação: trato cada uma como se fosse a única, com acompanhamento pessoal do início ao fim. Também trabalho com várias seguradoras para oferecer algumas alternativas e a cobertura que mais combina com você.",
+    ],
+    credentials: {
+      broker: "Corretor de Imóveis licenciado (Martillero Público y Corredor Inmobiliario)",
+      brokerLicence: "Reg. 28 · CMTyC TDF",
+      insurance: "Corretor de Seguros licenciado",
+      insuranceLicence: "Reg. 106134 · SSN",
+    },
+    location: "Ushuaia, Tierra del Fuego",
+    photoAlt: "Retrato de Matías Dip",
+  },
   contact: {
     kicker: "CONTATO",
     title: "Fale conosco e resolvemos pelo WhatsApp",
@@ -614,7 +665,7 @@ export const pt: Dictionary = {
     shareCopied: "Link copiado",
   },
   footer: {
-    licence: "MD ESTUDIO INMOBILIARIO · [REGISTRO]",
+    licence: "MD ESTUDIO INMOBILIARIO · Reg. 28 CMTyC TDF · Reg. 106134 SSN",
     instagram: "@matiasdip.immo",
     terms: "Termos",
     privacy: "Privacidade",

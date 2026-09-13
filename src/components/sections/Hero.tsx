@@ -134,7 +134,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           <div className="animate-rise flex items-stretch" style={{ animationDelay: "0.7s" }}>
             {[
               { value: String(propertyCount), suffix: "", label: t.hero.stats.properties },
-              { value: "12", suffix: "", label: t.hero.stats.years },
+              { value: "3", suffix: "", label: t.hero.stats.years },
               { value: "48", suffix: "h", label: t.hero.stats.response },
             ].map((stat) => (
               <div
