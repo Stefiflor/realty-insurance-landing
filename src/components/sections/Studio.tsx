@@ -22,18 +22,7 @@ export function Studio({ locale }: { locale: Locale }) {
         className="animate-mesh-alt absolute -top-40 -left-40 size-140 rounded-full bg-[radial-gradient(circle,var(--mesh-2)_0%,transparent_68%)] blur-[110px]"
       />
 
-      <div className="relative grid grid-cols-1 items-start gap-12 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-21">
-        <div className="animate-rise mx-auto w-full max-w-[280px] overflow-hidden rounded-md border border-hair-strong shadow-xl lg:mx-0 lg:max-w-none">
-          <Image
-            src="/team/matias-dip.jpg"
-            alt={t.studio.photoAlt}
-            width={1024}
-            height={1421}
-            className="h-auto w-full object-cover"
-            sizes="(min-width: 1024px) 360px, 280px"
-          />
-        </div>
-
+      <div className="relative grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-21">
         <div>
           <SectionHeading kicker={t.studio.kicker} title={t.studio.title}>
             <div className="mt-4.5 mb-7 flex max-w-[560px] flex-col gap-4 text-[15.5px] leading-[1.68] font-light text-dim">
@@ -57,6 +46,17 @@ export function Studio({ locale }: { locale: Locale }) {
               {t.studio.location}
             </span>
           </div>
+        </div>
+
+        <div className="animate-rise mx-auto w-full max-w-[200px] overflow-hidden rounded-md border border-hair-strong shadow-xl lg:mx-0 lg:max-w-none">
+          <Image
+            src="/team/matias-dip.jpg"
+            alt={t.studio.photoAlt}
+            width={1024}
+            height={1421}
+            className="h-auto w-full object-cover"
+            sizes="(min-width: 1024px) 260px, 200px"
+          />
         </div>
       </div>
     </section>
