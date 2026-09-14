@@ -290,6 +290,8 @@ Hecho:
 - [x] `sitemap.xml` y `robots.txt`
 - [x] Buscador de la home conectado al catálogo (los cuatro campos)
 - [x] Botón de compartir en la ficha
+- [x] Sección "Estudio" con la bio real de Matías, sus matrículas y foto
+- [x] Foto de portada del Hero (vista nocturna de Ushuaia)
 
 Falta:
 
@@ -301,10 +303,10 @@ Falta:
       propiedades hará falta)
 - [ ] Registrar las consultas en la tabla `enquiries` al hacer clic en WhatsApp
 - [ ] Mapa real en la ficha (hoy hay un marcador; falta cargar coordenadas)
-- [ ] Optimizar imágenes con `next/image` cuando haya fotos reales (hoy se usa
-      `<img>` porque el host de Supabase Storage debe declararse en
-      `next.config.ts`)
-- [ ] Sección "Estudio" — falta material del cliente sobre su trayectoria
+- [ ] Optimizar las fotos de propiedades con `next/image` cuando haya fotos
+      reales (hoy se usa `<img>` porque el host de Supabase Storage debe
+      declararse en `next.config.ts`; la foto del Hero y la de "Estudio" ya
+      usan `next/image` porque son estáticas, no vienen de Supabase)
 
 ### El panel, ya definido con el cliente
 
@@ -321,14 +323,9 @@ Decisiones tomadas, para que quien lo construya no tenga que volver a preguntar:
 - Las políticas RLS de `supabase/schema.sql` hoy dan permiso total a cualquier
   usuario autenticado. **Hay que afinarlas para los dos roles** antes de dar
   acceso a un colaborador.
-- [ ] Reemplazar los placeholders: `[TU NÚMERO]`, `[MATRÍCULA]`
-- [ ] Sección "Estudio" — el nav ya la enlaza, falta decidir el contenido
+- [ ] Reemplazar el placeholder `[TU NÚMERO]` cuando Matías pase el número de
+      WhatsApp (la matrícula del footer ya está cargada)
 - [ ] Términos y privacidad — el footer los enlaza, falta el texto legal
-
-### Decisiones abiertas con el cliente
-
-- Si suma una sección "Nosotros" con foto y trayectoria de Matías.
-- Qué matrícula profesional corresponde mostrar en el footer.
 
 ---
 

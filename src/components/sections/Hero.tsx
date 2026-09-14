@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { WhatsappButton } from "@/components/ui/WhatsappButton";
@@ -167,15 +168,13 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
             izquierda tampoco tendría dónde apoyarse. */}
         <div className="relative hidden h-[420px] lg:block xl:h-[520px]">
           <div className="animate-float absolute inset-0 overflow-hidden rounded-md border border-hair-strong shadow-xl">
-            {/* Placeholder de la foto de portada. Reemplazar por <Image> cuando
-                el estudio entregue la imagen real. */}
-            <div
-              className="animate-mesh absolute -inset-[10%]"
-              style={{
-                background:
-                  "linear-gradient(150deg, var(--hero-img-a) 0%, var(--hero-img-b) 48%, var(--hero-img-c) 100%)",
-                animationDuration: "28s",
-              }}
+            <Image
+              src="/hero/ushuaia.jpg"
+              alt={t.studio.location}
+              fill
+              sizes="(min-width: 1280px) 520px, 460px"
+              className="object-cover"
+              priority
             />
             <div className="absolute inset-0 bg-[linear-gradient(200deg,transparent_30%,var(--img-veil)_100%)]" />
 
@@ -189,8 +188,8 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
               <div key={position} className={`absolute size-5 border-white/50 ${position}`} />
             ))}
 
-            <div className="absolute bottom-5 left-6 font-mono text-[10px] tracking-[0.16em] text-white/60">
-              {t.hero.imagePlaceholder}
+            <div className="absolute bottom-5 left-6 font-mono text-[10px] tracking-[0.16em] text-white/70 uppercase">
+              {t.studio.location}
             </div>
           </div>
 

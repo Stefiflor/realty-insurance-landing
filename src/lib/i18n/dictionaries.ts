@@ -31,7 +31,6 @@ export const es = {
     },
     floatLabel: "COBERTURA INCLUIDA",
     floatText: "74% de nuestras operaciones cierran con seguro contratado.",
-    imagePlaceholder: "[ FOTO DE PORTADA ]",
   },
   ticker: [
     "VENTAS",
@@ -268,7 +267,6 @@ export const en: Dictionary = {
     },
     floatLabel: "COVERAGE INCLUDED",
     floatText: "74% of our deals close with insurance already in place.",
-    imagePlaceholder: "[ COVER PHOTO ]",
   },
   ticker: [
     "SALES",
@@ -481,7 +479,6 @@ export const pt: Dictionary = {
     },
     floatLabel: "COBERTURA INCLUÍDA",
     floatText: "74% das nossas operações fecham com seguro contratado.",
-    imagePlaceholder: "[ FOTO DE CAPA ]",
   },
   ticker: [
     "VENDAS",
