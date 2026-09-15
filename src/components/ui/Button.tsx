@@ -9,12 +9,14 @@ import { cn } from "@/lib/cn";
  * - `whatsapp`  contacto. Verde de marca de WhatsApp, no el teal del estudio.
  * - `ghost`     acciones secundarias sobre vidrio; no compite con la primaria.
  * - `outline`   acción terciaria, sólo borde.
+ * - `glass-dark` como `ghost`, pero con blanco fijo en vez de tokens de tema:
+ *   para usar sobre una foto (el Hero), donde el fondo no es `bg-surface`.
  *
  * El brillo diagonal de `primary` y `whatsapp` es decorativo: va en un
  * pseudo-elemento con `pointer-events-none` para no comerse los clics.
  */
 
-type Variant = "primary" | "whatsapp" | "ghost" | "outline";
+type Variant = "primary" | "whatsapp" | "ghost" | "outline" | "glass-dark";
 type Size = "sm" | "md" | "lg";
 
 const VARIANT: Record<Variant, string> = {
@@ -24,6 +26,8 @@ const VARIANT: Record<Variant, string> = {
   ghost:
     "border border-hair-strong bg-glass backdrop-blur-md text-ink hover:border-brand/40",
   outline: "border border-brand text-brand hover:bg-brand-soft",
+  "glass-dark":
+    "border border-white/25 bg-black/25 backdrop-blur-md text-white hover:border-white/50",
 };
 
 const SIZE: Record<Size, string> = {
