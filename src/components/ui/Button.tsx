@@ -6,28 +6,20 @@ import { cn } from "@/lib/cn";
  *
  * Cuatro variantes, cada una con un trabajo distinto:
  * - `primary`   una sola por pantalla: la acción que el estudio quiere.
- * - `whatsapp`  contacto. Verde de marca de WhatsApp, no el teal del estudio.
- * - `ghost`     acciones secundarias sobre vidrio; no compite con la primaria.
+ * - `whatsapp`  contacto. Verde de marca de WhatsApp, exclusivo de esa acción
+ *   (nunca color general de la interfaz).
+ * - `ghost`     acciones secundarias sobre una superficie clara.
  * - `outline`   acción terciaria, sólo borde.
- * - `glass-dark` como `ghost`, pero con blanco fijo en vez de tokens de tema:
- *   para usar sobre una foto (el Hero), donde el fondo no es `bg-surface`.
- *
- * El brillo diagonal de `primary` y `whatsapp` es decorativo: va en un
- * pseudo-elemento con `pointer-events-none` para no comerse los clics.
  */
 
-type Variant = "primary" | "whatsapp" | "ghost" | "outline" | "glass-dark";
+type Variant = "primary" | "whatsapp" | "ghost" | "outline";
 type Size = "sm" | "md" | "lg";
 
 const VARIANT: Record<Variant, string> = {
-  primary: "bg-brand text-white shadow-[0_18px_40px_-16px_rgb(62_142_150/0.8)] btn-shimmer",
-  whatsapp:
-    "bg-whatsapp text-whatsapp-ink shadow-[0_16px_34px_-14px_rgb(37_211_102/0.75)] btn-shimmer",
-  ghost:
-    "border border-hair-strong bg-glass backdrop-blur-md text-ink hover:border-brand/40",
+  primary: "bg-brand text-white hover:bg-brand-strong",
+  whatsapp: "bg-whatsapp text-whatsapp-ink hover:brightness-105",
+  ghost: "border border-hair-strong bg-surface text-ink hover:border-brand/40",
   outline: "border border-brand text-brand hover:bg-brand-soft",
-  "glass-dark":
-    "border border-white/25 bg-black/25 backdrop-blur-md text-white hover:border-white/50",
 };
 
 const SIZE: Record<Size, string> = {
@@ -60,9 +52,9 @@ export function Button<T extends ElementType = "button">({
   return (
     <Component
       className={cn(
-        "relative inline-flex cursor-pointer items-center justify-center overflow-hidden",
+        "inline-flex cursor-pointer items-center justify-center gap-[inherit]",
         "rounded-full font-semibold whitespace-nowrap",
-        "transition-transform duration-[350ms] ease-(--ease-brand) hover:-translate-y-0.5",
+        "transition-colors duration-[250ms] ease-(--ease-brand)",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
         VARIANT[variant],
         SIZE[size],
@@ -70,8 +62,7 @@ export function Button<T extends ElementType = "button">({
       )}
       {...rest}
     >
-      {/* El contenido va sobre el brillo. */}
-      <span className="relative z-[2] inline-flex items-center gap-[inherit]">{children}</span>
+      {children}
     </Component>
   );
 }

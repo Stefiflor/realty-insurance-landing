@@ -266,15 +266,6 @@ export default async function PropertyPage({ params }: { params: Promise<Params>
               {/* Marcador de mapa. Se reemplaza por el mapa real cuando las
                   propiedades tengan coordenadas cargadas. */}
               <div className="relative aspect-[16/7] overflow-hidden rounded-md border border-hair bg-band">
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 opacity-50"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)",
-                    backgroundSize: "48px 48px",
-                  }}
-                />
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                   <div className="flex size-11 items-center justify-center rounded-full bg-brand text-white">
                     <Icon name="pin" size={20} />

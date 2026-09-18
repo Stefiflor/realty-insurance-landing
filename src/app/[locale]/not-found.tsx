@@ -20,12 +20,7 @@ export default function NotFound() {
   const t = getDictionary(DEFAULT_LOCALE);
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
-      <div
-        aria-hidden="true"
-        className="animate-mesh absolute -top-40 -right-40 size-[600px] rounded-full bg-[radial-gradient(circle,var(--mesh-1)_0%,transparent_68%)] blur-[100px]"
-      />
-
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-hero px-6 text-center">
       <div className="relative">
         <LogoMark size={40} className="mx-auto mb-9" />
 

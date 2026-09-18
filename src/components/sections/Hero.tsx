@@ -9,9 +9,11 @@ import type { Locale } from "@/lib/i18n/config";
 /**
  * Hero.
  *
- * Portada a pantalla completa: la foto de Ushuaia ocupa todo el fondo, con un
- * degradé oscuro fijo (no depende del tema) para que el texto blanco se lea
- * igual de bien de día o de noche, en modo claro o en modo oscuro.
+ * `portada.jpg` ya trae su propio margen marfil a la izquierda (así la diseñó
+ * el cliente): por eso el texto va ahí en vez de superponerse a la foto, y la
+ * sección comparte el mismo marfil de fondo para que no se note la costura.
+ * La columna de texto es angosta a propósito — el pedido fue que la portada
+ * se vea grande, así que le cede todo el ancho posible.
  *
  * `propertyCount` viene de la base: el badge dice cuántos avisos hay de verdad.
  */
@@ -19,61 +21,17 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
   const t = getDictionary(locale);
 
   return (
-    <section className="relative isolate flex min-h-[640px] items-center overflow-hidden lg:h-[780px] lg:min-h-0">
-      {/* --- foto de portada --- */}
-      <Image
-        src="/hero/ushuaia.jpg"
-        alt={t.studio.location}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-
-      {/* degradé para legibilidad: oscuro a la izquierda (donde va el texto),
-          más claro hacia la derecha para que la foto siga respirando */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(100deg,rgba(6,10,12,0.86)_0%,rgba(6,10,12,0.6)_38%,rgba(6,10,12,0.22)_65%,rgba(6,10,12,0.35)_100%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(0deg,rgba(6,10,12,0.5)_0%,transparent_22%,transparent_78%,rgba(6,10,12,0.3)_100%)]"
-      />
-
-      {/* línea de escaneo */}
-      <div
-        aria-hidden="true"
-        className="animate-scanline absolute inset-x-0 top-0 h-0.5 bg-[linear-gradient(90deg,transparent,var(--scan),transparent)]"
-      />
-
-      {/* esquinas técnicas, ahora enmarcando toda la portada */}
-      {[
-        "top-5 left-5 border-t border-l",
-        "top-5 right-5 border-t border-r",
-        "bottom-5 left-5 border-b border-l",
-        "bottom-5 right-5 border-b border-r",
-      ].map((position) => (
-        <div key={position} className={`absolute z-10 size-6 border-white/40 ${position}`} aria-hidden="true" />
-      ))}
-
-      <div className="absolute bottom-7 left-8 z-10 font-mono text-[10px] tracking-[0.16em] text-white/60 uppercase">
-        {t.studio.location}
-      </div>
-
-      {/* --- contenido --- */}
-      <div className="relative z-10 w-full px-6 py-16 md:px-10 lg:px-14 lg:py-0">
-        <div className="max-w-[620px]">
-          {/* badge con contador real */}
-          <div
-            className="animate-rise mb-7 inline-flex flex-wrap items-center gap-x-2.5 gap-y-2 rounded-full border border-white/20 bg-black/25 px-3.5 py-2 text-[11.5px] font-medium backdrop-blur-md sm:pr-2 sm:text-[12.5px]"
-            style={{ animationDelay: "0.08s" }}
-          >
+    <section className="relative overflow-hidden bg-hero">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,480px)_1fr] lg:items-center">
+        {/* --- contenido --- */}
+        <div className="relative z-10 flex flex-col justify-center px-6 py-14 md:px-10 lg:px-14 lg:py-20">
+          {/* etiqueta con contador real */}
+          <div className="mb-6 inline-flex w-fit flex-wrap items-center gap-x-2.5 gap-y-2 rounded-full border border-hair-strong bg-surface px-3.5 py-2 text-[11.5px] font-medium sm:pr-2 sm:text-[12.5px]">
             <span className="relative flex size-[7px] shrink-0">
               <span className="animate-pulse-ring absolute inset-0 rounded-full bg-brand" />
               <span className="relative size-[7px] rounded-full bg-brand" />
             </span>
-            <span className="text-white/80">{t.hero.badge}</span>
+            <span className="text-dim">{t.hero.badge}</span>
             <span className="rounded-full bg-brand-soft px-2.5 py-[3px] font-mono text-[10.5px] font-medium text-brand">
               {propertyCount} {t.hero.badgeCount}
             </span>
@@ -87,30 +45,29 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           */}
           <div className="mb-1.5 overflow-hidden">
             <h1
-              className="animate-mask-up m-0 text-[clamp(2.5rem,7vw,4.625rem)] leading-[1.02] font-light tracking-[-0.035em] text-white lg:leading-[0.98]"
-              style={{ animationDelay: "0.16s" }}
+              className="animate-mask-up m-0 text-[clamp(2.5rem,5.4vw,3.75rem)] leading-[1.05] font-light tracking-[-0.03em] text-ink"
             >
               {t.hero.line1}
             </h1>
           </div>
           <div className="mb-6 overflow-hidden">
             <p
-              className="animate-mask-up m-0 bg-[linear-gradient(96deg,var(--brand)_0%,var(--brand-glow)_100%)] bg-clip-text font-display text-[clamp(2.625rem,7.4vw,4.875rem)] leading-[1.05] tracking-[-0.03em] text-transparent lg:leading-none"
-              style={{ animationDelay: "0.3s" }}
+              className="animate-mask-up m-0 bg-[linear-gradient(96deg,var(--brand)_0%,var(--brand-light)_100%)] bg-clip-text font-display text-[clamp(2.625rem,5.8vw,4rem)] leading-[1.1] tracking-[-0.02em] text-transparent"
+              style={{ animationDelay: "0.12s" }}
             >
               {t.hero.line2}
             </p>
           </div>
 
           <div
-            className="animate-line-x mb-6 h-0.5 w-[120px] bg-[linear-gradient(90deg,var(--brand),transparent)]"
-            style={{ animationDelay: "0.62s" }}
+            className="animate-line-x mb-6 h-0.5 w-[100px] bg-accent"
+            style={{ animationDelay: "0.5s" }}
             aria-hidden="true"
           />
 
           <p
-            className="animate-rise m-0 mb-9 max-w-[470px] text-[16.5px] leading-[1.68] font-light text-white/80"
-            style={{ animationDelay: "0.44s" }}
+            className="animate-rise m-0 mb-9 max-w-[440px] text-[16px] leading-[1.68] font-light text-dim"
+            style={{ animationDelay: "0.3s" }}
           >
             {t.hero.sub}
           </p>
@@ -119,7 +76,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
               destinos principales y tienen que ser fáciles de tocar. */}
           <div
             className="animate-rise mb-11 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3.5"
-            style={{ animationDelay: "0.56s" }}
+            style={{ animationDelay: "0.4s" }}
           >
             <Button
               as="a"
@@ -133,7 +90,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
             </Button>
             <WhatsappButton
               message={intentMessage("comprar", locale)}
-              variant="glass-dark"
+              variant="outline"
               size="lg"
               className="w-full sm:w-auto"
             >
@@ -142,7 +99,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           </div>
 
           {/* métricas */}
-          <div className="animate-rise flex items-stretch" style={{ animationDelay: "0.7s" }}>
+          <div className="animate-rise flex items-stretch" style={{ animationDelay: "0.5s" }}>
             {[
               { value: String(propertyCount), suffix: "", label: t.hero.stats.properties },
               { value: "3", suffix: "", label: t.hero.stats.years },
@@ -150,21 +107,21 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="mr-5 border-r border-white/20 pr-5 last:mr-0 last:border-r-0 last:pr-0 sm:mr-9 sm:pr-9"
+                className="mr-5 border-r border-hair pr-5 last:mr-0 last:border-r-0 last:pr-0 sm:mr-9 sm:pr-9"
               >
                 <div className="flex items-baseline gap-[3px]">
-                  <span className="text-[26px] font-light tracking-[-0.035em] text-white sm:text-[34px]">
+                  <span className="text-[26px] font-light tracking-[-0.035em] text-ink sm:text-[32px]">
                     {stat.value}
                   </span>
                   {stat.suffix && (
-                    <span className="text-[15px] font-light text-brand sm:text-[18px]">
+                    <span className="text-[15px] font-light text-brand sm:text-[17px]">
                       {stat.suffix}
                     </span>
                   )}
                 </div>
                 {/* 11px es el piso legible; por debajo el mono en versalitas
                     se vuelve ilegible en pantallas chicas. */}
-                <div className="mt-[5px] font-mono text-[11px] tracking-[0.08em] text-white/55 sm:tracking-[0.12em]">
+                <div className="mt-[5px] font-mono text-[11px] tracking-[0.08em] text-faint sm:tracking-[0.1em]">
                   {stat.label}
                 </div>
               </div>
@@ -172,29 +129,36 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           </div>
         </div>
 
-      </div>
-
-      {/* tarjeta flotante con el dato de cobertura, apoyada sobre la foto.
-          Oculta en móvil: ahí el copy ya ocupa toda la pantalla y esta
-          tarjeta sería un elemento decorativo más para scrollear. */}
-      <div
-        className="animate-rise animate-float absolute right-6 bottom-8 z-10 hidden w-[262px] rounded-[5px] border border-hair-strong bg-glass-solid p-5 shadow-xl backdrop-blur-2xl lg:right-14 lg:block"
-        style={{ animationDelay: "0.85s" }}
-      >
-        <div className="mb-3 flex items-center gap-2.5">
-          <div className="flex size-[30px] items-center justify-center rounded bg-brand-soft text-brand">
-            <Icon name="shield" size={15} />
-          </div>
-          <div className="font-mono text-[9.5px] tracking-[0.14em] text-faint">
-            {t.hero.floatLabel}
-          </div>
-        </div>
-        <div className="mb-3 text-[14px] leading-snug font-medium">{t.hero.floatText}</div>
-        <div className="h-[3px] overflow-hidden rounded-full bg-hair-strong">
-          <div
-            className="animate-line-x h-full w-[74%] bg-[linear-gradient(90deg,var(--brand),var(--brand-glow))]"
-            style={{ animationDelay: "1.1s" }}
+        {/* --- collage de portada ---
+            Ancho intrínseco + `h-auto`, sin `fill`/`object-contain`: así la
+            imagen ocupa exactamente el espacio que le corresponde según su
+            proporción real, sin el hueco vacío arriba/abajo que dejaba un
+            contenedor más alto que la foto. La sombra le da volumen: no hay
+            fotos separadas para sombrear una por una, así que se aplica al
+            collage entero, como una lámina apoyada sobre la página. */}
+        <div className="relative py-6 lg:py-0">
+          <Image
+            src="/hero/portada.jpg"
+            alt="Casa de estilo patagónico, terreno con vista al Beagle, habitación y firma de documentación"
+            width={1672}
+            height={724}
+            priority
+            sizes="(min-width: 1024px) 70vw, 100vw"
+            className="h-auto w-full drop-shadow-[0_30px_50px_rgba(23,29,31,0.22)]"
           />
+
+          {/* tarjeta de cobertura, apoyada sobre la esquina de la portada */}
+          <div className="absolute bottom-4 left-4 hidden w-[240px] rounded-[5px] border border-hair-strong bg-glass-solid p-4.5 shadow-lg backdrop-blur-sm sm:block lg:bottom-8 lg:left-8">
+            <div className="mb-2.5 flex items-center gap-2.5">
+              <div className="flex size-[28px] items-center justify-center rounded bg-brand-soft text-brand">
+                <Icon name="shield" size={14} />
+              </div>
+              <div className="font-mono text-[9px] tracking-[0.13em] text-faint">
+                {t.hero.floatLabel}
+              </div>
+            </div>
+            <div className="text-[13px] leading-snug font-medium text-ink">{t.hero.floatText}</div>
+          </div>
         </div>
       </div>
     </section>

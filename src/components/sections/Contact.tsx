@@ -6,10 +6,16 @@ import { ENQUIRY_INTENTS } from "@/lib/domain/types";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
 
-/** Número tal como se muestra, o el placeholder si todavía no está cargado. */
-function displayPhone(pending: string): string {
+/**
+ * Número formateado, o `null` si todavía no está cargado.
+ *
+ * Sin número no se muestra el recuadro: un placeholder visible en producción
+ * es peor que no mostrar nada. Completar `NEXT_PUBLIC_WHATSAPP_PHONE` en
+ * `.env.local` lo activa solo.
+ */
+function displayPhone(): string | null {
   const raw = process.env.NEXT_PUBLIC_WHATSAPP_PHONE;
-  if (!raw) return pending;
+  if (!raw) return null;
 
   // "5491123456789" -> "+54 9 11 2345-6789" para los números argentinos;
   // el resto se muestra con un + adelante y sin más formato.
@@ -31,17 +37,13 @@ function displayPhone(pending: string): string {
  */
 export function Contact({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
-  const phone = displayPhone(t.contact.numberPending);
+  const phone = displayPhone();
 
   return (
     <section
       id="contacto"
-      className="relative scroll-mt-20 overflow-hidden px-6 py-18 md:px-10 lg:px-14 lg:py-26"
+      className="relative scroll-mt-20 bg-band px-6 py-18 md:px-10 lg:px-14 lg:py-26"
     >
-      <div
-        aria-hidden="true"
-        className="animate-mesh-alt absolute -bottom-85 -left-50 size-190 rounded-full bg-[radial-gradient(circle,var(--mesh-2)_0%,transparent_66%)] blur-[120px]"
-      />
 
       <div className="relative grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_440px] xl:gap-20">
         <div>
@@ -122,12 +124,14 @@ export function Contact({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="mb-5 rounded-[5px] border border-dashed border-hair-strong px-4.5 py-3.5">
-              <div className="mb-1.5 font-mono text-[9.5px] tracking-[0.16em] text-faint">
-                {t.contact.waNumberLabel}
+            {phone && (
+              <div className="mb-5 rounded-[5px] border border-dashed border-hair-strong px-4.5 py-3.5">
+                <div className="mb-1.5 font-mono text-[9.5px] tracking-[0.16em] text-faint">
+                  {t.contact.waNumberLabel}
+                </div>
+                <div className="text-[20px] font-normal tracking-[-0.01em]">{phone}</div>
               </div>
-              <div className="text-[20px] font-normal tracking-[-0.01em]">{phone}</div>
-            </div>
+            )}
 
             <WhatsappButton
               message={intentMessage("comprar", locale)}

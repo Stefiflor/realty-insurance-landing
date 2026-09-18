@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/cn";
-import { usePointerGlow } from "@/lib/hooks/usePointerGlow";
 import type { Operation, Property } from "@/lib/domain/types";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
@@ -36,8 +35,6 @@ export function PropertyShowcase({
   const t = getDictionary(locale);
   const [operation, setOperation] = useState<Operation>("venta");
   const [view, setView] = useState<"grid" | "list">("grid");
-
-  usePointerGlow();
 
   const properties = propertiesByOperation[operation];
 

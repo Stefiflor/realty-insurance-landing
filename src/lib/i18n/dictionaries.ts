@@ -12,25 +12,26 @@ import type { Locale } from "@/lib/domain/types";
 export const es = {
   nav: {
     links: ["Propiedades", "Alquileres", "Terrenos", "Seguros", "Estudio"],
+    tagline: ["Propiedades", "Terrenos", "Alquileres", "Seguros"],
     cta: "WhatsApp",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
   },
   hero: {
-    badge: "Ventas · Alquileres · Terrenos · Seguros",
+    badge: "Propiedades · Terrenos · Seguros",
     badgeCount: "ACTIVOS",
-    line1: "Tu próxima propiedad,",
-    line2: "con todo resuelto.",
-    sub: "Compra, alquiler, inversión en terrenos y la cobertura que corresponde. Un solo estudio de la búsqueda a la escritura.",
+    line1: "Todo lo que necesitás,",
+    line2: "en un solo lugar.",
+    sub: "Propiedades, terrenos, alquileres y seguros con atención personalizada.",
     ctaPrimary: "Ver propiedades",
-    ctaSecondary: "Escribinos",
+    ctaSecondary: "Escribime",
     stats: {
       properties: "PROPIEDADES",
       years: "AÑOS",
       response: "RESPUESTA",
     },
-    floatLabel: "COBERTURA INCLUIDA",
-    floatText: "74% de nuestras operaciones cierran con seguro contratado.",
+    floatLabel: "COBERTURA INTEGRAL",
+    floatText: "Propiedades, terrenos y seguros en una sola gestión.",
   },
   ticker: [
     "VENTAS",
@@ -88,7 +89,7 @@ export const es = {
     title: "Propiedades seleccionadas",
     views: { grid: "Grilla", list: "Lista" },
     insuredBadge: "Con seguro",
-    photoPlaceholder: "[ FOTO ]",
+    photoPlaceholder: "Sin foto todavía",
     empty: "No hay propiedades publicadas en esta operación por ahora.",
     // Etiqueta del tipo de propiedad. Las claves son el enum `PropertyKind`.
     kinds: {
@@ -146,7 +147,6 @@ export const es = {
     waNumberLabel: "ESCRIBINOS A",
     waCta: "Abrir WhatsApp",
     waNote: "Te respondemos dentro de las 24 horas hábiles.",
-    numberPending: "[TU NÚMERO]",
   },
   listing: {
     title: "Propiedades",
@@ -196,7 +196,7 @@ export const es = {
     description: "Sobre esta propiedad",
     descriptionPending: "El estudio todavía no cargó la descripción de esta propiedad.",
     location: "Ubicación",
-    mapPending: "[ MAPA ]",
+    mapPending: "Mapa próximamente",
     highlights: "Características",
     insuranceTitle: "Cobertura sugerida",
     insuranceSub:
@@ -208,7 +208,7 @@ export const es = {
     ctaTitle: "¿Te interesa esta propiedad?",
     ctaSub: "Escribinos y coordinamos una visita esta semana.",
     ctaButton: "Consultar por WhatsApp",
-    galleryPending: "[ FOTOS DE LA PROPIEDAD ]",
+    galleryPending: "Fotos próximamente",
     photoCount: "fotos",
     notFoundTitle: "No encontramos esta propiedad",
     notFoundSub:
@@ -248,25 +248,26 @@ export type Dictionary = Loose<typeof es>;
 export const en: Dictionary = {
   nav: {
     links: ["Properties", "Rentals", "Land", "Insurance", "Firm"],
+    tagline: ["Properties", "Land", "Rentals", "Insurance"],
     cta: "WhatsApp",
     openMenu: "Open menu",
     closeMenu: "Close menu",
   },
   hero: {
-    badge: "Sales · Rentals · Land · Insurance",
+    badge: "Properties · Land · Insurance",
     badgeCount: "LIVE",
-    line1: "Your next property,",
-    line2: "fully covered.",
-    sub: "Buying, renting, land investment and the right insurance. One firm from the first search to the deed.",
+    line1: "Everything you need,",
+    line2: "in one place.",
+    sub: "Properties, land, rentals and insurance with personal attention.",
     ctaPrimary: "Browse properties",
-    ctaSecondary: "Message us",
+    ctaSecondary: "Message me",
     stats: {
       properties: "LISTINGS",
       years: "YEARS",
       response: "RESPONSE",
     },
-    floatLabel: "COVERAGE INCLUDED",
-    floatText: "74% of our deals close with insurance already in place.",
+    floatLabel: "FULL COVERAGE",
+    floatText: "Properties, land and insurance, all in one place.",
   },
   ticker: [
     "SALES",
@@ -324,7 +325,7 @@ export const en: Dictionary = {
     title: "Selected properties",
     views: { grid: "Grid", list: "List" },
     insuredBadge: "Insured",
-    photoPlaceholder: "[ PHOTO ]",
+    photoPlaceholder: "No photo yet",
     empty: "No properties listed under this operation right now.",
     kinds: {
       casa: "House",
@@ -381,7 +382,6 @@ export const en: Dictionary = {
     waNumberLabel: "WRITE TO US AT",
     waCta: "Open WhatsApp",
     waNote: "We reply within 24 business hours.",
-    numberPending: "[YOUR NUMBER]",
   },
   listing: {
     title: "Properties",
@@ -429,7 +429,7 @@ export const en: Dictionary = {
     description: "About this property",
     descriptionPending: "The firm has not added a description for this property yet.",
     location: "Location",
-    mapPending: "[ MAP ]",
+    mapPending: "Map coming soon",
     highlights: "Features",
     insuranceTitle: "Suggested cover",
     insuranceSub: "We quote this cover alongside the deal, across several carriers.",
@@ -440,7 +440,7 @@ export const en: Dictionary = {
     ctaTitle: "Interested in this property?",
     ctaSub: "Message us and we will arrange a viewing this week.",
     ctaButton: "Ask on WhatsApp",
-    galleryPending: "[ PROPERTY PHOTOS ]",
+    galleryPending: "Photos coming soon",
     photoCount: "photos",
     notFoundTitle: "We could not find this property",
     notFoundSub:
@@ -460,25 +460,26 @@ export const en: Dictionary = {
 export const pt: Dictionary = {
   nav: {
     links: ["Imóveis", "Aluguéis", "Terrenos", "Seguros", "Escritório"],
+    tagline: ["Imóveis", "Terrenos", "Aluguéis", "Seguros"],
     cta: "WhatsApp",
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
   },
   hero: {
-    badge: "Vendas · Aluguéis · Terrenos · Seguros",
+    badge: "Imóveis · Terrenos · Seguros",
     badgeCount: "ATIVOS",
-    line1: "Seu próximo imóvel,",
-    line2: "com tudo resolvido.",
-    sub: "Compra, aluguel, investimento em terrenos e a cobertura adequada. Um só escritório da busca até a escritura.",
+    line1: "Tudo o que você precisa,",
+    line2: "em um só lugar.",
+    sub: "Imóveis, terrenos, aluguéis e seguros com atendimento personalizado.",
     ctaPrimary: "Ver imóveis",
-    ctaSecondary: "Fale conosco",
+    ctaSecondary: "Fale comigo",
     stats: {
       properties: "IMÓVEIS",
       years: "ANOS",
       response: "RESPOSTA",
     },
-    floatLabel: "COBERTURA INCLUÍDA",
-    floatText: "74% das nossas operações fecham com seguro contratado.",
+    floatLabel: "COBERTURA INTEGRAL",
+    floatText: "Imóveis, terrenos e seguros em uma só gestão.",
   },
   ticker: [
     "VENDAS",
@@ -536,7 +537,7 @@ export const pt: Dictionary = {
     title: "Imóveis selecionados",
     views: { grid: "Grade", list: "Lista" },
     insuredBadge: "Com seguro",
-    photoPlaceholder: "[ FOTO ]",
+    photoPlaceholder: "Sem foto ainda",
     empty: "Não há imóveis publicados nesta operação no momento.",
     kinds: {
       casa: "Casa",
@@ -593,7 +594,6 @@ export const pt: Dictionary = {
     waNumberLabel: "ESCREVA PARA",
     waCta: "Abrir WhatsApp",
     waNote: "Respondemos em até 24 horas úteis.",
-    numberPending: "[SEU NÚMERO]",
   },
   listing: {
     title: "Imóveis",
@@ -641,7 +641,7 @@ export const pt: Dictionary = {
     description: "Sobre este imóvel",
     descriptionPending: "O escritório ainda não cadastrou a descrição deste imóvel.",
     location: "Localização",
-    mapPending: "[ MAPA ]",
+    mapPending: "Mapa em breve",
     highlights: "Características",
     insuranceTitle: "Cobertura sugerida",
     insuranceSub: "Cotamos esta cobertura junto com a operação, com várias seguradoras.",
@@ -652,7 +652,7 @@ export const pt: Dictionary = {
     ctaTitle: "Tem interesse neste imóvel?",
     ctaSub: "Fale conosco e agendamos uma visita esta semana.",
     ctaButton: "Consultar no WhatsApp",
-    galleryPending: "[ FOTOS DO IMÓVEL ]",
+    galleryPending: "Fotos em breve",
     photoCount: "fotos",
     notFoundTitle: "Não encontramos este imóvel",
     notFoundSub:

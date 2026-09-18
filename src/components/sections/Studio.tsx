@@ -39,11 +39,6 @@ export function Studio({ locale }: { locale: Locale }) {
       id="estudio"
       className="relative mt-18 scroll-mt-20 overflow-hidden px-6 py-16 md:px-10 lg:mt-27.5 lg:px-14 lg:py-23"
     >
-      <div
-        aria-hidden="true"
-        className="animate-mesh-alt absolute -top-40 -left-40 size-140 rounded-full bg-[radial-gradient(circle,var(--mesh-2)_0%,transparent_68%)] blur-[110px]"
-      />
-
       <div className="relative grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_360px] xl:gap-21">
         <div>
           <SectionHeading kicker={t.studio.kicker} title={t.studio.title}>
@@ -74,36 +69,17 @@ export function Studio({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className="animate-rise relative mx-auto w-full max-w-[280px] lg:mx-0 lg:max-w-none">
-          {/* Marco desfasado detrás: da profundidad sin depender de que se
-              vea la animación (que en pantalla fija no se nota). */}
-          <div
-            className="absolute inset-0 translate-x-3.5 translate-y-3.5 rounded-sm border-2 border-brand/50"
-            aria-hidden="true"
+        <div className="animate-rise relative mx-auto aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-sm border border-hair shadow-lg lg:mx-0 lg:max-w-none">
+          <Image
+            src="/team/matias-dip.jpg"
+            alt={t.studio.photoAlt}
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 360px, 280px"
           />
-
-          <div
-            className="card-glow group relative aspect-[3/4] overflow-hidden rounded-sm shadow-[0_45px_90px_-35px_rgba(18,24,27,0.55)] transition-transform duration-500 ease-(--ease-brand) will-change-transform hover:[transform:perspective(1400px)_rotateY(-4deg)_rotateX(1.5deg)_translateZ(0)]"
-          >
-            <Image
-              src="/team/matias-dip.jpg"
-              alt={t.studio.photoAlt}
-              fill
-              className="object-cover"
-              sizes="(min-width: 1024px) 360px, 280px"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(200deg,transparent_60%,rgba(6,10,12,0.4)_100%)]" aria-hidden="true" />
-
-            {/* esquinas técnicas, mismo motivo que el Hero */}
-            {[
-              "top-3.5 left-3.5 border-t border-l",
-              "top-3.5 right-3.5 border-t border-r",
-              "bottom-3.5 left-3.5 border-b border-l",
-              "bottom-3.5 right-3.5 border-b border-r",
-            ].map((position) => (
-              <div key={position} className={`absolute size-5 border-white/60 ${position}`} aria-hidden="true" />
-            ))}
-          </div>
+          {/* franja inferior fina en arena: firma de marca discreta, no un
+              efecto sobre la foto. */}
+          <div className="absolute inset-x-0 bottom-0 h-1 bg-accent" aria-hidden="true" />
         </div>
       </div>
     </section>

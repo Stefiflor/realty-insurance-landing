@@ -2,7 +2,7 @@ import Link from "next/link";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { Logo } from "@/components/ui/Logo";
+import { LogoMark } from "@/components/ui/Logo";
 import { WhatsappButton } from "@/components/ui/WhatsappButton";
 import { intentMessage } from "@/lib/domain/whatsapp";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -33,12 +33,23 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   return (
     <header className="sticky top-0 z-40 border-b border-hair bg-nav backdrop-blur-xl">
       <div className="flex items-center justify-between px-6 py-3.5 md:px-10 lg:px-14 lg:py-[18px]">
-        <Link
-          href={`/${locale}`}
-          className="-my-2 flex rounded-sm py-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-        >
-          <Logo size={30} holeClassName="fill-(--nav-solid)" />
-        </Link>
+        <div className="flex flex-col">
+          <Link
+            href={`/${locale}`}
+            className="-my-2 flex w-fit rounded-sm py-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+          >
+            <LogoMark size={38} />
+          </Link>
+          {/* Bajada del logo: puntos en arena, texto en petróleo, sin negrita. */}
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[10px] text-brand sm:text-[11px]">
+            {t.nav.tagline.map((word, i) => (
+              <span key={word} className="flex items-center gap-1.5">
+                {i > 0 && <span className="text-accent">·</span>}
+                {word}
+              </span>
+            ))}
+          </div>
+        </div>
 
         {/* navegación de escritorio */}
         <nav className="hidden items-center gap-7 text-[14px] lg:flex xl:gap-9">

@@ -181,13 +181,13 @@ export function SearchBar({
             type="button"
             onClick={search}
             className={cn(
-              "btn-shimmer relative flex cursor-pointer items-center justify-center gap-2.5 overflow-hidden",
-              "bg-brand py-4 text-[15px] font-semibold text-white lg:px-9.5 lg:py-0",
+              "flex cursor-pointer items-center justify-center gap-2.5",
+              "bg-brand py-4 text-[15px] font-semibold text-white hover:bg-brand-strong lg:px-9.5 lg:py-0",
               "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white",
             )}
           >
-            <Icon name="search" size={17} strokeWidth={2.3} className="relative z-[2]" />
-            <span className="relative z-[2]">{t.search.action}</span>
+            <Icon name="search" size={17} strokeWidth={2.3} />
+            <span>{t.search.action}</span>
           </button>
         </div>
       </div>

@@ -17,7 +17,7 @@ export function WhatsappButton({
 }: {
   /** Texto precargado en el chat. Armalo con las funciones de `domain/whatsapp`. */
   message: string;
-  variant?: "whatsapp" | "ghost" | "outline" | "glass-dark";
+  variant?: "whatsapp" | "ghost" | "outline";
   size?: "sm" | "md" | "lg";
   className?: string;
   children: React.ReactNode;

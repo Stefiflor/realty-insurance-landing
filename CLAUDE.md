@@ -115,7 +115,19 @@ Si falta un color, **agregalo primero como token** en `:root` y en `.dark`, y
 recién después usalo. Un color inventado en un componente rompe el modo oscuro
 en silencio.
 
-El teal `#3e8e96` sale del logo del estudio. No lo cambies.
+**Paleta de marca** (rebranding de 09/2026, sale del logo real del cliente):
+
+| Token | Hex | Uso |
+| --- | --- | --- |
+| `--brand` (verde petróleo) | `#183f43` | Color principal. En `.dark` se aclara a `#3d7378`: el petróleo puro es casi negro y pierde contraste como texto/ícono sobre fondo oscuro — los botones sólidos (texto blanco encima) no lo necesitan, por eso el ajuste vive sólo en `--brand`/`--brand-strong`. |
+| `--brand-light` (turquesa apagado) | `#4b969a` | Acento secundario, gradientes de marca. |
+| `--accent` (arena/dorado) | `#c69b6d` | **Sólo detalles**: líneas, puntitos, indicadores chicos. Nunca fondo grande. |
+| `--sage` (verde salvia) | `#aabbb3` | Complementario, uso puntual. |
+| `--band` / `--hero-bg` (marfil) | `#f5f2ea` | Fondo alterno de sección (nunca blanco puro ahí). |
+| `--whatsapp` | `#25d366` | **Exclusivo** de acciones de WhatsApp. Nunca color general de la interfaz. |
+
+No inventes un verde/teal genérico "por las dudas": si necesitás un tono
+nuevo, sale de esta paleta o se agrega acá primero.
 
 ### 2. Los componentes no hablan con Supabase
 
@@ -189,14 +201,21 @@ Para verificarlo hay un script en el scratchpad que mide desbordes, tamaños de
 texto y áreas táctiles con Chrome headless en 360/390/768/1440px. Si no está,
 abrí las devtools en 360px: alcanza.
 
-### 6. El movimiento es parte del diseño, no decoración
+### 6. El movimiento es discreto, nunca el protagonista
 
-Las animaciones (mesh del hero, revelados por máscara, halo que sigue al cursor,
-marquesina) están definidas en `globals.css` como `@utility`. Usalas desde ahí.
+Desde el rebranding de 09/2026 la marca es editorial y cálida, no "tech": se
+sacaron a propósito los degradés mesh animados del fondo, el halo que seguía al
+cursor (`usePointerGlow`), el shimmer de los botones y la línea de escaneo del
+Hero — leían como glassmorphism/neón, lo opuesto al pedido del cliente.
+
+Lo que queda en `globals.css` como `@utility` (`animate-rise`, `animate-mask-up`,
+`animate-line-x`, `animate-marquee`, `animate-pulse-ring`) es intencional: una
+entrada suave al cargar la página, nada continuo ni llamativo. Antes de sumar
+una animación nueva, preguntate si hace falta — la regla del cliente fue
+explícita: "evitá animaciones innecesarias".
 
 Todo respeta `prefers-reduced-motion`: hay una regla global que corta las
-animaciones para quien lo pidió, y `usePointerGlow` directamente no se monta.
-**No rompas eso.**
+animaciones para quien lo pidió. **No rompas eso.**
 
 ---
 
@@ -241,16 +260,32 @@ delete from properties where code like 'MD-%';
 
 ## Diseño
 
-El canvas de referencia está en `design/` y se abre acá:
+**El canvas en `design/` (y el link de abajo) quedó desactualizado tras el
+rebranding de 09/2026** — muestra la paleta teal/oscura vieja, no la identidad
+petróleo/marfil actual. Sirve para ver el panel de administración (todavía no
+tocado por el rebrand) y la estructura general, pero **no** para colores,
+tipografía de marca ni el hero: para eso, la fuente de verdad es el sitio
+actual (`npm run dev`) y esta guía.
 
 **https://claude.ai/code/artifact/5e719e23-9efc-47ad-9731-864f8ab11fc0**
 
-Tiene la landing y el panel completos, con los valores exactos de color,
-tipografía y espaciado. **Cuando dudes de una medida, mirá el canvas** — es la
-fuente de verdad visual, no tu criterio.
-
 Los archivos `.dc.html` son el formato del editor de diseño, no código de la
 app. No los importes.
+
+### Assets de marca
+
+Provistos por el cliente, en `public/`, tal cual (no recrear ni recolorear):
+
+- `public/team/logo.png` — isotipo "MD". Ya recortado a su bounding box real
+  con fondo transparente. `LogoMark`/`Logo` en `src/components/ui/Logo.tsx` lo
+  consumen con `next/image`; no lleva el nombre del estudio adentro, por eso el
+  wordmark "MD ESTUDIO INMOBILIARIO" sigue viviendo aparte, al lado.
+- `public/hero/portada.jpg` — collage de portada del Hero (casa patagónica,
+  terreno, habitación, firma de documentación). Trae su propio margen marfil a
+  la izquierda: por eso el Hero no le pone un overlay oscuro encima, sólo
+  reserva esa columna para el texto.
+- `public/team/matias-dip.jpg` — foto de Matías para "Estudio", a color
+  (no blanco y negro), recortada de cintura para arriba.
 
 ### Tipografía
 
@@ -291,7 +326,9 @@ Hecho:
 - [x] Buscador de la home conectado al catálogo (los cuatro campos)
 - [x] Botón de compartir en la ficha
 - [x] Sección "Estudio" con la bio real de Matías, sus matrículas y foto
-- [x] Foto de portada del Hero (vista nocturna de Ushuaia)
+- [x] Rebranding completo (09/2026): paleta petróleo/marfil/arena, logo e
+      imagen de portada reales del cliente, tipografía sin abusar del mono,
+      se sacaron los efectos "tech" (mesh, halo cursor, shimmer, 3D tilt)
 
 Falta:
 
@@ -333,8 +370,13 @@ Decisiones tomadas, para que quien lo construya no tenga que volver a preguntar:
 
 - **Comentarios en español**, como el resto del proyecto.
 - Comentá el **porqué**, no el qué. Si el código explica el qué, no lo repitas.
-- Los textos entre `[CORCHETES]` son placeholders esperando dato real del
-  cliente. No los inventes: si falta un dato, dejalo entre corchetes.
+- **Nunca un placeholder entre corchetes visible en la interfaz** (`[TU
+  NÚMERO]`, `[FOTO]`, `[MATRÍCULA]`...). Si falta un dato real: (a) si el
+  elemento puede omitirse sin romper el layout, no lo renderices (ver
+  `displayPhone()` en `Contact.tsx`), o (b) si tiene que ocupar un espacio,
+  usá un texto de espera sin corchetes ("Fotos próximamente"). El corchete
+  vive como mucho en un comentario del código, nunca en un string que se
+  muestra.
 - `npm run check` tiene que pasar antes de pushear.
 - **Nombres de rama siempre en inglés** (ej. `fix/mobile-nav-overflow`,
   `feature/admin-panel`), aunque el resto del proyecto esté en español.
