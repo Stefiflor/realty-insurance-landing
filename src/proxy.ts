@@ -35,6 +35,13 @@ function detectLocale(request: NextRequest) {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // El panel vive en /admin, fuera de [locale]: es interno y va sólo en
+  // español. Sin este corte, se le pegaría un prefijo de idioma como a
+  // cualquier otra ruta.
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    return NextResponse.next();
+  }
+
   // ¿Ya viene con idioma? Entonces no hay nada que hacer.
   const hasLocale = LOCALES.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),

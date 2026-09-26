@@ -1,7 +1,9 @@
+"use client";
+
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WhatsappButton } from "@/components/ui/WhatsappButton";
 import { WhatsappGlyph } from "@/components/ui/Icon";
-import { whatsappLink, intentMessage } from "@/lib/domain/whatsapp";
+import { whatsappLink, intentMessage, logEnquiry } from "@/lib/domain/whatsapp";
 import { ENQUIRY_INTENTS } from "@/lib/domain/types";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
@@ -17,8 +19,18 @@ function displayPhone(): string | null {
   const raw = process.env.NEXT_PUBLIC_WHATSAPP_PHONE;
   if (!raw) return null;
 
-  // "5491123456789" -> "+54 9 11 2345-6789" para los números argentinos;
-  // el resto se muestra con un + adelante y sin más formato.
+  // Ushuaia y el resto de Tierra del Fuego/Patagonia sur usan código de área
+  // de 4 dígitos (29xx) + 6 de abonado, no el 2+8 de Buenos Aires: hay que
+  // probar este patrón primero o el corte cae mal (área "29" en vez de "2901").
+  const arPatagonia = raw.match(/^54(9)?(29\d{2})(\d{2})(\d{4})$/);
+  if (arPatagonia) {
+    const [, nine, area, first, second] = arPatagonia;
+    return `+54 ${nine ? "9 " : ""}${area} ${first}-${second}`;
+  }
+
+  // "5491123456789" -> "+54 9 11 2345-6789" para el resto de los números
+  // argentinos (área de 2 a 4 dígitos + 8 de abonado); el resto se muestra
+  // con un + adelante y sin más formato.
   const ar = raw.match(/^54(9)?(\d{2,4})(\d{4})(\d{4})$/);
   if (ar) {
     const [, nine, area, first, second] = ar;
@@ -75,6 +87,7 @@ export function Contact({ locale }: { locale: Locale }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={className}
+                  onClick={() => logEnquiry(intent, locale)}
                 >
                   {content}
                 </a>
@@ -137,6 +150,8 @@ export function Contact({ locale }: { locale: Locale }) {
               message={intentMessage("comprar", locale)}
               size="lg"
               className="w-full"
+              intent="comprar"
+              locale={locale}
             >
               {t.contact.waCta}
             </WhatsappButton>

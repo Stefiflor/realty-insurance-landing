@@ -9,9 +9,8 @@ import type { Locale } from "@/lib/i18n/config";
  * sección habla en primera persona en vez de la típica bajada institucional
  * de "nosotros".
  *
- * Las credenciales se listan con el mismo patrón de fila que las coberturas
- * en <Insurance>: ícono + nombre + dato en mono, en vez de "chips" sueltos,
- * para que las dos secciones se lean como parte del mismo sitio.
+ * Las matrículas quedan visibles junto a la biografía para que la trayectoria
+ * y la habilitación profesional se puedan comprobar de un vistazo.
  */
 export function Studio({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -39,28 +38,29 @@ export function Studio({ locale }: { locale: Locale }) {
       id="estudio"
       className="relative mt-18 scroll-mt-20 overflow-hidden px-6 py-16 md:px-10 lg:mt-27.5 lg:px-14 lg:py-23"
     >
-      <div className="relative grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_360px] xl:gap-21">
-        <div>
+      <div className="pointer-events-none absolute top-0 right-0 h-px w-full bg-hair" aria-hidden="true" />
+      <div className="relative mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(340px,410px)] lg:gap-16 xl:gap-24">
+        <div className="max-w-[690px]">
           <SectionHeading kicker={t.studio.kicker} title={t.studio.title}>
-            <div className="mt-4.5 mb-8 flex max-w-[560px] flex-col gap-4 text-[15.5px] leading-[1.68] font-light text-dim">
+            <div className="mt-7 mb-9 flex max-w-[610px] flex-col gap-4 border-l-2 border-brand pl-5 text-[15.5px] leading-[1.75] font-light text-dim sm:pl-7">
               {t.studio.bio.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </SectionHeading>
 
-          <div className="flex max-w-[520px] flex-col">
+          <div className="grid max-w-[640px] gap-2.5">
             {credentials.map((item) => (
               <div
                 key={item.name}
-                className="flex items-center gap-4 border-b border-hair py-4 first:pt-0 last:border-b-0"
+                className="group flex min-h-17 flex-wrap items-center gap-x-4 gap-y-1 border border-hair bg-surface px-4 py-3 shadow-sm transition-[border-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-hair-strong hover:shadow-lg sm:flex-nowrap"
               >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-[5px] bg-brand-soft text-brand">
+                <div className="flex size-10 shrink-0 items-center justify-center bg-brand-soft text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-surface">
                   <Icon name={item.icon} size={17} />
                 </div>
-                <div className="text-[14.5px] font-medium">{item.name}</div>
+                <div className="min-w-0 flex-1 text-[14px] leading-snug font-medium sm:text-[14.5px]">{item.name}</div>
                 {item.detail && (
-                  <div className="ml-auto font-mono text-[11px] tracking-[0.06em] text-faint">
+                  <div className="ml-14 font-mono text-[11px] tracking-[0.04em] text-dim sm:ml-auto sm:text-right">
                     {item.detail}
                   </div>
                 )}
@@ -69,17 +69,20 @@ export function Studio({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className="animate-rise relative mx-auto aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-sm border border-hair shadow-lg lg:mx-0 lg:max-w-none">
-          <Image
-            src="/team/matias-dip.jpg"
-            alt={t.studio.photoAlt}
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 360px, 280px"
-          />
-          {/* franja inferior fina en arena: firma de marca discreta, no un
-              efecto sobre la foto. */}
-          <div className="absolute inset-x-0 bottom-0 h-1 bg-accent" aria-hidden="true" />
+        <div className="animate-rise relative mx-auto w-full max-w-[410px] px-4 pt-4 pb-5 sm:px-6 sm:pt-6 sm:pb-7 lg:mx-0">
+          <div className="absolute top-0 right-0 h-[34%] w-[42%] bg-accent" aria-hidden="true" />
+          <div className="absolute bottom-0 left-0 h-[29%] w-[35%] bg-brand" aria-hidden="true" />
+          <div className="absolute right-0 bottom-0 h-[29%] w-[44%] border-r border-b border-hair-strong" aria-hidden="true" />
+          <div className="group relative aspect-[3/4] overflow-hidden bg-band shadow-xl">
+            <Image
+              src="/team/matias-dip.jpg"
+              alt={t.studio.photoAlt}
+              fill
+              className="object-cover transition-transform duration-700 ease-(--ease-brand) group-hover:scale-[1.035]"
+              sizes="(min-width: 1024px) 410px, (min-width: 640px) 360px, 90vw"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1 bg-accent" aria-hidden="true" />
+          </div>
         </div>
       </div>
     </section>

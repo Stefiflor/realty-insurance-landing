@@ -9,11 +9,12 @@ import type { Locale } from "@/lib/i18n/config";
 /**
  * Hero.
  *
- * `portada.jpg` ya trae su propio margen marfil a la izquierda (así la diseñó
- * el cliente): por eso el texto va ahí en vez de superponerse a la foto, y la
- * sección comparte el mismo marfil de fondo para que no se note la costura.
- * La columna de texto es angosta a propósito — el pedido fue que la portada
- * se vea grande, así que le cede todo el ancho posible.
+ * El collage no es una sola imagen compuesta: son las cuatro fotos del
+ * cliente (`casa`, `terreno`, `alquiler`, `firma`) como piezas de grilla
+ * reales, cada una recortada en diagonal con `clip-path` y con su propia
+ * sombra (`filter: drop-shadow`, que sigue el recorte — un `box-shadow`
+ * no lo haría). Los bloques de color detrás de las costuras son divs lisos,
+ * no parte de las fotos.
  *
  * `propertyCount` viene de la base: el badge dice cuántos avisos hay de verdad.
  */
@@ -25,6 +26,13 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,480px)_1fr] lg:items-center">
         {/* --- contenido --- */}
         <div className="relative z-10 flex flex-col justify-center px-6 py-14 md:px-10 lg:px-14 lg:py-20">
+          <div
+            className="animate-rise mb-3 font-mono text-[11px] font-medium tracking-[0.16em] text-faint uppercase"
+            style={{ animationDelay: "0.02s" }}
+          >
+            {t.hero.location}
+          </div>
+
           {/* etiqueta con contador real */}
           <div className="mb-6 inline-flex w-fit flex-wrap items-center gap-x-2.5 gap-y-2 rounded-full border border-hair-strong bg-surface px-3.5 py-2 text-[11.5px] font-medium sm:pr-2 sm:text-[12.5px]">
             <span className="relative flex size-[7px] shrink-0">
@@ -44,9 +52,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
             pantalla ancha. El `clamp` fija el piso y el techo.
           */}
           <div className="mb-1.5 overflow-hidden">
-            <h1
-              className="animate-mask-up m-0 text-[clamp(2.5rem,5.4vw,3.75rem)] leading-[1.05] font-light tracking-[-0.03em] text-ink"
-            >
+            <h1 className="animate-mask-up m-0 text-[clamp(2.5rem,5.4vw,3.75rem)] leading-[1.05] font-light tracking-[-0.03em] text-ink">
               {t.hero.line1}
             </h1>
           </div>
@@ -60,7 +66,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           </div>
 
           <div
-            className="animate-line-x mb-6 h-0.5 w-[100px] bg-accent"
+            className="animate-line-x mb-6 h-0.5 w-[100px] bg-brand"
             style={{ animationDelay: "0.5s" }}
             aria-hidden="true"
           />
@@ -78,13 +84,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
             className="animate-rise mb-11 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3.5"
             style={{ animationDelay: "0.4s" }}
           >
-            <Button
-              as="a"
-              href="#propiedades"
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
+            <Button as="a" href="#propiedades" variant="primary" size="lg" className="w-full sm:w-auto">
               {t.hero.ctaPrimary}
               <Icon name="arrow-right" size={16} strokeWidth={2.2} />
             </Button>
@@ -93,6 +93,8 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
               variant="outline"
               size="lg"
               className="w-full sm:w-auto"
+              intent="comprar"
+              locale={locale}
             >
               {t.hero.ctaSecondary}
             </WhatsappButton>
@@ -114,9 +116,7 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
                     {stat.value}
                   </span>
                   {stat.suffix && (
-                    <span className="text-[15px] font-light text-brand sm:text-[17px]">
-                      {stat.suffix}
-                    </span>
+                    <span className="text-[15px] font-light text-brand sm:text-[17px]">{stat.suffix}</span>
                   )}
                 </div>
                 {/* 11px es el piso legible; por debajo el mono en versalitas
@@ -129,35 +129,71 @@ export function Hero({ locale, propertyCount }: { locale: Locale; propertyCount:
           </div>
         </div>
 
-        {/* --- collage de portada ---
-            Ancho intrínseco + `h-auto`, sin `fill`/`object-contain`: así la
-            imagen ocupa exactamente el espacio que le corresponde según su
-            proporción real, sin el hueco vacío arriba/abajo que dejaba un
-            contenedor más alto que la foto. La sombra le da volumen: no hay
-            fotos separadas para sombrear una por una, así que se aplica al
-            collage entero, como una lámina apoyada sobre la página. */}
-        <div className="relative py-6 lg:py-0">
-          <Image
-            src="/hero/portada.jpg"
-            alt="Casa de estilo patagónico, terreno con vista al Beagle, habitación y firma de documentación"
-            width={1672}
-            height={724}
-            priority
-            sizes="(min-width: 1024px) 70vw, 100vw"
-            className="h-auto w-full drop-shadow-[0_30px_50px_rgba(23,29,31,0.22)]"
-          />
+        {/* --- collage de portada --- */}
+        <div className="relative px-6 py-10 lg:pt-16 lg:pr-14 lg:pb-16 lg:pl-10 xl:pr-20">
+          <div className="relative mx-auto aspect-[9/5] w-full max-w-[600px] lg:max-w-none">
+            {/* bloques de acento detrás de las costuras */}
+            <div className="absolute top-[9%] left-[1%] z-0 h-[29%] w-[5%] bg-accent" aria-hidden="true" />
+            <div
+              className="absolute top-[54%] left-[2%] z-0 h-[13%] w-[7%] bg-brand"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute top-[25%] right-[1%] z-0 h-[26%] w-[6%] bg-brand"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute right-[1%] bottom-0 z-0 h-[20%] w-[6%] bg-accent"
+              aria-hidden="true"
+            />
 
-          {/* tarjeta de cobertura, apoyada sobre la esquina de la portada */}
-          <div className="absolute bottom-4 left-4 hidden w-[240px] rounded-[5px] border border-hair-strong bg-glass-solid p-4.5 shadow-lg backdrop-blur-sm sm:block lg:bottom-8 lg:left-8">
-            <div className="mb-2.5 flex items-center gap-2.5">
-              <div className="flex size-[28px] items-center justify-center rounded bg-brand-soft text-brand">
-                <Icon name="shield" size={14} />
+            <div className="relative z-10 h-full w-full">
+              <div
+                className="absolute top-0 left-0 h-[54%] w-[56%] [clip-path:polygon(8%_0,100%_0,84%_100%,0_100%)]"
+              >
+                <Image
+                  src="/hero/casa.png"
+                  alt="Casa de estilo patagónico entre bosque y montañas"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 45vw, 90vw"
+                  className="object-cover"
+                />
               </div>
-              <div className="font-mono text-[9px] tracking-[0.13em] text-faint">
-                {t.hero.floatLabel}
+              <div
+                className="absolute top-0 right-0 h-[54%] w-[52%] [clip-path:polygon(17%_0,100%_0,92%_100%,2%_100%)]"
+              >
+                <Image
+                  src="/hero/terreno.png"
+                  alt="Vista de Ushuaia y el Canal Beagle desde la montaña"
+                  fill
+                  sizes="(min-width: 1024px) 30vw, 60vw"
+                  className="object-cover"
+                />
+              </div>
+              <div
+                className="absolute bottom-0 left-[5%] h-[44%] w-[62%] [clip-path:polygon(6%_0,100%_0,91%_100%,0_100%)]"
+              >
+                <Image
+                  src="/hero/alquiler.png"
+                  alt="Habitación con vista al Beagle, estilo hotel fueguino"
+                  fill
+                  sizes="(min-width: 1024px) 30vw, 60vw"
+                  className="object-cover"
+                />
+              </div>
+              <div
+                className="absolute right-0 bottom-0 h-[44%] w-[39%] [clip-path:polygon(18%_0,100%_0,94%_100%,2%_100%)]"
+              >
+                <Image
+                  src="/hero/firma.png"
+                  alt="Firma de documentación de una operación inmobiliaria"
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 90vw"
+                  className="object-cover"
+                />
               </div>
             </div>
-            <div className="text-[13px] leading-snug font-medium text-ink">{t.hero.floatText}</div>
           </div>
         </div>
       </div>

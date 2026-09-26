@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 
-/** Proporción real de `logo.png` (1283×700), para no deformarlo en ningún tamaño. */
-const LOGO_RATIO = 1283 / 700;
+/** Proporción real de `logo.png` (1477×696), para no deformarlo en ningún tamaño. */
+const LOGO_RATIO = 1477 / 696;
 
 /**
  * Isotipo MD: la imagen de marca provista por el cliente (`/team/logo.png`).

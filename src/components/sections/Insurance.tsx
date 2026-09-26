@@ -46,6 +46,8 @@ export function Insurance({
               message={intentMessage("seguro", locale)}
               variant="outline"
               size="md"
+              intent="seguro"
+              locale={locale}
             >
               {t.insurance.cta}
             </WhatsappButton>

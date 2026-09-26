@@ -18,7 +18,7 @@ import {
   listSimilar,
 } from "@/lib/db/properties";
 import { formatAmount, formatLocation, formatPeriod } from "@/lib/domain/format";
-import type { InsuranceKind, Property } from "@/lib/domain/types";
+import type { EnquiryIntent, InsuranceKind, Property } from "@/lib/domain/types";
 import { propertyMessage } from "@/lib/domain/whatsapp";
 import { HTML_LANG, LOCALES, isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -32,6 +32,14 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
  */
 
 type Params = { locale: string; slug: string };
+
+/** Para registrar la consulta con la intención más parecida a la operación. */
+const OPERATION_INTENT: Record<Property["operation"], EnquiryIntent> = {
+  venta: "comprar",
+  alquiler: "alquilar",
+  temporario: "alquilar",
+  terreno: "terreno",
+};
 
 /** Prerenderiza cada propiedad publicada en los tres idiomas. */
 export async function generateStaticParams() {
@@ -346,6 +354,9 @@ export default async function PropertyPage({ params }: { params: Promise<Params>
                       variant="outline"
                       size="sm"
                       className="w-full"
+                      intent="seguro"
+                      locale={locale}
+                      propertyId={property.id}
                     >
                       {t.property.insuranceAsk}
                     </WhatsappButton>
@@ -366,7 +377,14 @@ export default async function PropertyPage({ params }: { params: Promise<Params>
               <p className="m-0 mb-5 text-[13.5px] leading-relaxed font-light text-dim">
                 {t.property.ctaSub}
               </p>
-              <WhatsappButton message={message} size="lg" className="w-full">
+              <WhatsappButton
+                message={message}
+                size="lg"
+                className="w-full"
+                intent={OPERATION_INTENT[property.operation]}
+                locale={locale}
+                propertyId={property.id}
+              >
                 {t.property.ctaButton}
               </WhatsappButton>
             </div>

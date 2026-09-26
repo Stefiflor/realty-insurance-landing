@@ -114,6 +114,8 @@ export function MobileMenu({
                 message={intentMessage("comprar", locale)}
                 size="lg"
                 className="w-full"
+                intent="comprar"
+                locale={locale}
               >
                 {t.nav.cta}
               </WhatsappButton>

@@ -15,8 +15,10 @@ import { LOCALES } from "@/lib/i18n/config";
 
 /** Se sirve en /sitemap.xml */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // `||`, no `??`: con la variable presente pero vacía (`.env.local` sin
+  // dominio propio todavía) da `""`, no `undefined`, y `??` no cae al fallback.
   const base =
-    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000");

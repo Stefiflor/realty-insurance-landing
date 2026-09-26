@@ -2,19 +2,19 @@
 
 /* ==========================================================================
    MD Estudio Inmobiliario — tokens de diseño
-   Identidad "editorial patagónica": verde petróleo + turquesa apagado sobre
-   marfil, acentos en arena. No inventes colores nuevos: si falta uno,
-   agregalo acá primero.
+   Identidad "editorial patagónica", variante cálida: carbón + naranja/ámbar
+   sobre marfil, acentos en petróleo/glaciar. No inventes colores nuevos: si
+   falta uno, agregalo acá primero.
    ========================================================================== */
 
 :root {
   /* --- marca (fijos en ambos temas) --- */
-  --brand: #183f43;
-  --brand-strong: #0f2a2d;
-  --brand-light: #4b969a;
-  --brand-glow: #7bb9bc;
-  --accent: #c69b6d;
-  --sage: #aabbb3;
+  --brand: #f36b21;
+  --brand-strong: #d95316;
+  --brand-light: #f5a623;
+  --brand-glow: #ffc369;
+  --accent: #29474b;
+  --sage: #82979d;
   --whatsapp: #25d366;
   --whatsapp-ink: #062814;
 
@@ -22,83 +22,80 @@
   --bg: #ffffff;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --band: #f5f2ea;
-  --hero-bg: #f5f2ea;
-  --input: #faf8f2;
-  --nav-bg: rgb(245 242 234 / 0.86);
-  --nav-solid: #f5f2ea;
+  --band: #f7f3eb;
+  --hero-bg: #f7f3eb;
+  --input: #eee7dd;
+  --nav-bg: rgb(247 243 235 / 0.86);
+  --nav-solid: #f7f3eb;
 
   /* --- texto --- */
-  --text: #171d1f;
-  --text-dim: rgb(23 29 31 / 0.62);
-  --text-faint: rgb(23 29 31 / 0.4);
+  --text: #202327;
+  --text-dim: #6f706f;
+  --text-faint: rgb(32 35 39 / 0.4);
 
   /* --- bordes --- */
-  --hair: rgb(23 29 31 / 0.08);
-  --hair-strong: rgb(23 29 31 / 0.14);
+  --hair: rgb(220 213 202 / 0.7);
+  --hair-strong: rgb(220 213 202 / 1);
 
   /* --- acentos translúcidos --- */
-  --brand-soft: rgb(24 63 67 / 0.08);
-  --accent-soft: rgb(198 155 109 / 0.14);
+  --brand-soft: rgb(243 107 33 / 0.1);
+  --accent-soft: rgb(41 71 75 / 0.12);
   --glass: rgb(255 255 255 / 0.72);
   --glass-solid: rgb(255 255 255 / 0.95);
 
   /* Velo suave para legibilidad sobre foto (no es decoración, es contraste). */
-  --img-veil: rgb(15 20 21 / 0.4);
+  --img-veil: rgb(32 35 39 / 0.4);
 
   /* --- estados --- */
-  --state-live-bg: rgb(24 63 67 / 0.1);
-  --state-live-fg: #183f43;
-  --state-review-bg: rgb(198 155 109 / 0.16);
-  --state-review-fg: #8a6438;
-  --state-draft-bg: rgb(23 29 31 / 0.1);
-  --state-draft-fg: rgb(23 29 31 / 0.44);
+  --state-live-bg: rgb(243 107 33 / 0.1);
+  --state-live-fg: #d95316;
+  --state-review-bg: rgb(245 166 35 / 0.18);
+  --state-review-fg: #8a6a2a;
+  --state-draft-bg: rgb(32 35 39 / 0.1);
+  --state-draft-fg: rgb(32 35 39 / 0.44);
   --state-paused-bg: rgb(170 60 60 / 0.1);
   --state-paused-fg: #a34a3f;
 
   /* --- sombras: suaves, sin dramatismo --- */
-  --shadow-sm: 0 1px 3px rgb(23 29 31 / 0.05);
-  --shadow-lg: 0 18px 36px -22px rgb(23 29 31 / 0.16);
-  --shadow-xl: 0 26px 48px -26px rgb(23 29 31 / 0.18);
+  --shadow-sm: 0 1px 3px rgb(32 35 39 / 0.06);
+  --shadow-lg: 0 18px 36px -22px rgb(32 35 39 / 0.18);
+  --shadow-xl: 0 26px 48px -26px rgb(32 35 39 / 0.2);
 }
 
 .dark {
-  --bg: #10181a;
-  --surface: #15201f;
-  --surface-raised: #17221f;
-  --band: #0c1516;
-  --hero-bg: #0c1516;
-  --input: #142020;
-  --nav-bg: rgb(16 24 26 / 0.88);
-  --nav-solid: #10181a;
+  --bg: #17191c;
+  --surface: #202327;
+  --surface-raised: #24272b;
+  --band: #121315;
+  --hero-bg: #121315;
+  --input: #202327;
+  --nav-bg: rgb(23 25 28 / 0.88);
+  --nav-solid: #17191c;
 
-  --text: #f2efe7;
-  --text-dim: rgb(242 239 231 / 0.62);
-  --text-faint: rgb(242 239 231 / 0.4);
+  --text: #f7f3eb;
+  --text-dim: rgb(247 243 235 / 0.62);
+  --text-faint: rgb(247 243 235 / 0.4);
 
-  --hair: rgb(242 239 231 / 0.09);
-  --hair-strong: rgb(242 239 231 / 0.16);
+  --hair: rgb(247 243 235 / 0.1);
+  --hair-strong: rgb(247 243 235 / 0.18);
 
-  /* El petróleo puro (#183f43) es casi negro: como texto/ícono sobre fondo
-     oscuro pierde contraste. En este tema `--brand` se aclara; los botones
-     sólidos (texto blanco encima) no lo sufren, así que sólo cambia acá. */
-  --brand: #3d7378;
-  --brand-strong: #2a5256;
-  --brand-light: #5fa9ad;
-  --brand-glow: #86c2c4;
-  --brand-soft: rgb(75 150 154 / 0.16);
-  --accent-soft: rgb(198 155 109 / 0.16);
-  --glass: rgb(242 239 231 / 0.06);
-  --glass-solid: rgb(21 32 31 / 0.9);
+  /* El naranja/ámbar tienen suficiente luminosidad para leerse igual de bien
+     sobre fondo oscuro: a diferencia de un verde oscuro, no necesitan
+     aclararse por tema. */
+  --brand-soft: rgb(243 107 33 / 0.18);
+  --accent: #82979d;
+  --accent-soft: rgb(130 151 157 / 0.18);
+  --glass: rgb(247 243 235 / 0.06);
+  --glass-solid: rgb(32 35 39 / 0.9);
 
-  --img-veil: rgb(6 10 11 / 0.55);
+  --img-veil: rgb(10 11 12 / 0.55);
 
-  --state-live-bg: rgb(75 150 154 / 0.18);
-  --state-live-fg: #7bb9bc;
-  --state-review-bg: rgb(198 155 109 / 0.2);
-  --state-review-fg: #d9b384;
-  --state-draft-bg: rgb(242 239 231 / 0.14);
-  --state-draft-fg: rgb(242 239 231 / 0.4);
+  --state-live-bg: rgb(243 107 33 / 0.2);
+  --state-live-fg: #ff9257;
+  --state-review-bg: rgb(245 166 35 / 0.2);
+  --state-review-fg: #f5c069;
+  --state-draft-bg: rgb(247 243 235 / 0.14);
+  --state-draft-fg: rgb(247 243 235 / 0.4);
   --state-paused-bg: rgb(200 110 100 / 0.18);
   --state-paused-fg: #d38b7e;
 

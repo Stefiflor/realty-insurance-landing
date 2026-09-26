@@ -9,8 +9,10 @@ import type { MetadataRoute } from "next";
  * de la página de catálogo.
  */
 export default function robots(): MetadataRoute.Robots {
+  // `||`, no `??`: con la variable presente pero vacía (`.env.local` sin
+  // dominio propio todavía) da `""`, no `undefined`, y `??` no cae al fallback.
   const base =
-    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000");

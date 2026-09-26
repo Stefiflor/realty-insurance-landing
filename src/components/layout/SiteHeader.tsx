@@ -68,7 +68,12 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <div className="hidden items-center gap-3.5 lg:flex">
           <LocaleSwitcher current={locale} />
           <ThemeToggle />
-          <WhatsappButton message={intentMessage("comprar", locale)} size="sm">
+          <WhatsappButton
+            message={intentMessage("comprar", locale)}
+            size="sm"
+            intent="comprar"
+            locale={locale}
+          >
             {t.nav.cta}
           </WhatsappButton>
         </div>

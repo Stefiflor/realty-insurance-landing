@@ -18,6 +18,7 @@ export const es = {
     closeMenu: "Cerrar menú",
   },
   hero: {
+    location: "Ushuaia - Tierra del Fuego",
     badge: "Propiedades · Terrenos · Seguros",
     badgeCount: "ACTIVOS",
     line1: "Todo lo que necesitás,",
@@ -30,8 +31,6 @@ export const es = {
       years: "AÑOS",
       response: "RESPUESTA",
     },
-    floatLabel: "COBERTURA INTEGRAL",
-    floatText: "Propiedades, terrenos y seguros en una sola gestión.",
   },
   ticker: [
     "VENTAS",
@@ -254,6 +253,7 @@ export const en: Dictionary = {
     closeMenu: "Close menu",
   },
   hero: {
+    location: "Ushuaia - Tierra del Fuego",
     badge: "Properties · Land · Insurance",
     badgeCount: "LIVE",
     line1: "Everything you need,",
@@ -266,8 +266,6 @@ export const en: Dictionary = {
       years: "YEARS",
       response: "RESPONSE",
     },
-    floatLabel: "FULL COVERAGE",
-    floatText: "Properties, land and insurance, all in one place.",
   },
   ticker: [
     "SALES",
@@ -466,6 +464,7 @@ export const pt: Dictionary = {
     closeMenu: "Fechar menu",
   },
   hero: {
+    location: "Ushuaia - Tierra del Fuego",
     badge: "Imóveis · Terrenos · Seguros",
     badgeCount: "ATIVOS",
     line1: "Tudo o que você precisa,",
@@ -478,8 +477,6 @@ export const pt: Dictionary = {
       years: "ANOS",
       response: "RESPOSTA",
     },
-    floatLabel: "COBERTURA INTEGRAL",
-    floatText: "Imóveis, terrenos e seguros em uma só gestão.",
   },
   ticker: [
     "VENDAS",

@@ -115,18 +115,24 @@ Si falta un color, **agregalo primero como token** en `:root` y en `.dark`, y
 recién después usalo. Un color inventado en un componente rompe el modo oscuro
 en silencio.
 
-**Paleta de marca** (rebranding de 09/2026, sale del logo real del cliente):
+**Paleta de marca** (`feature/alt-design`, 09/2026 — variante cálida sobre el
+mismo sistema de tokens; el logo del cliente cambió a "M" carbón + "D" en
+degradé naranja/ámbar con un tajo cruzándola):
 
 | Token | Hex | Uso |
 | --- | --- | --- |
-| `--brand` (verde petróleo) | `#183f43` | Color principal. En `.dark` se aclara a `#3d7378`: el petróleo puro es casi negro y pierde contraste como texto/ícono sobre fondo oscuro — los botones sólidos (texto blanco encima) no lo necesitan, por eso el ajuste vive sólo en `--brand`/`--brand-strong`. |
-| `--brand-light` (turquesa apagado) | `#4b969a` | Acento secundario, gradientes de marca. |
-| `--accent` (arena/dorado) | `#c69b6d` | **Sólo detalles**: líneas, puntitos, indicadores chicos. Nunca fondo grande. |
-| `--sage` (verde salvia) | `#aabbb3` | Complementario, uso puntual. |
-| `--band` / `--hero-bg` (marfil) | `#f5f2ea` | Fondo alterno de sección (nunca blanco puro ahí). |
+| `--brand` (naranja MD) | `#f36b21` | Color principal. A diferencia del petróleo de la variante anterior, el naranja tiene luminosidad de sobra para leerse igual en `.dark` — no necesita aclararse por tema. |
+| `--brand-strong` (naranja oscuro) | `#d95316` | Hover de botones/enlaces sólidos. |
+| `--brand-light` (ámbar) | `#f5a623` | Acento secundario, gradiente del "en un solo lugar" del Hero. |
+| `--accent` (petróleo complementario) | `#29474b` | **Sólo detalles**: bloques chicos detrás de las costuras del collage, líneas. En `.dark` pasa a `#82979d` (glaciar) para no perderse contra el fondo oscuro. |
+| `--sage` (azul glaciar) | `#82979d` | Complementario, uso puntual. |
+| `--band` / `--hero-bg` (marfil cálido) | `#f7f3eb` | Fondo alterno de sección (nunca blanco puro ahí). |
+| `--input` (arena clara) | `#eee7dd` | Superficies de formulario. |
+| `--hair` / `--hair-strong` (bordes cálidos) | `#dcd5ca` | Bordes — tibios, no grises fríos. |
+| `--text-dim` (texto secundario) | `#6f706f` | Cuerpo de texto que no es el principal. |
 | `--whatsapp` | `#25d366` | **Exclusivo** de acciones de WhatsApp. Nunca color general de la interfaz. |
 
-No inventes un verde/teal genérico "por las dudas": si necesitás un tono
+No inventes un naranja/verde genérico "por las dudas": si necesitás un tono
 nuevo, sale de esta paleta o se agrega acá primero.
 
 ### 2. Los componentes no hablan con Supabase
@@ -276,14 +282,19 @@ app. No los importes.
 
 Provistos por el cliente, en `public/`, tal cual (no recrear ni recolorear):
 
-- `public/team/logo.png` — isotipo "MD". Ya recortado a su bounding box real
-  con fondo transparente. `LogoMark`/`Logo` en `src/components/ui/Logo.tsx` lo
-  consumen con `next/image`; no lleva el nombre del estudio adentro, por eso el
-  wordmark "MD ESTUDIO INMOBILIARIO" sigue viviendo aparte, al lado.
-- `public/hero/portada.jpg` — collage de portada del Hero (casa patagónica,
-  terreno, habitación, firma de documentación). Trae su propio margen marfil a
-  la izquierda: por eso el Hero no le pone un overlay oscuro encima, sólo
-  reserva esa columna para el texto.
+- `public/team/logo.png` — isotipo "MD" (versión carbón + naranja/ámbar). Ya
+  recortado a su bounding box real con fondo transparente. `LogoMark`/`Logo`
+  en `src/components/ui/Logo.tsx` lo consumen con `next/image`; no lleva el
+  nombre del estudio adentro, por eso el wordmark "MD ESTUDIO INMOBILIARIO"
+  sigue viviendo aparte, al lado. Tiene ruido/artefactos chicos de compresión
+  visibles de cerca — es el archivo tal cual lo entregó el cliente, no tocar.
+- `public/hero/{casa,terreno,alquiler,firma}.png` — las cuatro fotos sueltas
+  del collage del Hero (casa patagónica, vista de Ushuaia, habitación,
+  documentación). A diferencia de la variante anterior, **no** están
+  compuestas en una sola imagen: `Hero.tsx` arma el collage con CSS real
+  (`clip-path` para el corte diagonal, `filter: drop-shadow` para la sombra
+  por foto — un `box-shadow` no sigue el recorte). Si cambiás el layout del
+  collage, es en `Hero.tsx`, no en las imágenes.
 - `public/team/matias-dip.jpg` — foto de Matías para "Estudio", a color
   (no blanco y negro), recortada de cintura para arriba.
 
@@ -329,6 +340,9 @@ Hecho:
 - [x] Rebranding completo (09/2026): paleta petróleo/marfil/arena, logo e
       imagen de portada reales del cliente, tipografía sin abusar del mono,
       se sacaron los efectos "tech" (mesh, halo cursor, shimmer, 3D tilt)
+- [x] `feature/alt-design`: segunda variante visual sobre la misma base —
+      paleta carbón/naranja/ámbar, logo nuevo, collage del Hero armado con
+      las 4 fotos sueltas del cliente en vez de una imagen compuesta
 
 Falta:
 

@@ -1,12 +1,15 @@
-import { createBrowserClient, createServerClient } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 /**
- * Clientes de Supabase.
+ * Cliente de Supabase para Server Components, Server Actions y Route
+ * Handlers — lee las cookies de sesión para que el panel de administración
+ * sepa quién entró.
  *
- * Hay dos porque corren en lugares distintos: el de servidor lee las cookies de
- * sesión para que el panel de administración sepa quién entró, y el de
- * navegador se usa sólo donde hace falta interactividad en el cliente.
+ * El cliente de navegador vive aparte, en `browser-client.ts`: este archivo
+ * importa `next/headers`, que no existe del lado del cliente, así que
+ * cualquier Client Component que necesite Supabase tiene que importar de ahí
+ * y no de acá, o el build de ese bundle se rompe.
  *
  * Las credenciales salen de variables de entorno; ver `.env.example`.
  */
@@ -52,10 +55,4 @@ export async function createClient() {
       },
     },
   });
-}
-
-/** Cliente para Client Components. */
-export function createClientBrowser() {
-  const { url, key } = requireEnv();
-  return createBrowserClient(url, key);
 }

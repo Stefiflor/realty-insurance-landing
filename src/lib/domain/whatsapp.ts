@@ -1,4 +1,5 @@
 import { formatAmount } from "./format";
+import { createClientBrowser, isSupabaseConfigured } from "@/lib/db/browser-client";
 import type { EnquiryIntent, Locale, Property } from "./types";
 
 /**
@@ -74,3 +75,24 @@ export function whatsappLink(message: string): string | null {
 
 /** `true` cuando el número está configurado y los botones pueden abrir el chat. */
 export const hasWhatsapp = Boolean(PHONE);
+
+/**
+ * Registra el clic en la tabla `enquiries`, para saber qué intención y qué
+ * propiedad generan consultas. Se llama desde el `onClick` de los botones de
+ * WhatsApp, siempre antes de que se abra el chat — nunca lo bloquea: si esto
+ * falla (sin Supabase configurado, sin conexión), el botón igual funciona.
+ */
+export function logEnquiry(intent: EnquiryIntent, locale: Locale, propertyId?: string | null) {
+  if (!isSupabaseConfigured) return;
+  try {
+    const supabase = createClientBrowser();
+    void supabase.from("enquiries").insert({
+      intent,
+      locale,
+      property_id: propertyId ?? null,
+    });
+  } catch {
+    // Ver comentario de arriba: un botón de WhatsApp roto es peor que una
+    // consulta sin registrar.
+  }
+}

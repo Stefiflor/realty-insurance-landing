@@ -36,7 +36,13 @@ export type IconName =
   | "menu"
   | "close"
   | "share"
-  | "check";
+  | "check"
+  | "edit"
+  | "trash"
+  | "logout"
+  | "upload"
+  | "image"
+  | "lock";
 
 const PATHS: Record<IconName, React.ReactNode> = {
   sale: (
@@ -198,6 +204,48 @@ const PATHS: Record<IconName, React.ReactNode> = {
     </>
   ),
   check: <path d="M4 12.5l5 5L20 6.5" />,
+  edit: (
+    <>
+      <path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19l-4 1Z" />
+      <path d="M14 6.5 17.5 10" />
+    </>
+  ),
+  trash: (
+    <>
+      <path d="M4 7h16" />
+      <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+      <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" />
+      <path d="M10 11v6" />
+      <path d="M14 11v6" />
+    </>
+  ),
+  logout: (
+    <>
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <path d="M16 17l5-5-5-5" />
+      <path d="M21 12H9" />
+    </>
+  ),
+  upload: (
+    <>
+      <path d="M12 21V9" />
+      <path d="M7 14l5-5 5 5" />
+      <path d="M4 20h16" />
+    </>
+  ),
+  image: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="8.5" cy="9.5" r="1.5" />
+      <path d="M21 16l-5.5-5.5L4 21" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2" />
+      <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
+    </>
+  ),
 };
 
 interface IconProps {
