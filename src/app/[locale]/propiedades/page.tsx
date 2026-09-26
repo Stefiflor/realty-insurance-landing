@@ -95,7 +95,12 @@ export default async function PropertiesPage({
             <p className="mx-auto mb-7 max-w-[46ch] text-[15px] leading-relaxed font-light text-dim">
               {t.listing.emptySub}
             </p>
-            <WhatsappButton message={intentMessage("comprar", locale)} size="md">
+            <WhatsappButton
+              message={intentMessage("comprar", locale)}
+              size="md"
+              intent="comprar"
+              locale={locale}
+            >
               {t.listing.emptyCta}
             </WhatsappButton>
           </div>

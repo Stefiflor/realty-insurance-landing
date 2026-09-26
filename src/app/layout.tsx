@@ -43,7 +43,10 @@ export const metadata: Metadata = {
    * localhost. Cuando haya dominio propio, ponelo en NEXT_PUBLIC_SITE_URL.
    */
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ??
+    // `??` no alcanza: un `.env.local` con la variable presente pero vacía
+    // (el caso normal antes de tener dominio propio) da `""`, no `undefined`,
+    // y `??` no cae al fallback con eso.
+    process.env.NEXT_PUBLIC_SITE_URL ||
       (process.env.VERCEL_PROJECT_PRODUCTION_URL
         ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
         : "http://localhost:3000"),

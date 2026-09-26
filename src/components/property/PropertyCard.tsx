@@ -14,10 +14,10 @@ import type { Locale } from "@/lib/i18n/config";
  * conserva su color entre renders y entre servidor y cliente.
  */
 const PLACEHOLDER_GRADIENTS = [
-  "from-[#8a9ba3] via-[#5e7079] to-[#37434a]",
-  "from-[#9aa79c] via-[#6b7a70] to-[#3f4b44]",
-  "from-[#a89c92] via-[#7a6e64] to-[#4a4139]",
-  "from-[#a3a48a] via-[#74755e] to-[#47483a]",
+  "from-[#3a5a5d] via-[#25454a] to-[#152a2d]",
+  "from-[#8a9a8f] via-[#5f7267] to-[#38443c]",
+  "from-[#c2a077] via-[#8f7350] to-[#4f3f2c]",
+  "from-[#6d8f92] via-[#456265] to-[#243839]",
 ];
 
 function gradientFor(code: string): string {
@@ -86,7 +86,7 @@ export function PropertyCard({
   return (
     <Link
       href={`/${locale}/propiedades/${property.slug}`}
-      className="group card-glow animate-rise block overflow-hidden rounded-[5px] border border-hair bg-surface shadow-sm hover:-translate-y-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      className="group animate-rise block overflow-hidden rounded-[5px] border border-hair bg-surface shadow-sm hover:-translate-y-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       style={{ animationDelay: `${0.07 * index}s` }}
     >
       <div className="relative h-58 overflow-hidden">
@@ -174,7 +174,7 @@ export function PropertyRow({
   return (
     <Link
       href={`/${locale}/propiedades/${property.slug}`}
-      className="group card-glow animate-rise flex flex-col overflow-hidden rounded-[5px] border border-hair bg-surface shadow-sm hover:-translate-y-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:flex-row sm:gap-6.5"
+      className="group animate-rise flex flex-col overflow-hidden rounded-[5px] border border-hair bg-surface shadow-sm hover:-translate-y-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:flex-row sm:gap-6.5"
       style={{ animationDelay: `${0.07 * index}s` }}
     >
       {/* En móvil la foto va arriba a lo ancho; desde `sm` pasa al costado. */}

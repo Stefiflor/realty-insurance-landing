@@ -115,7 +115,25 @@ Si falta un color, **agregalo primero como token** en `:root` y en `.dark`, y
 recién después usalo. Un color inventado en un componente rompe el modo oscuro
 en silencio.
 
-El teal `#3e8e96` sale del logo del estudio. No lo cambies.
+**Paleta de marca** (`feature/alt-design`, 09/2026 — variante cálida sobre el
+mismo sistema de tokens; el logo del cliente cambió a "M" carbón + "D" en
+degradé naranja/ámbar con un tajo cruzándola):
+
+| Token | Hex | Uso |
+| --- | --- | --- |
+| `--brand` (naranja MD) | `#f36b21` | Color principal. A diferencia del petróleo de la variante anterior, el naranja tiene luminosidad de sobra para leerse igual en `.dark` — no necesita aclararse por tema. |
+| `--brand-strong` (naranja oscuro) | `#d95316` | Hover de botones/enlaces sólidos. |
+| `--brand-light` (ámbar) | `#f5a623` | Acento secundario, gradiente del "en un solo lugar" del Hero. |
+| `--accent` (petróleo complementario) | `#29474b` | **Sólo detalles**: bloques chicos detrás de las costuras del collage, líneas. En `.dark` pasa a `#82979d` (glaciar) para no perderse contra el fondo oscuro. |
+| `--sage` (azul glaciar) | `#82979d` | Complementario, uso puntual. |
+| `--band` / `--hero-bg` (marfil cálido) | `#f7f3eb` | Fondo alterno de sección (nunca blanco puro ahí). |
+| `--input` (arena clara) | `#eee7dd` | Superficies de formulario. |
+| `--hair` / `--hair-strong` (bordes cálidos) | `#dcd5ca` | Bordes — tibios, no grises fríos. |
+| `--text-dim` (texto secundario) | `#6f706f` | Cuerpo de texto que no es el principal. |
+| `--whatsapp` | `#25d366` | **Exclusivo** de acciones de WhatsApp. Nunca color general de la interfaz. |
+
+No inventes un naranja/verde genérico "por las dudas": si necesitás un tono
+nuevo, sale de esta paleta o se agrega acá primero.
 
 ### 2. Los componentes no hablan con Supabase
 
@@ -189,14 +207,21 @@ Para verificarlo hay un script en el scratchpad que mide desbordes, tamaños de
 texto y áreas táctiles con Chrome headless en 360/390/768/1440px. Si no está,
 abrí las devtools en 360px: alcanza.
 
-### 6. El movimiento es parte del diseño, no decoración
+### 6. El movimiento es discreto, nunca el protagonista
 
-Las animaciones (mesh del hero, revelados por máscara, halo que sigue al cursor,
-marquesina) están definidas en `globals.css` como `@utility`. Usalas desde ahí.
+Desde el rebranding de 09/2026 la marca es editorial y cálida, no "tech": se
+sacaron a propósito los degradés mesh animados del fondo, el halo que seguía al
+cursor (`usePointerGlow`), el shimmer de los botones y la línea de escaneo del
+Hero — leían como glassmorphism/neón, lo opuesto al pedido del cliente.
+
+Lo que queda en `globals.css` como `@utility` (`animate-rise`, `animate-mask-up`,
+`animate-line-x`, `animate-marquee`, `animate-pulse-ring`) es intencional: una
+entrada suave al cargar la página, nada continuo ni llamativo. Antes de sumar
+una animación nueva, preguntate si hace falta — la regla del cliente fue
+explícita: "evitá animaciones innecesarias".
 
 Todo respeta `prefers-reduced-motion`: hay una regla global que corta las
-animaciones para quien lo pidió, y `usePointerGlow` directamente no se monta.
-**No rompas eso.**
+animaciones para quien lo pidió. **No rompas eso.**
 
 ---
 
@@ -241,16 +266,37 @@ delete from properties where code like 'MD-%';
 
 ## Diseño
 
-El canvas de referencia está en `design/` y se abre acá:
+**El canvas en `design/` (y el link de abajo) quedó desactualizado tras el
+rebranding de 09/2026** — muestra la paleta teal/oscura vieja, no la identidad
+petróleo/marfil actual. Sirve para ver el panel de administración (todavía no
+tocado por el rebrand) y la estructura general, pero **no** para colores,
+tipografía de marca ni el hero: para eso, la fuente de verdad es el sitio
+actual (`npm run dev`) y esta guía.
 
 **https://claude.ai/code/artifact/5e719e23-9efc-47ad-9731-864f8ab11fc0**
 
-Tiene la landing y el panel completos, con los valores exactos de color,
-tipografía y espaciado. **Cuando dudes de una medida, mirá el canvas** — es la
-fuente de verdad visual, no tu criterio.
-
 Los archivos `.dc.html` son el formato del editor de diseño, no código de la
 app. No los importes.
+
+### Assets de marca
+
+Provistos por el cliente, en `public/`, tal cual (no recrear ni recolorear):
+
+- `public/team/logo.png` — isotipo "MD" (versión carbón + naranja/ámbar). Ya
+  recortado a su bounding box real con fondo transparente. `LogoMark`/`Logo`
+  en `src/components/ui/Logo.tsx` lo consumen con `next/image`; no lleva el
+  nombre del estudio adentro, por eso el wordmark "MD ESTUDIO INMOBILIARIO"
+  sigue viviendo aparte, al lado. Tiene ruido/artefactos chicos de compresión
+  visibles de cerca — es el archivo tal cual lo entregó el cliente, no tocar.
+- `public/hero/{casa,terreno,alquiler,firma}.png` — las cuatro fotos sueltas
+  del collage del Hero (casa patagónica, vista de Ushuaia, habitación,
+  documentación). A diferencia de la variante anterior, **no** están
+  compuestas en una sola imagen: `Hero.tsx` arma el collage con CSS real
+  (`clip-path` para el corte diagonal, `filter: drop-shadow` para la sombra
+  por foto — un `box-shadow` no sigue el recorte). Si cambiás el layout del
+  collage, es en `Hero.tsx`, no en las imágenes.
+- `public/team/matias-dip.jpg` — foto de Matías para "Estudio", a color
+  (no blanco y negro), recortada de cintura para arriba.
 
 ### Tipografía
 
@@ -290,6 +336,13 @@ Hecho:
 - [x] `sitemap.xml` y `robots.txt`
 - [x] Buscador de la home conectado al catálogo (los cuatro campos)
 - [x] Botón de compartir en la ficha
+- [x] Sección "Estudio" con la bio real de Matías, sus matrículas y foto
+- [x] Rebranding completo (09/2026): paleta petróleo/marfil/arena, logo e
+      imagen de portada reales del cliente, tipografía sin abusar del mono,
+      se sacaron los efectos "tech" (mesh, halo cursor, shimmer, 3D tilt)
+- [x] `feature/alt-design`: segunda variante visual sobre la misma base —
+      paleta carbón/naranja/ámbar, logo nuevo, collage del Hero armado con
+      las 4 fotos sueltas del cliente en vez de una imagen compuesta
 
 Falta:
 
@@ -301,10 +354,10 @@ Falta:
       propiedades hará falta)
 - [ ] Registrar las consultas en la tabla `enquiries` al hacer clic en WhatsApp
 - [ ] Mapa real en la ficha (hoy hay un marcador; falta cargar coordenadas)
-- [ ] Optimizar imágenes con `next/image` cuando haya fotos reales (hoy se usa
-      `<img>` porque el host de Supabase Storage debe declararse en
-      `next.config.ts`)
-- [ ] Sección "Estudio" — falta material del cliente sobre su trayectoria
+- [ ] Optimizar las fotos de propiedades con `next/image` cuando haya fotos
+      reales (hoy se usa `<img>` porque el host de Supabase Storage debe
+      declararse en `next.config.ts`; la foto del Hero y la de "Estudio" ya
+      usan `next/image` porque son estáticas, no vienen de Supabase)
 
 ### El panel, ya definido con el cliente
 
@@ -321,14 +374,9 @@ Decisiones tomadas, para que quien lo construya no tenga que volver a preguntar:
 - Las políticas RLS de `supabase/schema.sql` hoy dan permiso total a cualquier
   usuario autenticado. **Hay que afinarlas para los dos roles** antes de dar
   acceso a un colaborador.
-- [ ] Reemplazar los placeholders: `[TU NÚMERO]`, `[MATRÍCULA]`
-- [ ] Sección "Estudio" — el nav ya la enlaza, falta decidir el contenido
+- [ ] Reemplazar el placeholder `[TU NÚMERO]` cuando Matías pase el número de
+      WhatsApp (la matrícula del footer ya está cargada)
 - [ ] Términos y privacidad — el footer los enlaza, falta el texto legal
-
-### Decisiones abiertas con el cliente
-
-- Si suma una sección "Nosotros" con foto y trayectoria de Matías.
-- Qué matrícula profesional corresponde mostrar en el footer.
 
 ---
 
@@ -336,8 +384,13 @@ Decisiones tomadas, para que quien lo construya no tenga que volver a preguntar:
 
 - **Comentarios en español**, como el resto del proyecto.
 - Comentá el **porqué**, no el qué. Si el código explica el qué, no lo repitas.
-- Los textos entre `[CORCHETES]` son placeholders esperando dato real del
-  cliente. No los inventes: si falta un dato, dejalo entre corchetes.
+- **Nunca un placeholder entre corchetes visible en la interfaz** (`[TU
+  NÚMERO]`, `[FOTO]`, `[MATRÍCULA]`...). Si falta un dato real: (a) si el
+  elemento puede omitirse sin romper el layout, no lo renderices (ver
+  `displayPhone()` en `Contact.tsx`), o (b) si tiene que ocupar un espacio,
+  usá un texto de espera sin corchetes ("Fotos próximamente"). El corchete
+  vive como mucho en un comentario del código, nunca en un string que se
+  muestra.
 - `npm run check` tiene que pasar antes de pushear.
 - **Nombres de rama siempre en inglés** (ej. `fix/mobile-nav-overflow`,
   `feature/admin-panel`), aunque el resto del proyecto esté en español.

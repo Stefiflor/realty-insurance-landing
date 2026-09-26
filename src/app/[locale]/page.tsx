@@ -7,6 +7,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Insurance } from "@/components/sections/Insurance";
 import { PropertyShowcase } from "@/components/sections/PropertyShowcase";
 import { Services } from "@/components/sections/Services";
+import { Studio } from "@/components/sections/Studio";
 import { Ticker } from "@/components/sections/Ticker";
 import {
   countPublished,
@@ -53,6 +54,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         />
         <Services locale={locale} />
         <Insurance locale={locale} products={insurance} />
+        <Studio locale={locale} />
         <Contact locale={locale} />
       </main>
 

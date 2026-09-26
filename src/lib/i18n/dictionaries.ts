@@ -12,26 +12,25 @@ import type { Locale } from "@/lib/domain/types";
 export const es = {
   nav: {
     links: ["Propiedades", "Alquileres", "Terrenos", "Seguros", "Estudio"],
+    tagline: ["Propiedades", "Terrenos", "Alquileres", "Seguros"],
     cta: "WhatsApp",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
   },
   hero: {
-    badge: "Ventas · Alquileres · Terrenos · Seguros",
+    location: "Ushuaia - Tierra del Fuego",
+    badge: "Propiedades · Terrenos · Seguros",
     badgeCount: "ACTIVOS",
-    line1: "Tu próxima propiedad,",
-    line2: "con todo resuelto.",
-    sub: "Compra, alquiler, inversión en terrenos y la cobertura que corresponde. Un solo estudio de la búsqueda a la escritura.",
+    line1: "Todo lo que necesitás,",
+    line2: "en un solo lugar.",
+    sub: "Propiedades, terrenos, alquileres y seguros con atención personalizada.",
     ctaPrimary: "Ver propiedades",
-    ctaSecondary: "Escribinos",
+    ctaSecondary: "Escribime",
     stats: {
       properties: "PROPIEDADES",
       years: "AÑOS",
       response: "RESPUESTA",
     },
-    floatLabel: "COBERTURA INCLUIDA",
-    floatText: "74% de nuestras operaciones cierran con seguro contratado.",
-    imagePlaceholder: "[ FOTO DE PORTADA ]",
   },
   ticker: [
     "VENTAS",
@@ -89,7 +88,7 @@ export const es = {
     title: "Propiedades seleccionadas",
     views: { grid: "Grilla", list: "Lista" },
     insuredBadge: "Con seguro",
-    photoPlaceholder: "[ FOTO ]",
+    photoPlaceholder: "Sin foto todavía",
     empty: "No hay propiedades publicadas en esta operación por ahora.",
     // Etiqueta del tipo de propiedad. Las claves son el enum `PropertyKind`.
     kinds: {
@@ -109,6 +108,23 @@ export const es = {
     title: "El seguro que va con tu operación",
     sub: "No vendemos una póliza suelta: cotizamos con varias compañías la cobertura que realmente corresponde a la propiedad y al tipo de contrato.",
     cta: "Consultar por WhatsApp",
+  },
+  studio: {
+    kicker: "EL ESTUDIO",
+    title: "Quién te atiende, de punta a punta",
+    bio: [
+      "Soy Matías Dip: Martillero Público y Corredor Inmobiliario, y también Productor Asesor de Seguros. Te acompaño en toda la operación —de la búsqueda a la escritura, y de la propiedad al seguro que le corresponde— sin que tengas que pasar por dos personas distintas.",
+      "Nací en San Miguel, Buenos Aires, pero Ushuaia es mi casa desde 2012, con un paso por Río Grande entre 2015 y 2021. Elegí este rubro porque me gustan los negocios inmobiliarios y me gusta poder asesorar a mis clientes también en seguros.",
+      "Llevo pocos años en esto, pero le pongo toda mi experiencia y las ganas de crecer: cada operación la trato como si fuera la única, con seguimiento personalizado de punta a punta. Además trabajo con distintas compañías aseguradoras para ofrecerte varias alternativas y la cobertura que más te conviene.",
+    ],
+    credentials: {
+      broker: "Martillero Público y Corredor Inmobiliario",
+      brokerLicence: "Mat. 28 · CMTyC TDF",
+      insurance: "Productor Asesor de Seguros",
+      insuranceLicence: "Mat. 106134 · SSN",
+    },
+    location: "Ushuaia, Tierra del Fuego",
+    photoAlt: "Retrato de Matías Dip",
   },
   contact: {
     kicker: "CONTACTO",
@@ -130,7 +146,6 @@ export const es = {
     waNumberLabel: "ESCRIBINOS A",
     waCta: "Abrir WhatsApp",
     waNote: "Te respondemos dentro de las 24 horas hábiles.",
-    numberPending: "[TU NÚMERO]",
   },
   listing: {
     title: "Propiedades",
@@ -180,7 +195,7 @@ export const es = {
     description: "Sobre esta propiedad",
     descriptionPending: "El estudio todavía no cargó la descripción de esta propiedad.",
     location: "Ubicación",
-    mapPending: "[ MAPA ]",
+    mapPending: "Mapa próximamente",
     highlights: "Características",
     insuranceTitle: "Cobertura sugerida",
     insuranceSub:
@@ -192,7 +207,7 @@ export const es = {
     ctaTitle: "¿Te interesa esta propiedad?",
     ctaSub: "Escribinos y coordinamos una visita esta semana.",
     ctaButton: "Consultar por WhatsApp",
-    galleryPending: "[ FOTOS DE LA PROPIEDAD ]",
+    galleryPending: "Fotos próximamente",
     photoCount: "fotos",
     notFoundTitle: "No encontramos esta propiedad",
     notFoundSub:
@@ -202,7 +217,7 @@ export const es = {
     shareCopied: "Enlace copiado",
   },
   footer: {
-    licence: "MD ESTUDIO INMOBILIARIO · [MATRÍCULA]",
+    licence: "MD ESTUDIO INMOBILIARIO · Mat. 28 CMTyC TDF · Mat. 106134 SSN",
     instagram: "@matiasdip.immo",
     terms: "Términos",
     privacy: "Privacidad",
@@ -232,26 +247,25 @@ export type Dictionary = Loose<typeof es>;
 export const en: Dictionary = {
   nav: {
     links: ["Properties", "Rentals", "Land", "Insurance", "Firm"],
+    tagline: ["Properties", "Land", "Rentals", "Insurance"],
     cta: "WhatsApp",
     openMenu: "Open menu",
     closeMenu: "Close menu",
   },
   hero: {
-    badge: "Sales · Rentals · Land · Insurance",
+    location: "Ushuaia - Tierra del Fuego",
+    badge: "Properties · Land · Insurance",
     badgeCount: "LIVE",
-    line1: "Your next property,",
-    line2: "fully covered.",
-    sub: "Buying, renting, land investment and the right insurance. One firm from the first search to the deed.",
+    line1: "Everything you need,",
+    line2: "in one place.",
+    sub: "Properties, land, rentals and insurance with personal attention.",
     ctaPrimary: "Browse properties",
-    ctaSecondary: "Message us",
+    ctaSecondary: "Message me",
     stats: {
       properties: "LISTINGS",
       years: "YEARS",
       response: "RESPONSE",
     },
-    floatLabel: "COVERAGE INCLUDED",
-    floatText: "74% of our deals close with insurance already in place.",
-    imagePlaceholder: "[ COVER PHOTO ]",
   },
   ticker: [
     "SALES",
@@ -309,7 +323,7 @@ export const en: Dictionary = {
     title: "Selected properties",
     views: { grid: "Grid", list: "List" },
     insuredBadge: "Insured",
-    photoPlaceholder: "[ PHOTO ]",
+    photoPlaceholder: "No photo yet",
     empty: "No properties listed under this operation right now.",
     kinds: {
       casa: "House",
@@ -328,6 +342,23 @@ export const en: Dictionary = {
     title: "The policy that fits the deal",
     sub: "We do not sell a policy in isolation: we quote across carriers for the cover the property and the contract actually call for.",
     cta: "Ask on WhatsApp",
+  },
+  studio: {
+    kicker: "THE FIRM",
+    title: "Who you deal with, start to finish",
+    bio: [
+      "I'm Matías Dip: a licensed Real Estate Broker (Martillero Público y Corredor Inmobiliario), and also a licensed Insurance Producer. I handle the whole deal myself —from the search to the closing, and from the property to the cover it needs— so you don't have to deal with two different people.",
+      "I was born in San Miguel, Buenos Aires, but Ushuaia has been home since 2012, with a few years in Río Grande between 2015 and 2021. I got into this business because I like real estate deals and I like being able to advise my clients on insurance too.",
+      "I've only been at this a few years, but I put all my experience and drive into every deal: I treat each one as if it were the only one, with personal follow-up from start to finish. I also work with several insurance carriers so I can offer you a few alternatives and the cover that suits you best.",
+    ],
+    credentials: {
+      broker: "Real Estate Broker (Martillero Público y Corredor Inmobiliario)",
+      brokerLicence: "Lic. 28 · CMTyC TDF",
+      insurance: "Licensed Insurance Producer",
+      insuranceLicence: "Lic. 106134 · SSN",
+    },
+    location: "Ushuaia, Tierra del Fuego",
+    photoAlt: "Portrait of Matías Dip",
   },
   contact: {
     kicker: "CONTACT",
@@ -349,7 +380,6 @@ export const en: Dictionary = {
     waNumberLabel: "WRITE TO US AT",
     waCta: "Open WhatsApp",
     waNote: "We reply within 24 business hours.",
-    numberPending: "[YOUR NUMBER]",
   },
   listing: {
     title: "Properties",
@@ -397,7 +427,7 @@ export const en: Dictionary = {
     description: "About this property",
     descriptionPending: "The firm has not added a description for this property yet.",
     location: "Location",
-    mapPending: "[ MAP ]",
+    mapPending: "Map coming soon",
     highlights: "Features",
     insuranceTitle: "Suggested cover",
     insuranceSub: "We quote this cover alongside the deal, across several carriers.",
@@ -408,7 +438,7 @@ export const en: Dictionary = {
     ctaTitle: "Interested in this property?",
     ctaSub: "Message us and we will arrange a viewing this week.",
     ctaButton: "Ask on WhatsApp",
-    galleryPending: "[ PROPERTY PHOTOS ]",
+    galleryPending: "Photos coming soon",
     photoCount: "photos",
     notFoundTitle: "We could not find this property",
     notFoundSub:
@@ -418,7 +448,7 @@ export const en: Dictionary = {
     shareCopied: "Link copied",
   },
   footer: {
-    licence: "MD ESTUDIO INMOBILIARIO · [LICENCE]",
+    licence: "MD ESTUDIO INMOBILIARIO · Lic. 28 CMTyC TDF · Lic. 106134 SSN",
     instagram: "@matiasdip.immo",
     terms: "Terms",
     privacy: "Privacy",
@@ -428,26 +458,25 @@ export const en: Dictionary = {
 export const pt: Dictionary = {
   nav: {
     links: ["Imóveis", "Aluguéis", "Terrenos", "Seguros", "Escritório"],
+    tagline: ["Imóveis", "Terrenos", "Aluguéis", "Seguros"],
     cta: "WhatsApp",
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
   },
   hero: {
-    badge: "Vendas · Aluguéis · Terrenos · Seguros",
+    location: "Ushuaia - Tierra del Fuego",
+    badge: "Imóveis · Terrenos · Seguros",
     badgeCount: "ATIVOS",
-    line1: "Seu próximo imóvel,",
-    line2: "com tudo resolvido.",
-    sub: "Compra, aluguel, investimento em terrenos e a cobertura adequada. Um só escritório da busca até a escritura.",
+    line1: "Tudo o que você precisa,",
+    line2: "em um só lugar.",
+    sub: "Imóveis, terrenos, aluguéis e seguros com atendimento personalizado.",
     ctaPrimary: "Ver imóveis",
-    ctaSecondary: "Fale conosco",
+    ctaSecondary: "Fale comigo",
     stats: {
       properties: "IMÓVEIS",
       years: "ANOS",
       response: "RESPOSTA",
     },
-    floatLabel: "COBERTURA INCLUÍDA",
-    floatText: "74% das nossas operações fecham com seguro contratado.",
-    imagePlaceholder: "[ FOTO DE CAPA ]",
   },
   ticker: [
     "VENDAS",
@@ -505,7 +534,7 @@ export const pt: Dictionary = {
     title: "Imóveis selecionados",
     views: { grid: "Grade", list: "Lista" },
     insuredBadge: "Com seguro",
-    photoPlaceholder: "[ FOTO ]",
+    photoPlaceholder: "Sem foto ainda",
     empty: "Não há imóveis publicados nesta operação no momento.",
     kinds: {
       casa: "Casa",
@@ -524,6 +553,23 @@ export const pt: Dictionary = {
     title: "O seguro certo para a sua operação",
     sub: "Não vendemos uma apólice solta: cotamos com várias seguradoras a cobertura que o imóvel e o contrato realmente exigem.",
     cta: "Consultar no WhatsApp",
+  },
+  studio: {
+    kicker: "O ESCRITÓRIO",
+    title: "Quem cuida de você, do início ao fim",
+    bio: [
+      "Sou Matías Dip: Corretor de Imóveis licenciado (Martillero Público y Corredor Inmobiliario) e também Corretor de Seguros licenciado. Acompanho toda a operação —da busca até a escritura, e do imóvel até o seguro que ele precisa— sem que você precise falar com duas pessoas diferentes.",
+      "Nasci em San Miguel, Buenos Aires, mas Ushuaia é minha casa desde 2012, com uma passagem por Río Grande entre 2015 e 2021. Escolhi este ramo porque gosto de negócios imobiliários e gosto de poder assessorar meus clientes também em seguros.",
+      "Estou há poucos anos nisso, mas coloco toda minha experiência e vontade de crescer em cada operação: trato cada uma como se fosse a única, com acompanhamento pessoal do início ao fim. Também trabalho com várias seguradoras para oferecer algumas alternativas e a cobertura que mais combina com você.",
+    ],
+    credentials: {
+      broker: "Corretor de Imóveis licenciado (Martillero Público y Corredor Inmobiliario)",
+      brokerLicence: "Reg. 28 · CMTyC TDF",
+      insurance: "Corretor de Seguros licenciado",
+      insuranceLicence: "Reg. 106134 · SSN",
+    },
+    location: "Ushuaia, Tierra del Fuego",
+    photoAlt: "Retrato de Matías Dip",
   },
   contact: {
     kicker: "CONTATO",
@@ -545,7 +591,6 @@ export const pt: Dictionary = {
     waNumberLabel: "ESCREVA PARA",
     waCta: "Abrir WhatsApp",
     waNote: "Respondemos em até 24 horas úteis.",
-    numberPending: "[SEU NÚMERO]",
   },
   listing: {
     title: "Imóveis",
@@ -593,7 +638,7 @@ export const pt: Dictionary = {
     description: "Sobre este imóvel",
     descriptionPending: "O escritório ainda não cadastrou a descrição deste imóvel.",
     location: "Localização",
-    mapPending: "[ MAPA ]",
+    mapPending: "Mapa em breve",
     highlights: "Características",
     insuranceTitle: "Cobertura sugerida",
     insuranceSub: "Cotamos esta cobertura junto com a operação, com várias seguradoras.",
@@ -604,7 +649,7 @@ export const pt: Dictionary = {
     ctaTitle: "Tem interesse neste imóvel?",
     ctaSub: "Fale conosco e agendamos uma visita esta semana.",
     ctaButton: "Consultar no WhatsApp",
-    galleryPending: "[ FOTOS DO IMÓVEL ]",
+    galleryPending: "Fotos em breve",
     photoCount: "fotos",
     notFoundTitle: "Não encontramos este imóvel",
     notFoundSub:
@@ -614,7 +659,7 @@ export const pt: Dictionary = {
     shareCopied: "Link copiado",
   },
   footer: {
-    licence: "MD ESTUDIO INMOBILIARIO · [REGISTRO]",
+    licence: "MD ESTUDIO INMOBILIARIO · Reg. 28 CMTyC TDF · Reg. 106134 SSN",
     instagram: "@matiasdip.immo",
     terms: "Termos",
     privacy: "Privacidade",

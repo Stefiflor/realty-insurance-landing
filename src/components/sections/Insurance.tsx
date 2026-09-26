@@ -33,13 +33,8 @@ export function Insurance({
   return (
     <section
       id="seguros"
-      className="relative mt-18 scroll-mt-20 overflow-hidden bg-band px-6 py-16 md:px-10 lg:mt-27.5 lg:px-14 lg:py-23"
+      className="relative mt-18 scroll-mt-20 bg-band px-6 py-16 md:px-10 lg:mt-27.5 lg:px-14 lg:py-23"
     >
-      <div
-        aria-hidden="true"
-        className="animate-mesh absolute -top-60 -right-45 size-170 rounded-full bg-[radial-gradient(circle,var(--mesh-1)_0%,transparent_68%)] blur-[110px]"
-        style={{ animationDuration: "30s" }}
-      />
 
       <div className="relative grid grid-cols-1 items-start gap-12 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[400px_minmax(0,1fr)] xl:gap-21">
         <div>
@@ -51,6 +46,8 @@ export function Insurance({
               message={intentMessage("seguro", locale)}
               variant="outline"
               size="md"
+              intent="seguro"
+              locale={locale}
             >
               {t.insurance.cta}
             </WhatsappButton>

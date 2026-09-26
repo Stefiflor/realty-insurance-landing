@@ -1,4 +1,4 @@
-import { createClient, isSupabaseConfigured } from "./client";
+import { createStaticClient, isSupabaseConfigured } from "./static-client";
 import { INSURANCE_FIXTURES, PROPERTY_FIXTURES } from "./fixtures";
 import {
   mapInsuranceProduct,
@@ -73,7 +73,7 @@ export async function listProperties(
     return sortLocally(filterLocally(published, filters), sort).slice(0, limit);
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   let query = supabase
     .from("properties")
     .select(PROPERTY_SELECT)
@@ -112,7 +112,7 @@ export async function listCities(): Promise<string[]> {
     return [...new Set(cities)].sort((a, b) => a.localeCompare(b, "es"));
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("properties")
     .select("city")
@@ -134,7 +134,7 @@ export async function listFeatured(
     ).slice(0, limit);
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("properties")
     .select(PROPERTY_SELECT)
@@ -156,7 +156,7 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
     );
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("properties")
     .select(PROPERTY_SELECT)
@@ -193,7 +193,7 @@ export async function listSimilar(property: Property, limit = 3): Promise<Proper
     );
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("properties")
     .select(PROPERTY_SELECT)
@@ -213,7 +213,7 @@ export async function listPublishedSlugs(): Promise<string[]> {
     return PROPERTY_FIXTURES.filter((p) => p.state === "publicado").map((p) => p.slug);
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("properties")
     .select("slug")
@@ -229,7 +229,7 @@ export async function getInsuranceBySlug(slug: string): Promise<InsuranceProduct
     return INSURANCE_FIXTURES.find((p) => p.slug === slug) ?? null;
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("insurance_products")
     .select("id, slug, kind, name, description, detail, carriers, position")
@@ -246,7 +246,7 @@ export async function listInsuranceProducts(): Promise<InsuranceProduct[]> {
     return INSURANCE_FIXTURES.slice().sort((a, b) => a.position - b.position);
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("insurance_products")
     .select("id, slug, kind, name, description, detail, carriers, position")
@@ -262,7 +262,7 @@ export async function countPublished(): Promise<number> {
     return PROPERTY_FIXTURES.filter((p) => p.state === "publicado").length;
   }
 
-  const supabase = await createClient();
+  const supabase = createStaticClient();
   const { count, error } = await supabase
     .from("properties")
     .select("id", { count: "exact", head: true })
