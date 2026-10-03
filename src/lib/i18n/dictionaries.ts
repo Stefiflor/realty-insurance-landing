@@ -32,16 +32,6 @@ export const es = {
       response: "RESPUESTA",
     },
   },
-  ticker: [
-    "VENTAS",
-    "ALQUILERES",
-    "TERRENOS",
-    "SEGURO DE HOGAR",
-    "GARANTÍA DE ALQUILER",
-    "TASACIONES",
-    "ADMINISTRACIÓN",
-    "INVERSIONES",
-  ],
   search: {
     action: "Buscar",
     operations: {
@@ -103,9 +93,13 @@ export const es = {
       oficina: "Oficina",
     },
   },
+  insuranceTeaser: {
+    text: "¿También necesitás un seguro? Cotizamos hogar, alquiler, vida y más con varias compañías.",
+    cta: "Ver coberturas",
+  },
   insurance: {
     kicker: "COBERTURAS",
-    title: "El seguro que va con tu operación",
+    title: "Cobertura de seguro a tu medida",
     sub: "No vendemos una póliza suelta: cotizamos con varias compañías la cobertura que realmente corresponde a la propiedad y al tipo de contrato.",
     cta: "Consultar por WhatsApp",
   },
@@ -113,12 +107,13 @@ export const es = {
     kicker: "EL ESTUDIO",
     title: "Quién te atiende, de punta a punta",
     bio: [
-      "Soy Matías Dip: Martillero Público y Corredor Inmobiliario, y también Productor Asesor de Seguros. Te acompaño en toda la operación —de la búsqueda a la escritura, y de la propiedad al seguro que le corresponde— sin que tengas que pasar por dos personas distintas.",
-      "Nací en San Miguel, Buenos Aires, pero Ushuaia es mi casa desde 2012, con un paso por Río Grande entre 2015 y 2021. Elegí este rubro porque me gustan los negocios inmobiliarios y me gusta poder asesorar a mis clientes también en seguros.",
-      "Llevo pocos años en esto, pero le pongo toda mi experiencia y las ganas de crecer: cada operación la trato como si fuera la única, con seguimiento personalizado de punta a punta. Además trabajo con distintas compañías aseguradoras para ofrecerte varias alternativas y la cobertura que más te conviene.",
+      "Soy Matías Dip, Martillero Público y Corredor Inmobiliario, y Productor Asesor de Seguros. Trabajo asesorando operaciones inmobiliarias de principio a fin: desde la búsqueda o comercialización de una propiedad hasta la escritura. Al mismo tiempo, mi actividad como Productor Asesor de Seguros me permite resolver también las coberturas vinculadas a cada operación, sin necesidad de recurrir a distintos intermediarios.",
+      "Nací en San Miguel, Buenos Aires, y vivo en Tierra del Fuego desde 2012. También residí en Río Grande entre 2015 y 2021, una experiencia que me permitió conocer de cerca las particularidades de ambas ciudades y su mercado.",
+      "Como Productor Asesor de Seguros, trabajo con Allianz, Federación Patronal, La Caja, San Cristóbal, Mercantil Andina y Swiss Medical, lo que me permite comparar distintas opciones y asesorar a cada cliente según lo que realmente necesita.",
+      "Mi forma de trabajar es simple: cada operación recibe mi atención directa y un seguimiento personalizado, que te acompañe durante todo el proceso.",
     ],
     credentials: {
-      broker: "Martillero Público y Corredor Inmobiliario",
+      broker: "Martillero Público, Corredor Inmobiliario y Perito Judicial",
       brokerLicence: "Mat. 28 · CMTyC TDF",
       insurance: "Productor Asesor de Seguros",
       insuranceLicence: "Mat. 106134 · SSN",
@@ -140,7 +135,7 @@ export const es = {
     waTitle: "Matías Dip",
     waStatus: "Responde en el día",
     waSample: {
-      from: "Hola, busco un dos ambientes en Palermo hasta $400.000.",
+      from: "Hola, busco un dos ambientes en el Centro hasta $400.000.",
       reply: "¡Hola! Tengo tres opciones que encajan. ¿Te paso fotos y las visitamos esta semana?",
     },
     waNumberLabel: "ESCRIBINOS A",
@@ -267,16 +262,6 @@ export const en: Dictionary = {
       response: "RESPONSE",
     },
   },
-  ticker: [
-    "SALES",
-    "RENTALS",
-    "LAND",
-    "HOME INSURANCE",
-    "RENT GUARANTEE",
-    "VALUATIONS",
-    "MANAGEMENT",
-    "INVESTMENT",
-  ],
   search: {
     action: "Search",
     operations: {
@@ -337,9 +322,13 @@ export const en: Dictionary = {
       oficina: "Office",
     },
   },
+  insuranceTeaser: {
+    text: "Need insurance too? We quote home, rental, life cover and more across several carriers.",
+    cta: "See coverage",
+  },
   insurance: {
     kicker: "COVERAGE",
-    title: "The policy that fits the deal",
+    title: "Insurance coverage tailored to you",
     sub: "We do not sell a policy in isolation: we quote across carriers for the cover the property and the contract actually call for.",
     cta: "Ask on WhatsApp",
   },
@@ -347,12 +336,13 @@ export const en: Dictionary = {
     kicker: "THE FIRM",
     title: "Who you deal with, start to finish",
     bio: [
-      "I'm Matías Dip: a licensed Real Estate Broker (Martillero Público y Corredor Inmobiliario), and also a licensed Insurance Producer. I handle the whole deal myself —from the search to the closing, and from the property to the cover it needs— so you don't have to deal with two different people.",
-      "I was born in San Miguel, Buenos Aires, but Ushuaia has been home since 2012, with a few years in Río Grande between 2015 and 2021. I got into this business because I like real estate deals and I like being able to advise my clients on insurance too.",
-      "I've only been at this a few years, but I put all my experience and drive into every deal: I treat each one as if it were the only one, with personal follow-up from start to finish. I also work with several insurance carriers so I can offer you a few alternatives and the cover that suits you best.",
+      "I'm Matías Dip, a licensed Real Estate Broker (Martillero Público y Corredor Inmobiliario) and Insurance Producer. I handle real estate deals from start to finish: from finding or listing a property through to the closing. As an Insurance Producer, I also take care of the cover tied to each deal, so you don't need to go through separate intermediaries.",
+      "I was born in San Miguel, Buenos Aires, and have lived in Tierra del Fuego since 2012. I also lived in Río Grande between 2015 and 2021, which let me get to know both cities and their markets up close.",
+      "As an Insurance Producer, I work with Allianz, Federación Patronal, La Caja, San Cristóbal, Mercantil Andina and Swiss Medical, which lets me compare options and advise each client on what they actually need.",
+      "My approach is simple: every deal gets my direct attention and personal follow-up, all the way through.",
     ],
     credentials: {
-      broker: "Real Estate Broker (Martillero Público y Corredor Inmobiliario)",
+      broker: "Real Estate Broker and Judicial Expert (Martillero Público, Corredor Inmobiliario y Perito Judicial)",
       brokerLicence: "Lic. 28 · CMTyC TDF",
       insurance: "Licensed Insurance Producer",
       insuranceLicence: "Lic. 106134 · SSN",
@@ -374,7 +364,7 @@ export const en: Dictionary = {
     waTitle: "Matías Dip",
     waStatus: "Replies same day",
     waSample: {
-      from: "Hi, looking for a one-bedroom in Palermo under $400,000.",
+      from: "Hi, looking for a one-bedroom downtown under $400,000.",
       reply: "Hello! I have three that fit. Shall I send photos and book viewings this week?",
     },
     waNumberLabel: "WRITE TO US AT",
@@ -478,16 +468,6 @@ export const pt: Dictionary = {
       response: "RESPOSTA",
     },
   },
-  ticker: [
-    "VENDAS",
-    "ALUGUÉIS",
-    "TERRENOS",
-    "SEGURO RESIDENCIAL",
-    "GARANTIA DE ALUGUEL",
-    "AVALIAÇÕES",
-    "ADMINISTRAÇÃO",
-    "INVESTIMENTOS",
-  ],
   search: {
     action: "Buscar",
     operations: {
@@ -548,9 +528,13 @@ export const pt: Dictionary = {
       oficina: "Escritório",
     },
   },
+  insuranceTeaser: {
+    text: "Também precisa de um seguro? Cotamos residencial, aluguel, vida e mais com várias seguradoras.",
+    cta: "Ver coberturas",
+  },
   insurance: {
     kicker: "COBERTURAS",
-    title: "O seguro certo para a sua operação",
+    title: "Cobertura de seguro sob medida",
     sub: "Não vendemos uma apólice solta: cotamos com várias seguradoras a cobertura que o imóvel e o contrato realmente exigem.",
     cta: "Consultar no WhatsApp",
   },
@@ -558,12 +542,13 @@ export const pt: Dictionary = {
     kicker: "O ESCRITÓRIO",
     title: "Quem cuida de você, do início ao fim",
     bio: [
-      "Sou Matías Dip: Corretor de Imóveis licenciado (Martillero Público y Corredor Inmobiliario) e também Corretor de Seguros licenciado. Acompanho toda a operação —da busca até a escritura, e do imóvel até o seguro que ele precisa— sem que você precise falar com duas pessoas diferentes.",
-      "Nasci em San Miguel, Buenos Aires, mas Ushuaia é minha casa desde 2012, com uma passagem por Río Grande entre 2015 e 2021. Escolhi este ramo porque gosto de negócios imobiliários e gosto de poder assessorar meus clientes também em seguros.",
-      "Estou há poucos anos nisso, mas coloco toda minha experiência e vontade de crescer em cada operação: trato cada uma como se fosse a única, com acompanhamento pessoal do início ao fim. Também trabalho com várias seguradoras para oferecer algumas alternativas e a cobertura que mais combina com você.",
+      "Sou Matías Dip, Corretor de Imóveis licenciado (Martillero Público y Corredor Inmobiliario) e Corretor de Seguros licenciado. Trabalho assessorando operações imobiliárias do início ao fim: desde a busca ou divulgação de um imóvel até a escritura. Ao mesmo tempo, minha atividade como Corretor de Seguros me permite resolver também as coberturas ligadas a cada operação, sem precisar recorrer a intermediários diferentes.",
+      "Nasci em San Miguel, Buenos Aires, e moro em Tierra del Fuego desde 2012. Também morei em Río Grande entre 2015 e 2021, uma experiência que me permitiu conhecer de perto as particularidades das duas cidades e seu mercado.",
+      "Como Corretor de Seguros, trabalho com Allianz, Federación Patronal, La Caja, San Cristóbal, Mercantil Andina e Swiss Medical, o que me permite comparar diferentes opções e assessorar cada cliente de acordo com o que realmente precisa.",
+      "Minha forma de trabalhar é simples: cada operação recebe minha atenção direta e um acompanhamento pessoal, que te acompanha durante todo o processo.",
     ],
     credentials: {
-      broker: "Corretor de Imóveis licenciado (Martillero Público y Corredor Inmobiliario)",
+      broker: "Corretor de Imóveis licenciado e Perito Judicial (Martillero Público, Corredor Inmobiliario y Perito Judicial)",
       brokerLicence: "Reg. 28 · CMTyC TDF",
       insurance: "Corretor de Seguros licenciado",
       insuranceLicence: "Reg. 106134 · SSN",
@@ -585,7 +570,7 @@ export const pt: Dictionary = {
     waTitle: "Matías Dip",
     waStatus: "Responde no mesmo dia",
     waSample: {
-      from: "Olá, procuro um dois quartos em Palermo até $400.000.",
+      from: "Olá, procuro um dois quartos no Centro até $400.000.",
       reply: "Olá! Tenho três opções que encaixam. Envio fotos e marcamos visitas esta semana?",
     },
     waNumberLabel: "ESCREVA PARA",

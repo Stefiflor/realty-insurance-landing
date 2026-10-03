@@ -42,7 +42,10 @@ export type IconName =
   | "logout"
   | "upload"
   | "image"
-  | "lock";
+  | "lock"
+  | "heart"
+  | "piggy-bank"
+  | "plane";
 
 const PATHS: Record<IconName, React.ReactNode> = {
   sale: (
@@ -245,6 +248,19 @@ const PATHS: Record<IconName, React.ReactNode> = {
       <rect x="4.5" y="10.5" width="15" height="10" rx="2" />
       <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
     </>
+  ),
+  heart: (
+    <path d="M12 20.5s-7.5-4.6-10-9.3C.5 7.8 2.3 4.5 5.7 4c2-.3 3.8.6 5 2.3a0 0 0 0 0 .6 0c1.2-1.7 3-2.6 5-2.3 3.4.5 5.2 3.8 3.7 7.2-2.5 4.7-10 9.3-10 9.3Z" />
+  ),
+  "piggy-bank": (
+    <>
+      <path d="M4 12.5a5.5 5.5 0 0 1 5.5-5.5h3.6c1.9 0 3.6 1 4.6 2.5H19l1.5 2-1.5 1.5h-1a5.5 5.5 0 0 1-1 2.3V18h-2.5v-1.5h-4V18H8v-2.2A5.5 5.5 0 0 1 4 12.5Z" />
+      <circle cx="15.3" cy="12" r="0.6" fill="currentColor" stroke="none" />
+      <path d="M9 7v-2" />
+    </>
+  ),
+  plane: (
+    <path d="M10.5 14 4 12l1.5-1.7 5 .9 4-4.3c1-1 2.3-1.5 3-1 .7.6.2 1.9-.8 2.9l-4.3 4 1 5-1.7 1.5-1.7-4.6Z" />
   ),
 };
 

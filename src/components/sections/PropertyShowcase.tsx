@@ -47,6 +47,22 @@ export function PropertyShowcase({
         cities={cities}
       />
 
+      {/* Puente chico hacia "Coberturas": esta sección es sólo de propiedades,
+          y si no fuera por esto, nada de acá arriba deja ver que el estudio
+          también hace seguros. */}
+      <div className="mx-6 mt-6 flex flex-col items-start gap-4 rounded-md border border-hair-strong bg-brand-soft px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7 md:mx-10 lg:mt-7 lg:mx-14">
+        <div className="flex w-full min-w-0 items-center gap-3.5 sm:w-auto">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+            <Icon name="shield" size={16} />
+          </div>
+          <p className="min-w-0 text-[14px] leading-snug font-light text-dim">{t.insuranceTeaser.text}</p>
+        </div>
+        <Button as={Link} href="#seguros" variant="outline" size="sm" className="w-full sm:w-auto">
+          {t.insuranceTeaser.cta}
+          <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+        </Button>
+      </div>
+
       <section id="propiedades" className="scroll-mt-20 px-6 pt-18 md:px-10 lg:px-14 lg:pt-27.5">
         <div className="mb-9.5 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end sm:gap-0">
           <SectionHeading kicker={t.properties.kicker} title={t.properties.title} />

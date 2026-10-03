@@ -89,6 +89,9 @@ const INSURANCE_ICON: Record<InsuranceKind, IconName> = {
   garantia: "users",
   responsabilidad: "rent",
   construccion: "tool",
+  vida: "heart",
+  ahorro: "piggy-bank",
+  asistencia: "plane",
 };
 
 /** Fila de la ficha técnica. Sólo se dibuja si el dato existe. */

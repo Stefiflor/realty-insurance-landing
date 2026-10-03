@@ -21,7 +21,10 @@ create type currency as enum ('ARS', 'USD');
 
 create type price_period as enum ('unico', 'mes', 'noche');
 
-create type insurance_kind as enum ('hogar', 'garantia', 'responsabilidad', 'construccion');
+create type insurance_kind as enum (
+  'hogar', 'garantia', 'responsabilidad', 'construccion',
+  'vida', 'ahorro', 'asistencia'
+);
 
 create type enquiry_intent as enum ('comprar', 'alquilar', 'terreno', 'seguro', 'tasar');
 
