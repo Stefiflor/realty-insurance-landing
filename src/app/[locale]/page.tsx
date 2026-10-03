@@ -46,7 +46,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       <main>
         <Hero locale={locale} propertyCount={propertyCount} />
-        <Ticker locale={locale} />
+        <Ticker />
         <PropertyShowcase
           locale={locale}
           propertiesByOperation={propertiesByOperation}

@@ -105,7 +105,15 @@ export interface Property {
 }
 
 /** Familias de cobertura que ofrece el estudio. */
-export const INSURANCE_KINDS = ["hogar", "garantia", "responsabilidad", "construccion"] as const;
+export const INSURANCE_KINDS = [
+  "hogar",
+  "garantia",
+  "responsabilidad",
+  "construccion",
+  "vida",
+  "ahorro",
+  "asistencia",
+] as const;
 export type InsuranceKind = (typeof INSURANCE_KINDS)[number];
 
 export interface InsuranceProduct {

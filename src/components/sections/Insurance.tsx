@@ -12,6 +12,9 @@ const KIND_ICON: Record<InsuranceKind, IconName> = {
   garantia: "users",
   responsabilidad: "rent",
   construccion: "tool",
+  vida: "heart",
+  ahorro: "piggy-bank",
+  asistencia: "plane",
 };
 
 /**

@@ -25,9 +25,6 @@ import type { Locale } from "@/lib/i18n/config";
  * Buscar, que navega al catálogo con todo aplicado.
  */
 
-/** Topes de precio ofrecidos, en dólares. Mismos que el filtro del catálogo. */
-const PRICE_STEPS = [50_000, 100_000, 150_000, 200_000, 300_000];
-
 const SELECT_CLASS = cn(
   "w-full cursor-pointer appearance-none bg-transparent pr-6 text-[15px] font-light text-ink",
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand",
@@ -39,7 +36,16 @@ const SELECT_CLASS = cn(
  * Fuera del componente a propósito: definido adentro, React lo trataría como un
  * componente nuevo en cada render y perdería el foco del `select` al escribir.
  */
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  chevron = true,
+  children,
+}: {
+  label: string;
+  /** El precio es un campo de texto, no un desplegable: no lleva flecha. */
+  chevron?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div className="border-b border-hair px-5 py-4 last:border-b-0 sm:border-r sm:border-b-0 sm:px-6 sm:py-4.5">
       <div className="mb-2 font-mono text-[11px] tracking-[0.14em] text-faint sm:text-[9.5px] sm:tracking-[0.16em]">
@@ -47,12 +53,14 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       </div>
       <div className="relative flex items-center">
         {children}
-        <Icon
-          name="chevron-down"
-          size={13}
-          strokeWidth={2}
-          className="pointer-events-none absolute right-0 text-faint"
-        />
+        {chevron && (
+          <Icon
+            name="chevron-down"
+            size={13}
+            strokeWidth={2}
+            className="pointer-events-none absolute right-0 text-faint"
+          />
+        )}
       </div>
     </div>
   );
@@ -160,20 +168,19 @@ export function SearchBar({
               </select>
             </Field>
 
-            <Field label={t.search.fields.budget.label}>
-              <select
+            <Field label={t.search.fields.budget.label} chevron={false}>
+              <span className="mr-1.5 shrink-0 text-[15px] font-light text-faint">USD</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                min={0}
+                step={1000}
                 aria-label={t.search.fields.budget.label}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className={cn(SELECT_CLASS, !maxPrice && "text-faint")}
-              >
-                <option value="">{t.search.fields.budget.placeholder}</option>
-                {PRICE_STEPS.map((step) => (
-                  <option key={step} value={step}>
-                    USD {step.toLocaleString("es-AR")}
-                  </option>
-                ))}
-              </select>
+                placeholder={t.search.fields.budget.placeholder}
+                className={cn(SELECT_CLASS, "pr-0", !maxPrice && "placeholder:text-faint")}
+              />
             </Field>
           </div>
 

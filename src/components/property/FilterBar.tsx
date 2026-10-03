@@ -26,9 +26,6 @@ import type { Locale } from "@/lib/i18n/config";
  * filtros puestos.
  */
 
-/** Topes de precio ofrecidos, en dólares. */
-const PRICE_STEPS = [50_000, 100_000, 150_000, 200_000, 300_000];
-
 const SELECT_CLASS = cn(
   "w-full cursor-pointer appearance-none rounded border border-hair-strong bg-input",
   "px-3.5 py-3 pr-9 text-[14px] font-light text-ink",
@@ -42,20 +39,31 @@ const SELECT_CLASS = cn(
  * Va fuera del componente a propósito: definido adentro, React lo trataría como
  * un componente nuevo en cada render y desmontaría los `select` en cada cambio.
  */
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  chevron = true,
+  children,
+}: {
+  label: string;
+  /** El precio es un campo de texto, no un desplegable: no lleva flecha. */
+  chevron?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div>
       <span className="mb-2 block font-mono text-[10.5px] tracking-[0.14em] text-faint">
         {label}
       </span>
-      <div className="relative">
+      <div className="relative flex items-center">
         {children}
-        <Icon
-          name="chevron-down"
-          size={14}
-          strokeWidth={2}
-          className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-faint"
-        />
+        {chevron && (
+          <Icon
+            name="chevron-down"
+            size={14}
+            strokeWidth={2}
+            className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-faint"
+          />
+        )}
       </div>
     </div>
   );
@@ -76,6 +84,20 @@ export function FilterBar({
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
+  // Precio: campo de texto local. Si navegara en cada tecla perdería el foco
+  // y pegaría un salto por cada dígito; se confirma recién al salir del campo
+  // o con Enter. Se resincroniza si el filtro cambia desde afuera (ej.
+  // "Limpiar") ajustando el estado durante el render, como recomienda React
+  // en vez de un efecto (evita un render de más).
+  const [prevMaxPrice, setPrevMaxPrice] = useState(filters.maxPrice);
+  const [maxPriceInput, setMaxPriceInput] = useState(
+    filters.maxPrice ? String(filters.maxPrice) : "",
+  );
+  if (filters.maxPrice !== prevMaxPrice) {
+    setPrevMaxPrice(filters.maxPrice);
+    setMaxPriceInput(filters.maxPrice ? String(filters.maxPrice) : "");
+  }
+
   /** Navega aplicando un cambio sobre los filtros actuales. */
   function update(patch: Partial<PropertyFilters>) {
     const next = { ...filters, ...patch };
@@ -84,6 +106,11 @@ export function FilterBar({
       if (!next[key]) delete next[key];
     }
     router.push(`/${locale}/propiedades${buildQuery(next)}`, { scroll: false });
+  }
+
+  function commitMaxPrice() {
+    const value = Number(maxPriceInput) || undefined;
+    if (value !== filters.maxPrice) update({ maxPrice: value });
   }
 
   const active = hasActiveFilters(filters);
@@ -189,19 +216,22 @@ export function FilterBar({
             </select>
           </Field>
 
-          <Field label={t.listing.price}>
-            <select
-              value={filters.maxPrice ?? ""}
-              onChange={(e) => update({ maxPrice: Number(e.target.value) || undefined })}
-              className={SELECT_CLASS}
-            >
-              <option value="">{t.listing.noPriceLimit}</option>
-              {PRICE_STEPS.map((step) => (
-                <option key={step} value={step}>
-                  USD {step.toLocaleString("es-AR")}
-                </option>
-              ))}
-            </select>
+          <Field label={t.listing.price} chevron={false}>
+            <span className="mr-1.5 shrink-0 text-[14px] font-light text-faint">USD</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min={0}
+              step={1000}
+              value={maxPriceInput}
+              onChange={(e) => setMaxPriceInput(e.target.value)}
+              onBlur={commitMaxPrice}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") e.currentTarget.blur();
+              }}
+              placeholder={t.listing.noPriceLimit}
+              className={cn(SELECT_CLASS, "pr-3.5")}
+            />
           </Field>
         </div>
 

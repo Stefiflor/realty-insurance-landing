@@ -11,6 +11,9 @@ const KIND_LABEL: Record<(typeof INSURANCE_KINDS)[number], string> = {
   garantia: "Garantía de alquiler",
   responsabilidad: "Responsabilidad civil",
   construccion: "Obra y construcción",
+  vida: "Vida",
+  ahorro: "Ahorro",
+  asistencia: "Asistencia al viajero",
 };
 
 type Action = (state: InsuranceFormState, formData: FormData) => Promise<InsuranceFormState>;
