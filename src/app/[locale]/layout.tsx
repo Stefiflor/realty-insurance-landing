@@ -9,19 +9,19 @@ export function generateStaticParams() {
 
 const META: Record<Locale, { title: string; description: string }> = {
   es: {
-    title: "MD Estudio Inmobiliario · Propiedades y seguros",
+    title: "MD Estudio Inmobiliario · Inmobiliaria en Ushuaia",
     description:
-      "Ventas, alquileres, terrenos y seguros. Un solo estudio de la búsqueda a la escritura.",
+      "Ventas, alquileres, terrenos y seguros en Ushuaia, Tierra del Fuego. Un solo estudio de la búsqueda a la escritura.",
   },
   en: {
-    title: "MD Estudio Inmobiliario · Property and insurance",
+    title: "MD Estudio Inmobiliario · Real Estate in Ushuaia",
     description:
-      "Sales, rentals, land and insurance. One firm from the first search to the deed.",
+      "Sales, rentals, land and insurance in Ushuaia, Tierra del Fuego. One firm from the first search to the deed.",
   },
   pt: {
-    title: "MD Estudio Inmobiliario · Imóveis e seguros",
+    title: "MD Estudio Inmobiliario · Imobiliária em Ushuaia",
     description:
-      "Vendas, aluguéis, terrenos e seguros. Um só escritório da busca até a escritura.",
+      "Vendas, aluguéis, terrenos e seguros em Ushuaia, Tierra del Fuego. Um só escritório da busca até a escritura.",
   },
 };
 

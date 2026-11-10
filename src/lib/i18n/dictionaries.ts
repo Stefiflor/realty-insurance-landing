@@ -145,6 +145,12 @@ export const es = {
   listing: {
     title: "Propiedades",
     kicker: "CATÁLOGO",
+    // Para <title>/description del buscador: lleva la ciudad, que el H1
+    // visible no necesita repetir porque el resto de la página ya la da por
+    // sentada.
+    metaTitle: "Propiedades en venta y alquiler en Ushuaia",
+    metaDescription:
+      "Catálogo de propiedades, terrenos y alquileres en Ushuaia, Tierra del Fuego, con seguro incluido cuando aplica.",
     // {count} se reemplaza por el número de resultados.
     resultsOne: "1 propiedad",
     resultsMany: "{count} propiedades",
@@ -374,6 +380,9 @@ export const en: Dictionary = {
   listing: {
     title: "Properties",
     kicker: "CATALOGUE",
+    metaTitle: "Properties for sale and rent in Ushuaia",
+    metaDescription:
+      "Catalogue of properties, land and rentals in Ushuaia, Tierra del Fuego, with insurance included when it applies.",
     resultsOne: "1 property",
     resultsMany: "{count} properties",
     filters: "Filters",
@@ -580,6 +589,9 @@ export const pt: Dictionary = {
   listing: {
     title: "Imóveis",
     kicker: "CATÁLOGO",
+    metaTitle: "Imóveis à venda e para alugar em Ushuaia",
+    metaDescription:
+      "Catálogo de imóveis, terrenos e aluguéis em Ushuaia, Tierra del Fuego, com seguro incluído quando aplicável.",
     resultsOne: "1 imóvel",
     resultsMany: "{count} imóveis",
     filters: "Filtros",

@@ -35,8 +35,10 @@ export async function generateMetadata({
 
   const t = getDictionary(locale);
   return {
-    title: t.listing.title,
-    description: t.hero.sub,
+    // Título y descripción propios para buscadores: llevan "Ushuaia", que el
+    // H1 visible no repite porque el resto de la página ya la da por sentada.
+    title: t.listing.metaTitle,
+    description: t.listing.metaDescription,
     alternates: {
       canonical: `/${locale}/propiedades`,
       languages: Object.fromEntries(LOCALES.map((l) => [HTML_LANG[l], `/${l}/propiedades`])),
